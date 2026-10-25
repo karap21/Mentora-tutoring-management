@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Dasbor Guru - Mentora-LMS{% endblock %}
+{% block content %}
+<h3 class="fw-bold mb-3">Dasbor Pemantauan Guru</h3>
+<div class="card shadow-sm border-0">
+    <div class="card-body">
+        <h5 class="fw-bold">Mata Pelajaran yang Diampu:</h5>
+        <ul class="mt-2 mb-0">
+            {% for gm in mapel_diampu %}
+                <li><strong>{{ gm.mapel.kode }}</strong> - {{ gm.mapel.nama }}</li>
+            {% empty %}
+                <li class="text-muted">Belum ada mata pelajaran yang ditugaskan.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

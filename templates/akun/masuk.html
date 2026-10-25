@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Masuk - Mentora-LMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center fw-bold mb-1">Masuk ke Mentora-LMS</h4>
+                <p class="text-center text-muted small mb-4">Gunakan akun Siswa, Guru, atau Admin Anda</p>
+
+                {% if pesan_galat %}
+                    <div class="alert alert-danger py-2 small" role="alert">
+                        {{ pesan_galat }}
+                    </div>
+                {% endif %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.email.label }}
+                        </label>
+                        {{ form.email }}
+                    </div>
+                    <div class="mb-4">
+                        <label for="{{ form.password.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.password.label }}
+                        </label>
+                        {{ form.password }}
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                        Masuk Sekarang
+                    </button>
+                </form>
+
+                <hr class="my-4">
+                <div class="bg-light p-3 rounded small text-secondary">
+                    <strong>Akun Uji Database (Sandi: <code>Mentora123!</code>):</strong>
+                    <ul class="mb-0 mt-1 ps-3">
+                        <li>Siswa: <code>andi.pratama@mentora.id</code></li>
+                        <li>Guru: <code>fajar.nugroho@mentora.id</code></li>
+                        <li>Admin: <code>admin@mentora.id</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

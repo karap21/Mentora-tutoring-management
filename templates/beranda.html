@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Beranda - Mentora-LMS{% endblock %}
+{% block content %}
+<div class="p-5 mb-4 bg-white rounded-3 shadow-sm text-center">
+    <h1 class="display-6 fw-bold text-primary">Selamat Datang di Mentora-LMS</h1>
+    <p class="lead text-muted">Platform Belajar Mandiri Siswa SMA Kelas X–XII Berbasis Kurikulum Merdeka</p>
+    <a href="{% url 'masuk' %}" class="btn btn-primary btn-lg px-4 mt-2">Masuk ke Akun</a>
+</div>
+{% endblock %}

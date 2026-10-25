@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Dasbor Siswa - Mentora-LMS{% endblock %}
+{% block content %}
+<h3 class="fw-bold mb-3">Dasbor Belajar Siswa</h3>
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title fw-bold text-primary">Rekomendasi Mapel Prioritas</h5>
+                {% if rekomendasi %}
+                    <p class="mb-1">Mata Pelajaran: <strong>{{ rekomendasi.mapel.nama }} ({{ rekomendasi.mapel.kode }})</strong></p>
+                    <span class="badge bg-info text-dark">Sumber: {{ rekomendasi.sumber }}</span>
+                {% else %}
+                    <p class="text-muted mb-0">Belum ada rekomendasi.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body">
+                <h5 class="card-title fw-bold text-success">Langganan Aktif Saya</h5>
+                <ul class="list-group list-group-flush">
+                    {% for item in langganan_list %}
+                        <li class="list-group-item px-0">
+                            <strong>{{ item.paket.nama }}</strong> ({{ item.paket.kode }})
+                            <br><small class="text-muted">Berlaku: {{ item.mulai }} s.d. {{ item.berakhir }}</small>
+                        </li>
+                    {% empty %}
+                        <li class="list-group-item px-0 text-muted">Belum ada paket langganan aktif.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
