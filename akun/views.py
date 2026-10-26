@@ -8,7 +8,46 @@ from .models import Pengguna
 
 def beranda_view(request):
     """Halaman beranda publik (/)."""
-    return render(request, "beranda.html")
+    from django.conf import settings
+    from pembelajaran.models import Mapel, Modul, Kuis, Achievement
+    from langganan.models import Paket
+
+    try:
+        daftar_mapel = list(Mapel.objects.all().order_by("kode")[:12])
+        daftar_paket = list(
+            Paket.objects.filter(aktif=True)
+            .prefetch_related("paket_mapel__mapel")
+            .order_by("jenis", "-harga_per_bulan", "kode")[:12]
+        )
+        daftar_achievement = list(Achievement.objects.all().order_by("kode")[:4])
+        total_mapel = Mapel.objects.count()
+        total_modul = Modul.objects.count()
+        total_kuis = Kuis.objects.count()
+    except Exception:
+        daftar_mapel = []
+        daftar_paket = []
+        daftar_achievement = []
+        total_mapel = 0
+        total_modul = 0
+        total_kuis = 0
+
+    context = {
+        "daftar_mapel": daftar_mapel,
+        "daftar_paket": daftar_paket,
+        "daftar_achievement": daftar_achievement,
+        "total_mapel": total_mapel,
+        "total_modul": total_modul,
+        "total_kuis": total_kuis,
+        "ambang_pretest": getattr(settings, "AMBANG_PRETEST", 85),
+        "ambang_kuis_dasar": getattr(settings, "AMBANG_KUIS_DASAR", 75),
+        "durasi_min": getattr(settings, "DURASI_MIN", 1),
+        "durasi_max": getattr(settings, "DURASI_MAX", 12),
+        "durasi_diskon": getattr(settings, "DURASI_DISKON", 12),
+        "persen_diskon": getattr(settings, "PERSEN_DISKON", 20),
+        "masa_berlaku_token_jam": getattr(settings, "MASA_BERLAKU_TOKEN_JAM", 72),
+        "interval_laporan_hari": getattr(settings, "INTERVAL_LAPORAN_HARI", 14),
+    }
+    return render(request, "beranda.html", context)
 
 
 def syarat_ketentuan_view(request):

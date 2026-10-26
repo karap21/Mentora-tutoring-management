@@ -1,0 +1,1149 @@
+/* ==========================================================================
+   Mentora-LMS — Design System (Modern Bento & Sliding Pill UI)
+   UI/UX Pro Max (WCAG AA/AAA) + 21st.dev Bento Architecture + Smooth Motion
+   ========================================================================== */
+
+:root {
+    /* Surface & Canvas Palette (Warm Alabaster & Crisp Slate) */
+    --mentora-canvas: #F8FAFC;
+    --mentora-surface: #FFFFFF;
+    --mentora-surface-subtle: #F1F5F9;
+    --mentora-surface-elevated: #0B0F19;
+    --mentora-surface-glass: rgba(255, 255, 255, 0.84);
+
+    /* Typography Hierarchy — Verified WCAG 2.1 AA / AAA Contrast Ratios */
+    --mentora-ink: #0F172A;            /* 17.4:1 on #FFFFFF (WCAG AAA) */
+    --mentora-ink-secondary: #334155;  /* 10.3:1 on #FFFFFF (WCAG AAA) */
+    --mentora-ink-muted: #475569;      /*  7.5:1 on #FFFFFF (WCAG AAA) */
+
+    /* Primary Brand Accent: Academic Royal Blue */
+    --mentora-primary: #1D4ED8;        /*  6.7:1 on #FFFFFF (WCAG AA/AAA) */
+    --mentora-primary-bright: #2563EB;
+    --mentora-primary-hover: #1E40AF;
+    --mentora-primary-soft: #EFF6FF;
+    --mentora-primary-border: #BFDBFE;
+
+    /* Semantic Accent: Mastery Emerald (Unlock / Pretest >= 85 / Quiz >= 75) */
+    --mentora-emerald: #047857;
+    --mentora-emerald-bright: #10B981;
+    --mentora-emerald-soft: #ECFDF5;
+    --mentora-emerald-border: #A7F3D0;
+
+    /* Semantic Accent: Achievement & 20% Discount Amber */
+    --mentora-amber: #B45309;
+    --mentora-amber-bright: #F59E0B;
+    --mentora-amber-soft: #FFFBEB;
+    --mentora-amber-border: #FDE68A;
+
+    /* Semantic Accent: Science Violet */
+    --mentora-violet: #6D28D9;
+    --mentora-violet-soft: #F5F3FF;
+    --mentora-violet-border: #DDD6FE;
+
+    /* 21st.dev Precision Borders & Dividers */
+    --mentora-border: #E2E8F0;
+    --mentora-border-strong: #CBD5E1;
+
+    /* Typography Tokens (UI/UX Pro Max Dual-Font Pairing: Outfit + Plus Jakarta Sans) */
+    --font-display: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* 21st.dev Multi-Layer Shadows */
+    --shadow-21st-sm:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+    --shadow-21st-card:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 4px 12px -2px rgba(15, 23, 42, 0.05),
+        0 12px 24px -6px rgba(15, 23, 42, 0.04);
+    --shadow-21st-hover:
+        0 4px 8px -2px rgba(15, 23, 42, 0.05),
+        0 14px 28px -6px rgba(29, 78, 216, 0.09),
+        0 20px 40px -12px rgba(15, 23, 42, 0.07);
+    --shadow-workbench:
+        0 0 0 1px rgba(15, 23, 42, 0.08),
+        0 20px 45px -12px rgba(15, 23, 42, 0.16),
+        0 36px 72px -20px rgba(29, 78, 216, 0.14);
+
+    /* Critically-Damped Smooth Curves (Zero Harsh Bounce / Overshoot) */
+    --spring-hover: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    --spring-snappy: 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+    --spring-slide: 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    /* Radius Scale */
+    --radius-xs: 8px;
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 26px;
+    --radius-pill: 9999px;
+}
+
+/* ==========================================================================
+   Base & Typography Rules
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    overflow-x: clip;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--mentora-canvas);
+    color: var(--mentora-ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+}
+
+h1, h2, h3, h4, h5, h6,
+.display-4, .display-5, .display-6,
+.mentora-brand {
+    font-family: var(--font-display);
+    color: var(--mentora-ink);
+    letter-spacing: -0.025em;
+    line-height: 1.18;
+    text-wrap: balance;
+}
+
+.font-tabular {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+.font-mono-code {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+.mentora-prose {
+    max-width: 64ch;
+    color: var(--mentora-ink-secondary);
+    font-size: 1.05rem;
+    line-height: 1.72;
+}
+
+/* Keyboard-only focus ring; suppress outline on mouse click */
+:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+}
+
+:focus-visible {
+    outline: 2px solid var(--mentora-primary-bright);
+    outline-offset: 2px;
+}
+
+/* ==========================================================================
+   21st.dev Floating Glass Pill Navbar
+   ========================================================================== */
+.mentora-nav-shell {
+    padding-top: 0.85rem;
+    padding-bottom: 0.35rem;
+    z-index: 1030;
+    pointer-events: none;
+}
+
+.mentora-floating-pill {
+    pointer-events: auto;
+    background: var(--mentora-surface-glass);
+    backdrop-filter: blur(18px) saturate(180%);
+    -webkit-backdrop-filter: blur(18px) saturate(180%);
+    border: 1px solid rgba(203, 213, 225, 0.85);
+    border-radius: var(--radius-pill);
+    padding: 0.5rem 0.75rem 0.5rem 1rem;
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.04),
+        0 12px 32px -8px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.mentora-brand {
+    font-weight: 800;
+    font-size: 1.12rem;
+    color: var(--mentora-ink) !important;
+    letter-spacing: -0.03em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+}
+
+.mentora-brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%);
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    transition: transform var(--spring-snappy);
+}
+
+.mentora-brand:hover .mentora-brand-mark {
+    transform: translate3d(0, -1px, 0) scale(1.03);
+}
+
+.mentora-brand-badge {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 700;
+    padding: 0.16rem 0.5rem;
+    border-radius: var(--radius-pill);
+    background-color: var(--mentora-primary-soft);
+    color: var(--mentora-primary);
+    border: 1px solid var(--mentora-primary-border);
+    white-space: nowrap;
+}
+
+.mentora-nav-track {
+    background: rgba(241, 245, 249, 0.78);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: var(--radius-pill);
+    padding: 0.22rem;
+    gap: 0.15rem;
+}
+
+.mentora-nav-link {
+    color: var(--mentora-ink-secondary) !important;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.38rem 0.85rem !important;
+    border-radius: var(--radius-pill);
+    transition:
+        color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.mentora-nav-link:hover {
+    color: var(--mentora-ink) !important;
+    background-color: #FFFFFF;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================================
+   21st.dev Buttons & Badges with Smooth Hover
+   ========================================================================== */
+.btn-mentora-primary {
+    position: relative;
+    background: linear-gradient(180deg, #2563EB 0%, #1D4ED8 100%);
+    color: #FFFFFF;
+    font-weight: 600;
+    border: 1px solid #1E40AF;
+    border-radius: var(--radius-sm);
+    padding: 0.62rem 1.3rem;
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.1),
+        0 4px 12px rgba(29, 78, 216, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    transition:
+        transform var(--spring-hover),
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.btn-mentora-primary:hover,
+.btn-mentora-primary:focus {
+    background: linear-gradient(180deg, #1D4ED8 0%, #1E40AF 100%);
+    color: #FFFFFF;
+    transform: translate3d(0, -1.5px, 0);
+    box-shadow:
+        0 4px 10px rgba(15, 23, 42, 0.12),
+        0 10px 20px -4px rgba(29, 78, 216, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.32);
+}
+
+.btn-mentora-primary:active {
+    transform: translate3d(0, 0, 0) scale(0.99);
+}
+
+.btn-mentora-outline {
+    background-color: var(--mentora-surface);
+    color: var(--mentora-ink);
+    font-weight: 600;
+    border: 1px solid var(--mentora-border-strong);
+    border-radius: var(--radius-sm);
+    padding: 0.62rem 1.3rem;
+    box-shadow: var(--shadow-21st-sm);
+    cursor: pointer;
+    transition:
+        transform var(--spring-hover),
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.btn-mentora-outline:hover,
+.btn-mentora-outline:focus {
+    background-color: var(--mentora-surface-subtle);
+    border-color: #94A3B8;
+    color: var(--mentora-ink);
+    transform: translate3d(0, -1.5px, 0);
+    box-shadow: 0 6px 14px -4px rgba(15, 23, 42, 0.07);
+}
+
+.btn-mentora-outline:active {
+    transform: translate3d(0, 0, 0) scale(0.99);
+}
+
+/* 21st.dev Pill Badge Component */
+.badge-21st {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    font-size: 0.74rem;
+    font-weight: 600;
+    line-height: 1.2;
+    padding: 0.34rem 0.74rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--mentora-border);
+    background: var(--mentora-surface);
+    color: var(--mentora-ink-secondary);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    white-space: nowrap;
+}
+
+.badge-21st-primary {
+    background: var(--mentora-primary-soft);
+    color: var(--mentora-primary);
+    border-color: var(--mentora-primary-border);
+}
+
+.badge-21st-emerald {
+    background: var(--mentora-emerald-soft);
+    color: var(--mentora-emerald);
+    border-color: var(--mentora-emerald-border);
+}
+
+.badge-21st-amber {
+    background: var(--mentora-amber-soft);
+    color: var(--mentora-amber);
+    border-color: var(--mentora-amber-border);
+}
+
+.badge-21st-violet {
+    background: var(--mentora-violet-soft);
+    color: var(--mentora-violet);
+    border-color: var(--mentora-violet-border);
+}
+
+.badge-dot-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--mentora-primary-bright);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    animation: mentoraPulseDot 2.4s infinite ease-in-out;
+}
+
+@keyframes mentoraPulseDot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.72; }
+}
+
+/* ==========================================================================
+   Universal Sliding Pill Segmented Control System (iOS / 21st.dev layoutId)
+   ========================================================================== */
+[data-sliding-group] {
+    position: relative;
+    isolation: isolate;
+}
+
+.mentora-sliding-pill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border);
+    border-radius: 8px;
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.08),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+    opacity: 0;
+}
+
+.mentora-sliding-pill.is-ready {
+    opacity: 1;
+    transition:
+        transform var(--spring-slide),
+        width var(--spring-slide),
+        height var(--spring-slide),
+        opacity 0.2s ease;
+}
+
+.mentora-sliding-pill-dark {
+    background: var(--mentora-ink);
+    border-color: var(--mentora-ink);
+    border-radius: var(--radius-pill);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+}
+
+/* ==========================================================================
+   Section 1: Spotlight Radial Grid Hero & Double-Bezel Workbench
+   ========================================================================== */
+.mentora-hero {
+    position: relative;
+    padding: 3.25rem 0 5rem;
+    overflow: hidden;
+    background-color: var(--mentora-canvas);
+    background-image:
+        radial-gradient(circle at 14% 18%, rgba(37, 99, 235, 0.09) 0%, transparent 42%),
+        radial-gradient(circle at 86% 22%, rgba(16, 185, 129, 0.07) 0%, transparent 38%),
+        radial-gradient(#CBD5E1 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 24px 24px;
+    border-bottom: 1px solid var(--mentora-border);
+}
+
+.mentora-hero-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.36rem 0.9rem 0.36rem 0.65rem;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--mentora-ink);
+    border: 1px solid var(--mentora-border-strong);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1.35rem;
+    box-shadow: var(--shadow-21st-sm);
+}
+
+.mentora-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 3.85vw, 3.45rem);
+    font-weight: 800;
+    color: var(--mentora-ink);
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
+}
+
+.mentora-hero-highlight {
+    background: linear-gradient(120deg, rgba(37, 99, 235, 0.12) 0%, rgba(16, 185, 129, 0.14) 100%);
+    color: var(--mentora-primary);
+    padding: 0 0.3rem;
+    border-radius: 8px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+.mentora-rule-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--mentora-border);
+}
+
+.mentora-rule-item {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid var(--mentora-border);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1rem;
+    box-shadow: var(--shadow-21st-sm);
+    transition:
+        transform var(--spring-hover),
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.mentora-rule-item:hover {
+    transform: translate3d(0, -2px, 0);
+    border-color: var(--mentora-primary-border);
+    box-shadow: var(--shadow-21st-card);
+}
+
+/* Double-Bezel Application Window */
+.mentora-window-bezel {
+    padding: 7px;
+    border-radius: 26px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(226, 232, 240, 0.55) 100%);
+    border: 1px solid rgba(203, 213, 225, 0.9);
+    box-shadow: var(--shadow-workbench);
+}
+
+.mentora-workbench {
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.mentora-workbench-header {
+    background: var(--mentora-surface-elevated);
+    color: #F8FAFC;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mentora-status-beacon {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #10B981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+    display: inline-block;
+    flex-shrink: 0;
+    animation: mentoraBeaconPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes mentoraBeaconPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+    }
+    50% {
+        box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.45);
+    }
+}
+
+.mentora-window-url {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #CBD5E1;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-pill);
+    padding: 0.2rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.mentora-workbench-body {
+    padding: 1.35rem;
+}
+
+/* Segmented Goal Control with Sliding White Pill */
+.mentora-sim-goal-group {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.25rem;
+    background: var(--mentora-surface-subtle);
+    padding: 0.28rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--mentora-border);
+}
+
+.mentora-sim-goal-btn {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    color: var(--mentora-ink-secondary);
+    font-size: 0.81rem;
+    font-weight: 600;
+    padding: 0.48rem 0.5rem;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.mentora-sim-goal-btn:hover {
+    color: var(--mentora-ink);
+}
+
+.mentora-sim-goal-btn.active {
+    color: var(--mentora-primary);
+}
+
+/* Fallback if JS is disabled */
+html:not(.js-sliding-ready) .mentora-sim-goal-btn.active {
+    background: var(--mentora-surface);
+    box-shadow: var(--shadow-21st-sm);
+}
+
+.mentora-module-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.mentora-module-node {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--mentora-border);
+    background: var(--mentora-surface);
+    transition:
+        border-color 0.25s ease,
+        background-color 0.25s ease;
+}
+
+.mentora-module-node.is-unlocked {
+    border-color: var(--mentora-emerald-border);
+    background-color: var(--mentora-emerald-soft);
+}
+
+.mentora-module-node.is-locked {
+    border-color: var(--mentora-border);
+    background-color: var(--mentora-surface-subtle);
+}
+
+.mentora-status-badge {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    transition: background-color 0.22s ease, color 0.22s ease;
+}
+
+.mentora-status-badge.unlocked {
+    background-color: var(--mentora-emerald);
+    color: #FFFFFF;
+}
+
+.mentora-status-badge.locked {
+    background-color: #E2E8F0;
+    color: var(--mentora-ink-secondary);
+}
+
+/* ==========================================================================
+   Section 2: Asymmetric Bento Grid & Sliding Role Switcher
+   ========================================================================== */
+.mentora-section {
+    padding: 5rem 0;
+}
+
+.mentora-section-white {
+    background-color: var(--mentora-surface);
+    border-top: 1px solid var(--mentora-border);
+    border-bottom: 1px solid var(--mentora-border);
+}
+
+.mentora-section-subtle {
+    background-color: var(--mentora-canvas);
+}
+
+/* Sliding Role Pill Group */
+.mentora-role-tab-group {
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border-strong);
+    padding: 0.3rem;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-21st-sm);
+}
+
+.mentora-role-tab {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    color: var(--mentora-ink-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.45rem 1.05rem;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.mentora-role-tab:hover {
+    color: var(--mentora-ink);
+}
+
+.mentora-role-tab.active {
+    color: #FFFFFF;
+}
+
+html:not(.js-sliding-ready) .mentora-role-tab.active {
+    background: var(--mentora-ink);
+}
+
+/* Asymmetric 12-Column Bento Grid */
+.mentora-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.25rem;
+}
+
+.bento-span-7 {
+    grid-column: span 7;
+}
+
+.bento-span-5 {
+    grid-column: span 5;
+}
+
+.bento-span-6 {
+    grid-column: span 6;
+}
+
+.mentora-bento-card {
+    position: relative;
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border);
+    border-radius: var(--radius-lg);
+    padding: 1.65rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.25rem;
+    box-shadow: var(--shadow-21st-card);
+    overflow: hidden;
+    transition:
+        transform var(--spring-hover),
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.mentora-bento-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--mentora-primary-bright), var(--mentora-emerald-bright), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.mentora-bento-card:hover {
+    transform: translate3d(0, -2px, 0);
+    border-color: var(--mentora-primary-border);
+    box-shadow: var(--shadow-21st-hover);
+}
+
+.mentora-bento-card:hover::before {
+    opacity: 1;
+}
+
+.mentora-bento-visual {
+    background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+    border: 1px solid var(--mentora-border);
+    border-radius: var(--radius-md);
+    padding: 1.1rem;
+    position: relative;
+}
+
+.mentora-mini-node {
+    background: #FFFFFF;
+    border: 1px solid var(--mentora-border-strong);
+    border-radius: var(--radius-xs);
+    padding: 0.5rem 0.75rem;
+    font-size: 0.78rem;
+    box-shadow: var(--shadow-21st-sm);
+}
+
+.mentora-ledger-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--mentora-primary-soft);
+    color: var(--mentora-primary);
+    border: 1px solid var(--mentora-primary-border);
+}
+
+/* ==========================================================================
+   Section 3: 4-Step Connected Pipeline Cards
+   ========================================================================== */
+.mentora-step-card {
+    position: relative;
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    height: 100%;
+    box-shadow: var(--shadow-21st-card);
+    transition:
+        transform var(--spring-hover),
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.mentora-step-card:hover {
+    transform: translate3d(0, -2px, 0);
+    border-color: var(--mentora-primary-border);
+    box-shadow: var(--shadow-21st-hover);
+}
+
+.mentora-step-num {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--mentora-primary);
+    background: var(--mentora-primary-soft);
+    border: 1px solid var(--mentora-primary-border);
+    padding: 0.24rem 0.65rem;
+    border-radius: var(--radius-pill);
+    display: inline-block;
+    margin-bottom: 0.85rem;
+}
+
+/* ==========================================================================
+   Section 4: 7-Subject Curriculum Cards & Sliding Filter Bar
+   ========================================================================== */
+.mentora-filter-pill-group {
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border-strong);
+    padding: 0.3rem;
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-21st-sm);
+}
+
+.mapel-filter-btn {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    color: var(--mentora-ink-secondary);
+    font-weight: 600;
+    font-size: 0.83rem;
+    padding: 0.42rem 0.95rem;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.mapel-filter-btn:hover {
+    color: var(--mentora-ink);
+}
+
+.mapel-filter-btn.active {
+    color: #FFFFFF;
+}
+
+html:not(.js-sliding-ready) .mapel-filter-btn.active {
+    background: var(--mentora-ink);
+}
+
+.mentora-mapel-card {
+    position: relative;
+    background: var(--mentora-surface);
+    border: 1px solid var(--mentora-border);
+    border-radius: var(--radius-md);
+    padding: 1.45rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-21st-card);
+    overflow: hidden;
+    transition:
+        transform var(--spring-hover),
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.mentora-mapel-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--mentora-primary-bright), transparent);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.mentora-mapel-card:hover {
+    border-color: #93C5FD;
+    transform: translate3d(0, -2.5px, 0);
+    box-shadow: var(--shadow-21st-hover);
+}
+
+.mentora-mapel-card:hover::before {
+    opacity: 1;
+}
+
+.mentora-mapel-code {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.24rem 0.62rem;
+    border-radius: 6px;
+    background: var(--mentora-surface-subtle);
+    color: var(--mentora-ink);
+    border: 1px solid var(--mentora-border-strong);
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Section 5: Tiered Pricing Showcase & Sliding Duration Bar
+   ========================================================================== */
+.mentora-duration-pill-group {
+    position: relative;
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    background: var(--mentora-surface-subtle);
+    border: 1px solid var(--mentora-border-strong);
+    padding: 0.32rem;
+    border-radius: var(--radius-pill);
+}
+
+.mentora-duration-preset {
+    position: relative;
+    z-index: 1;
+    border: none;
+    background: transparent;
+    color: var(--mentora-ink-secondary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 0.42rem 0.95rem;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.mentora-duration-preset:hover {
+    color: var(--mentora-ink);
+}
+
+.mentora-duration-preset.active {
+    color: #FFFFFF;
+}
+
+html:not(.js-sliding-ready) .mentora-duration-preset.active {
+    background: var(--mentora-ink);
+}
+
+/* 3 Featured Bundle Tier Cards */
+.mentora-tier-card {
+    position: relative;
+    background: var(--mentora-surface);
+    border: 1.5px solid var(--mentora-border);
+    border-radius: var(--radius-lg);
+    padding: 1.6rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    box-shadow: var(--shadow-21st-card);
+    transition:
+        transform var(--spring-hover),
+        border-color 0.22s ease,
+        background-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.mentora-tier-card:hover {
+    transform: translate3d(0, -2.5px, 0);
+    border-color: #93C5FD;
+    box-shadow: var(--shadow-21st-hover);
+}
+
+.mentora-tier-card.is-featured {
+    border-color: #93C5FD;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%);
+}
+
+.mentora-tier-card.active {
+    border-color: var(--mentora-primary-bright);
+    background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
+    box-shadow:
+        0 0 0 2.5px rgba(37, 99, 235, 0.16),
+        var(--shadow-21st-hover);
+}
+
+/* Single Subject Selector Pills */
+.mentora-paket-option {
+    position: relative;
+    background: var(--mentora-surface);
+    border: 1.5px solid var(--mentora-border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-21st-sm);
+    transition:
+        transform var(--spring-hover),
+        border-color 0.18s ease,
+        background-color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.mentora-paket-option:hover {
+    transform: translate3d(0, -1.5px, 0);
+    border-color: #93C5FD;
+    box-shadow: var(--shadow-21st-card);
+}
+
+.mentora-paket-option.active {
+    border-color: var(--mentora-primary-bright);
+    background-color: var(--mentora-primary-soft);
+    box-shadow: 0 0 0 2.5px rgba(37, 99, 235, 0.14), var(--shadow-21st-sm);
+}
+
+/* Dark Obsidian PricingService Receipt Panel */
+.mentora-calc-panel {
+    background: linear-gradient(160deg, #0B0F19 0%, #1E293B 100%);
+    color: #FFFFFF;
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    box-shadow: var(--shadow-workbench);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mentora-calc-receipt {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+}
+
+.mentora-demo-box {
+    background: var(--mentora-surface-subtle);
+    border: 1px solid var(--mentora-border-strong);
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.35rem;
+}
+
+/* Footer */
+.mentora-footer {
+    background: #0B0F19;
+    color: #CBD5E1;
+    padding: 3.75rem 0 2.5rem;
+    font-size: 0.9rem;
+}
+
+.mentora-footer a {
+    color: #E2E8F0;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.mentora-footer a:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Motion Scroll Reveal & Smooth Content Swap (Zero Bounce / Zero Thrash)
+   ========================================================================== */
+.js-motion-ready [data-motion-reveal],
+.js-motion-ready [data-motion-item] {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    will-change: transform, opacity;
+}
+
+.js-motion-ready [data-motion-reveal].is-inview,
+.js-motion-ready [data-motion-item].is-inview {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    transition:
+        opacity 0.42s var(--ease-out-quart),
+        transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--stagger-delay, 0ms);
+}
+
+/* Subtle Content Glide when Switching Tabs/Options (Replaces Harsh Bounce) */
+.motion-content-glide {
+    animation: mentoraContentGlide 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes mentoraContentGlide {
+    0% {
+        opacity: 0.55;
+        transform: translate3d(0, 4px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* ==========================================================================
+   Responsive Adjustments (360px Mobile Compliance per NFR-09)
+   ========================================================================== */
+@media (max-width: 991.98px) {
+    .mentora-floating-pill {
+        border-radius: 20px;
+        padding: 0.6rem 0.9rem;
+    }
+    .mentora-nav-track {
+        background: transparent;
+        border: none;
+        padding: 0.25rem 0;
+    }
+    .mentora-hero {
+        padding: 2.25rem 0 3.5rem;
+    }
+    .mentora-rule-strip {
+        grid-template-columns: 1fr;
+    }
+    .bento-span-7,
+    .bento-span-5,
+    .bento-span-6 {
+        grid-column: span 12;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .mentora-hero-title {
+        font-size: 1.85rem;
+    }
+    .mentora-workbench-body,
+    .mentora-calc-panel,
+    .mentora-bento-card {
+        padding: 1.15rem;
+    }
+    .badge-21st,
+    .mentora-hero-pill {
+        white-space: normal;
+        max-width: 100%;
+    }
+}
+
+/* Accessibility: Reduced Motion Compliance */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+        scroll-behavior: auto !important;
+    }
+    .js-motion-ready [data-motion-reveal],
+    .js-motion-ready [data-motion-item] {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
