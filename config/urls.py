@@ -12,6 +12,7 @@ urlpatterns = [
     path("siswa/", akun_views.dasbor_siswa_view, name="dasbor_siswa"),
     path("guru/", akun_views.dasbor_guru_view, name="dasbor_guru"),
     path("admin-panel/guru/", akun_views.kelola_guru_view, name="kelola_guru"),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 if settings.DEBUG:
