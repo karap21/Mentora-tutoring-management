@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mentora-LMS — Platform Belajar Mandiri Siswa SMA Kelas X–XII Berbasis Kurikulum Merdeka dengan Rekomendasi Mapel AI, Modul Adaptif, dan Laporan Progres Orang Tua.">
-    <title>{% block title %}Mentora-LMS — Platform Belajar Mandiri SMA Kurikulum Merdeka{% endblock %}</title>
+    <meta name="description" content="Mentora-LMS — Bimbel online pintar untuk siswa SMA Kelas X–XII. Belajar lebih terarah sesuai target UTBK, Nilai Rapor, dan Olimpiade.">
+    <title>{% block title %}Mentora-LMS — Bimbel Online Pintar SMA Kelas X–XII{% endblock %}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     {% block extra_head %}{% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <!-- 21st.dev Floating Glass Pill Navbar -->
+    <!-- Floating Glass Pill Navbar -->
     <header class="mentora-nav-shell sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg mentora-floating-pill" aria-label="Navigasi Utama">
@@ -36,19 +36,19 @@
                 <div class="collapse navbar-collapse" id="mentoraNavbar">
                     <ul class="navbar-nav mx-auto my-2 my-lg-0 mentora-nav-track">
                         <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#simulasi-adaptif">Simulasi AI</a>
+                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#simulasi-adaptif">Coba Simulasi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#fitur-utama">Bento Fitur</a>
+                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#fitur-utama">Keunggulan</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#alur-belajar">Alur Belajar</a>
+                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#alur-belajar">Cara Belajar</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#katalog-mapel">7 Mapel</a>
+                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#katalog-mapel">Mata Pelajaran</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#kalkulator-langganan">Harga &amp; Paket</a>
+                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#kalkulator-langganan">Biaya &amp; Paket</a>
                         </li>
                     </ul>
 
@@ -63,7 +63,7 @@
                             {% elif user.peran == 'guru' %}
                                 <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3">Dasbor Guru</a>
                             {% else %}
-                                <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3">Dasbor Siswa</a>
+                                <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3">Ruang Belajar</a>
                             {% endif %}
                             <a href="{% url 'keluar' %}" class="btn btn-mentora-outline btn-sm rounded-pill px-3">Keluar</a>
                         {% else %}
@@ -111,40 +111,40 @@
                         <span class="fw-bold text-white fs-5">Mentora-LMS</span>
                     </div>
                     <p class="mb-3" style="max-width: 46ch; color: #94A3B8; line-height: 1.65;">
-                        Platform manajemen bimbingan belajar mandiri untuk siswa SMA Kelas X, XI, dan XII berbasis Kurikulum Merdeka dengan pemetaan kemampuan diagnostik, jalur modul adaptif, dan pemantauan berkala bagi orang tua.
+                        Teman belajar mandiri untuk siswa SMA Kelas X, XI, dan XII. Fokus pada materi yang benar-benar kamu butuhkan untuk menaklukkan nilai rapor, UTBK-SNBT, hingga olimpiade sains.
                     </p>
                     <div class="d-flex flex-wrap gap-2 font-mono-code small" style="color: #CBD5E1;">
-                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Pretest &ge; 85 Fast-Track</span>
-                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Decision Tree AI</span>
-                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Laporan Ortu 14 Hari</span>
+                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Jalur Cepat Bebas Bosan</span>
+                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Rekomendasi Pintar</span>
+                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Laporan Rutin Orang Tua</span>
                     </div>
                 </div>
 
                 <div class="col-6 col-md-3 col-lg-2">
-                    <h6 class="text-white fw-semibold mb-3">Eksplorasi Produk</h6>
+                    <h6 class="text-white fw-semibold mb-3">Program Belajar</h6>
                     <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                        <li><a href="{% url 'beranda' %}#simulasi-adaptif">Simulasi Mesin Adaptif</a></li>
-                        <li><a href="{% url 'beranda' %}#fitur-utama">Arsitektur Bento Fitur</a></li>
-                        <li><a href="{% url 'beranda' %}#katalog-mapel">7 Mata Pelajaran SMA</a></li>
-                        <li><a href="{% url 'beranda' %}#kalkulator-langganan">Paket &amp; Diskon 20%</a></li>
+                        <li><a href="{% url 'beranda' %}#simulasi-adaptif">Simulasi Jalur Belajar</a></li>
+                        <li><a href="{% url 'beranda' %}#fitur-utama">Keunggulan Mentora</a></li>
+                        <li><a href="{% url 'beranda' %}#katalog-mapel">Pilihan Mata Pelajaran</a></li>
+                        <li><a href="{% url 'beranda' %}#kalkulator-langganan">Hitung Biaya Belajar</a></li>
                     </ul>
                 </div>
 
                 <div class="col-6 col-md-4 col-lg-3">
-                    <h6 class="text-white fw-semibold mb-3">Akses &amp; Ketentuan</h6>
+                    <h6 class="text-white fw-semibold mb-3">Akses &amp; Bantuan</h6>
                     <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                        <li><a href="{% url 'daftar' %}">Daftar Akun Siswa (UC-01)</a></li>
-                        <li><a href="{% url 'masuk' %}">Masuk Akun (Siswa / Guru / Admin)</a></li>
-                        <li><a href="{% url 'syarat_ketentuan' %}">Syarat &amp; Ketentuan Layanan</a></li>
-                        <li><a href="{% url 'beranda' %}#akun-uji">Kredensial Akun Uji Demo</a></li>
+                        <li><a href="{% url 'daftar' %}">Daftar Akun Baru</a></li>
+                        <li><a href="{% url 'masuk' %}">Masuk ke Akun</a></li>
+                        <li><a href="{% url 'syarat_ketentuan' %}">Syarat &amp; Ketentuan</a></li>
+                        <li><a href="{% url 'beranda' %}#akun-uji">Coba Akun Demo Gratis</a></li>
                     </ul>
                 </div>
             </div>
 
             <hr class="my-4 border-secondary border-opacity-25">
             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 small" style="color: #94A3B8;">
-                <span>&copy; 2026 Mentora-LMS &mdash; Sistem Manajemen Bimbingan Belajar Mandiri SMA.</span>
-                <span class="font-mono-code">Django 5.2 &middot; Kurikulum Merdeka Kelas X&ndash;XII</span>
+                <span>&copy; 2026 Mentora-LMS. Hak cipta dilindungi undang-undang.</span>
+                <span class="font-mono-code">Kurikulum Merdeka &middot; SMA Kelas X&ndash;XII</span>
             </div>
         </div>
     </footer>

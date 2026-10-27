@@ -1,36 +1,68 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Mentora-LMS — Belajar Mandiri SMA Kurikulum Merdeka dengan Jalur Adaptif{% endblock %}
+{% block title %}Mentora — Bimbingan Belajar Mandiri SMA Kurikulum Merdeka{% endblock %}
 
 {% block main_class %}p-0{% endblock %}
 
 {% block content %}
+<style>
+    /* Perbaikan visual agar lebih bersih, natural, dan tidak kaku */
+    .mentora-clean-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        background: #EEF2FF;
+        color: #1D4ED8;
+        font-size: 0.82rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+    .mentora-stat-box {
+        padding: 0.85rem 1rem;
+        border-radius: 0.75rem;
+        background: #F8FAFC;
+        border: 1px solid #E2E8F0;
+        height: 100%;
+    }
+    .mentora-feature-card {
+        background: #FFFFFF;
+        border: 1px solid #E2E8F0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        height: 100%;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .mentora-feature-card:hover {
+        border-color: #CBD5E1;
+        box-shadow: 0 8px 24px -12px rgba(15, 23, 42, 0.08);
+    }
+</style>
+
 <!-- ======================================================================
-     1. HERO & WORKBENCH SIMULASI MESIN ADAPTIF
+     1. HERO & SIMULASI RENCANA BELAJAR
      ====================================================================== -->
 <section class="mentora-hero" id="simulasi-adaptif">
     <div class="container">
         <div class="row align-items-center gy-5">
-            <!-- Left Column: Editorial Hero & CTAs -->
+            <!-- Kolom Kiri: Pengantar & Tombol Aksi Utama -->
             <div class="col-lg-6" data-motion-reveal>
-                <div class="mentora-hero-pill">
-                    <span class="badge-dot-pulse" aria-hidden="true"></span>
+                <div class="mentora-clean-pill">
                     <span>Kurikulum Merdeka &middot; SMA Kelas X, XI, &amp; XII</span>
-                    <span class="text-muted d-none d-sm-inline">|</span>
-                    <span class="font-mono-code text-primary fw-bold d-none d-sm-inline">Decision Tree AI</span>
                 </div>
 
                 <h1 class="mentora-hero-title">
-                    Belajar Mandiri Lebih Terarah dengan Diagnostik Awal dan
-                    <span class="mentora-hero-highlight">Jalur Modul Adaptif</span>
+                    Belajar Mandiri Lebih Terarah, Mulai dari Materi yang
+                    <span class="mentora-hero-highlight">Paling Kamu Butuhkan</span>
                 </h1>
 
                 <p class="mentora-prose mb-4">
-                    <strong>Mentora-LMS</strong> adalah platform manajemen bimbingan belajar mandiri siswa SMA yang memetakan mata pelajaran prioritas dengan <em>Decision Tree</em>, membuka modul lanjutan otomatis dari capaian kuis, mengintegrasikan penilaian esai Guru Pengampu, serta mengirimkan laporan progres dua mingguan ke orang tua.
+                    Tak perlu bingung harus mulai belajar dari mana. Di <strong>Mentora</strong>, kamu cukup mengerjakan tes diagnostik singkat di awal, lalu sistem akan menyusun prioritas mata pelajaran, membuka materi lanjutan saat kamu sudah siap, serta mengirimkan laporan perkembangan belajarmu ke orang tua setiap dua minggu.
                 </p>
 
-                <!-- Primary Action Cluster (DPPL Bab 5.1: Tombol Daftar dan Masuk) -->
+                <!-- Tombol Aksi Utama -->
                 <div class="d-flex flex-wrap align-items-center gap-3">
                     {% if user.is_authenticated %}
                         {% if user.peran == 'admin' %}
@@ -48,79 +80,70 @@
                         {% endif %}
                     {% else %}
                         <a href="{% url 'masuk' %}" class="btn btn-mentora-primary btn-lg rounded-pill px-4 d-inline-flex align-items-center gap-2">
-                            <span>Masuk ke Akun</span>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <span>Masuk</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                                 <path d="M5 12h14"></path>
                                 <path d="m12 5 7 7-7 7"></path>
                             </svg>
                         </a>
                         <a href="{% url 'daftar' %}" class="btn btn-mentora-outline btn-lg rounded-pill px-4">
-                            Daftar Akun Siswa
+                            Daftar Akun Baru
                         </a>
                     {% endif %}
                     <a href="#kalkulator-langganan" class="btn btn-link text-decoration-none fw-semibold text-primary px-2">
-                        Lihat Paket &amp; Diskon 20% &darr;
+                        Lihat Paket Belajar &darr;
                     </a>
                 </div>
 
-                <!-- 21st.dev Staggered Rule Strip -->
-                <div class="mentora-rule-strip" data-motion-stagger>
-                    <div class="mentora-rule-item" data-motion-item>
-                        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
-                            <span class="font-tabular fw-bold text-primary text-nowrap" style="font-size: 1.05rem;">&ge; {{ batas_lulus_pretest|default:85 }} Poin</span>
-                            <span class="badge-21st badge-21st-primary font-mono-code" style="padding: 0.2rem 0.5rem; font-size: 0.68rem;">BR-08</span>
-                        </div>
-                        <div class="small text-secondary">
-                            <strong>Fast-Track Pretest:</strong> Skor diagnostik &ge; {{ batas_lulus_pretest|default:85 }} langsung membuka Modul Lanjutan.
-                        </div>
-                    </div>
-
-                    <div class="mentora-rule-item" data-motion-item>
-                        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
-                            <span class="font-tabular fw-bold text-nowrap" style="color: var(--mentora-emerald); font-size: 1.05rem;">&ge; {{ batas_lulus_kuis|default:75 }} Poin</span>
-                            <span class="badge-21st badge-21st-emerald font-mono-code" style="padding: 0.2rem 0.5rem; font-size: 0.68rem;">BR-09</span>
-                        </div>
-                        <div class="small text-secondary">
-                            <strong>Ketuntasan Kuis:</strong> Syarat skor minimal membuka kunci modul berikutnya.
+                <!-- Ringkasan Cara Kerja Singkat -->
+                <div class="row g-3 mt-4" data-motion-stagger>
+                    <div class="col-sm-4" data-motion-item>
+                        <div class="mentora-stat-box">
+                            <div class="fw-bold text-primary mb-1">Skor &ge; {{ batas_lulus_pretest|default:85 }}</div>
+                            <div class="small text-secondary">
+                                Langsung lanjut ke modul tingkat lanjutan tanpa mengulang dasar.
+                            </div>
                         </div>
                     </div>
 
-                    <div class="mentora-rule-item" data-motion-item>
-                        <div class="d-flex align-items-center justify-content-between gap-1 mb-1">
-                            <span class="font-tabular fw-bold text-dark text-nowrap" style="font-size: 1.05rem;">Tiap {{ interval_laporan_hari|default:14 }} Hari</span>
-                            <span class="badge-21st badge-21st-amber font-mono-code" style="padding: 0.2rem 0.5rem; font-size: 0.68rem;">BR-12</span>
+                    <div class="col-sm-4" data-motion-item>
+                        <div class="mentora-stat-box">
+                            <div class="fw-bold text-success mb-1">Kuis &ge; {{ batas_lulus_kuis|default:75 }}</div>
+                            <div class="small text-secondary">
+                                Tuntaskan kuis latihan dasar untuk membuka materi berikutnya.
+                            </div>
                         </div>
-                        <div class="small text-secondary">
-                            <strong>Laporan Ortu:</strong> Ringkasan progres, nilai kuis/tugas, &amp; rekomendasi via email.
+                    </div>
+
+                    <div class="col-sm-4" data-motion-item>
+                        <div class="mentora-stat-box">
+                            <div class="fw-bold text-dark mb-1">Tiap {{ interval_laporan_hari|default:14 }} Hari</div>
+                            <div class="small text-secondary">
+                                Ringkasan nilai dan progres otomatis dikirim ke email orang tua.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Panel Aplikasi Simulasi Mesin Adaptif -->
+            <!-- Kolom Kanan: Simulasi Interaktif Rencana Belajar -->
             <div class="col-lg-6" data-motion-reveal>
                 <div class="mentora-window-bezel">
-                    <div class="mentora-workbench" role="region" aria-label="Simulasi Mesin Adaptif Mentora">
-                        <!-- Live Simulator Bar Header -->
+                    <div class="mentora-workbench" role="region" aria-label="Coba Simulasi Rencana Belajar">
                         <div class="mentora-workbench-header">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="mentora-status-beacon" aria-hidden="true" title="Simulasi Interaktif Aktif"></span>
-                                <span class="fw-semibold small text-white">Simulasi Mesin Adaptif Mentora</span>
+                                <span class="mentora-status-beacon" aria-hidden="true"></span>
+                                <span class="fw-semibold small text-white">Coba Simulasi Penentuan Materi</span>
                             </div>
-                            <span class="mentora-window-url font-mono-code">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.3">
-                                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                                </svg>
-                                <span>AI-01 &middot; BR-08/09</span>
-                            </span>
+                            <span class="small text-white-50">Interaktif</span>
                         </div>
 
                         <div class="mentora-workbench-body">
-                            <!-- Step 1: Kuesioner Minat & Tujuan Belajar -->
+                            <!-- Langkah 1: Pilih Target -->
                             <div class="mb-3">
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <label class="small fw-bold text-dark mb-0">1. Tujuan Belajar Siswa (Kuesioner Minat)</label>
-                                    <select id="simKelasSelect" class="form-select form-select-sm w-auto font-mono-code py-1" aria-label="Pilih Kelas SMA">
+                                    <label class="small fw-bold text-dark mb-0">1. Apa fokus belajarmu saat ini?</label>
+                                    <select id="simKelasSelect" class="form-select form-select-sm w-auto py-1" aria-label="Pilih Kelas SMA">
                                         <option value="X">Kelas X</option>
                                         <option value="XI">Kelas XI</option>
                                         <option value="XII" selected>Kelas XII</option>
@@ -128,17 +151,17 @@
                                 </div>
                                 <div class="mentora-sim-goal-group" data-sliding-group role="group" aria-label="Pilih fokus tujuan belajar">
                                     <span class="mentora-sliding-pill" aria-hidden="true"></span>
-                                    <button type="button" class="mentora-sim-goal-btn active" data-goal="utbk">Lolos UTBK</button>
+                                    <button type="button" class="mentora-sim-goal-btn active" data-goal="utbk">Persiapan UTBK</button>
                                     <button type="button" class="mentora-sim-goal-btn" data-goal="rapor">Nilai Rapor</button>
                                     <button type="button" class="mentora-sim-goal-btn" data-goal="olimpiade">Olimpiade</button>
                                 </div>
                             </div>
 
-                            <!-- Step 2: Slider Skor Pretest -->
+                            <!-- Langkah 2: Geser Nilai Pretest -->
                             <div class="mb-3 p-3 rounded-3 bg-light border">
                                 <div class="d-flex justify-content-between align-items-center mb-1">
                                     <label for="simPretestRange" class="small fw-bold text-dark mb-0">
-                                        2. Simulasi Skor Tes Diagnostik (Pretest)
+                                        2. Geser contoh nilai tes awalmu
                                     </label>
                                     <span id="simScoreValue" class="font-tabular fw-bold fs-5 text-primary">88 / 100</span>
                                 </div>
@@ -151,52 +174,51 @@
                                     step="1"
                                     value="88"
                                 >
-                                <div class="d-flex justify-content-between small text-muted font-mono-code" style="font-size: 0.72rem;">
-                                    <span>40 (Perlu Penguatan)</span>
-                                    <span>Ambang Fast-Track: {{ batas_lulus_pretest|default:85 }}</span>
+                                <div class="d-flex justify-content-between small text-muted" style="font-size: 0.75rem;">
+                                    <span>40 (Butuh penguatan dasar)</span>
+                                    <span>Batas lompat modul: {{ batas_lulus_pretest|default:85 }}</span>
                                     <span>100</span>
                                 </div>
                             </div>
 
-                            <!-- Output 1: Rekomendasi Decision Tree (AI-01 & BR-11) -->
+                            <!-- Hasil Rekomendasi -->
                             <div id="simRecommendationCard" class="p-3 rounded-3 mb-3" style="background: var(--mentora-primary-soft); border: 1px solid var(--mentora-primary-border);">
                                 <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
-                                    <span class="small fw-bold text-primary">Rekomendasi Mapel Prioritas</span>
-                                    <span id="simSourceBadge" class="badge-21st badge-21st-primary font-mono-code">
-                                        Sumber: model (Decision Tree)
+                                    <span class="small fw-bold text-primary">Saran Fokus Belajar</span>
+                                    <span id="simSourceBadge" class="badge bg-white text-primary border">
+                                        Rekomendasi Otomatis
                                     </span>
                                 </div>
                                 <div id="simRecommendedMapel" class="fw-bold text-dark mb-1">
-                                    MTK &mdash; Matematika (Kelas XII)
+                                    Matematika (Kelas XII)
                                 </div>
                                 <p id="simRecommendationReason" class="small text-secondary mb-0">
-                                    Diprioritaskan untuk target UTBK Kelas XII berdasarkan kombinasi kuesioner minat dan diagnostik awal.
+                                    Disarankan untuk fokus latihan soal UTBK karena nilai dasar sudah kuat.
                                 </p>
                             </div>
 
-                            <!-- Output 2: Status Pembukaan Modul (BR-08 & BR-09) -->
+                            <!-- Status Modul -->
                             <div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="small fw-bold text-dark">Status Jalur Modul (<span id="simRuleLabel" class="text-success">Fast-Track Terbuka</span>)</span>
-                                    <span class="small text-muted" style="font-size: 0.72rem;">Cek Otomatis</span>
+                                    <span class="small fw-bold text-dark">Status Modul (<span id="simRuleLabel" class="text-success">Langsung Lanjutan</span>)</span>
                                 </div>
                                 <div class="mentora-module-track">
                                     <div class="mentora-module-node is-unlocked">
                                         <div>
-                                            <div class="fw-bold small text-dark">Modul 1 &middot; Level Dasar</div>
-                                            <div class="text-secondary" style="font-size: 0.78rem;">Materi Teks, PDF, &amp; Kuis Latihan Dasar</div>
+                                            <div class="fw-bold small text-dark">Modul Dasar</div>
+                                            <div class="text-secondary" style="font-size: 0.78rem;">Materi bacaan, rangkuman PDF, &amp; latihan dasar</div>
                                         </div>
                                         <span class="mentora-status-badge unlocked">Terbuka</span>
                                     </div>
 
                                     <div id="simAdvancedNode" class="mentora-module-node is-unlocked">
                                         <div>
-                                            <div class="fw-bold small text-dark">Modul 2 &middot; Level Lanjutan</div>
+                                            <div class="fw-bold small text-dark">Modul Lanjutan</div>
                                             <div id="simAdvancedDesc" class="text-secondary" style="font-size: 0.78rem;">
-                                                Terbuka langsung karena Skor Pretest &ge; {{ batas_lulus_pretest|default:85 }} (BR-08)
+                                                Langsung terbuka karena nilai tes awal minimal {{ batas_lulus_pretest|default:85 }}
                                             </div>
                                         </div>
-                                        <span id="simAdvancedBadge" class="mentora-status-badge unlocked">Terbuka (Pretest)</span>
+                                        <span id="simAdvancedBadge" class="mentora-status-badge unlocked">Terbuka</span>
                                     </div>
                                 </div>
                             </div>
@@ -209,208 +231,90 @@
 </section>
 
 <!-- ======================================================================
-     2. 21st.dev ASYMMETRIC BENTO GRID & INTERACTIVE 3-ROLE DOCK
+     2. PERAN PENGGUNA & KEUNGGULAN UTAMA
      ====================================================================== -->
 <section class="mentora-section mentora-section-subtle" id="fitur-utama">
     <div class="container">
         <div class="row justify-content-between align-items-end mb-4 gy-3" data-motion-reveal>
             <div class="col-lg-7">
-                <span class="badge-21st badge-21st-primary mb-2">Arsitektur Sistem &middot; Bento Showcase</span>
-                <h2 class="fw-bold display-6 mb-2">Dirancang untuk Siswa, Guru Pengampu, dan Orang Tua</h2>
+                <h2 class="fw-bold display-6 mb-2">Nyaman untuk Siswa, Guru, dan Orang Tua</h2>
                 <p class="mentora-prose mb-0">
-                    Mentora-LMS menyatukan proses belajar mandiri siswa, evaluasi akademik subjektif oleh guru, dan transparansi biaya serta progres belajar bagi orang tua dalam satu ekosistem terpadu.
+                    Bukan sekadar kumpulan soal. Siswa mendapat panduan belajar yang pas, guru lebih mudah menilai tugas esai, dan orang tua bisa memantau perkembangan anak tanpa perlu repot membuat akun.
                 </p>
             </div>
             <div class="col-lg-5 d-flex justify-content-lg-end">
                 <div class="mentora-role-tab-group" data-sliding-group role="tablist" aria-label="Pilih peran pengguna">
                     <span class="mentora-sliding-pill mentora-sliding-pill-dark" aria-hidden="true"></span>
-                    <button type="button" class="mentora-role-tab active" data-role="siswa">Siswa SMA</button>
-                    <button type="button" class="mentora-role-tab" data-role="guru">Guru Pengampu</button>
+                    <button type="button" class="mentora-role-tab active" data-role="siswa">Siswa</button>
+                    <button type="button" class="mentora-role-tab" data-role="guru">Guru</button>
                     <button type="button" class="mentora-role-tab" data-role="ortu">Orang Tua</button>
                 </div>
             </div>
         </div>
 
-        <!-- Dynamic Role Spotlight Banner -->
+        <!-- Kotak Penjelasan Peran -->
         <div id="roleHighlightBox" class="card border rounded-4 shadow-sm p-4 mb-4 bg-white" data-motion-reveal>
             <div class="row align-items-center gy-3">
                 <div class="col-lg-8">
-                    <span id="roleBadge" class="badge-21st badge-21st-primary mb-2">
-                        Peran: Siswa (Kelas X / XI / XII)
+                    <span id="roleBadge" class="badge bg-primary-subtle text-primary mb-2 px-3 py-1 rounded-pill">
+                        Untuk Siswa SMA (Kelas X, XI, XII)
                     </span>
                     <h3 id="roleTitle" class="h4 fw-bold mb-2">
-                        Belajar Sesuai Kecepatan Sendiri dengan Umpan Balik Nyata
+                        Belajar Sesuai Kecepatanmu Sendiri
                     </h3>
                     <p id="roleDescription" class="text-secondary mb-0">
-                        Siswa memulai dengan mengisi kuesioner tujuan belajar (<code>utbk</code>, <code>rapor</code>, atau <code>olimpiade</code>) dan mengerjakan tes diagnostik 7 mata pelajaran. Sistem menyusun rekomendasi mapel prioritas, membuka modul sesuai penguasaan kompetensi, serta mencatat setiap progres materi, nilai kuis, tugas mandiri, dan lencana <em>Achievement</em> di dalam <em>Gradebook</em>.
+                        Mulai dengan memilih target belajarmu—apakah ingin mengejar UTBK, memperbaiki nilai rapor, atau ikut olimpiade—lalu kerjakan tes diagnostik singkat. Kamu bisa membaca materi teks maupun PDF, mengerjakan kuis latihan, mengumpulkan tugas, dan melihat perkembangan nilaimu di buku nilai.
                     </p>
                 </div>
                 <div class="col-lg-4">
                     <div class="p-3 rounded-3 bg-light border">
-                        <div class="small fw-bold text-dark mb-2" id="roleFeatureHeader">Kapabilitas Dasbor Siswa:</div>
+                        <div class="small fw-bold text-dark mb-2" id="roleFeatureHeader">Yang didapat siswa:</div>
                         <ul id="roleFeatureList" class="small text-secondary mb-0 ps-3 d-flex flex-column gap-1">
-                            <li>Rekomendasi Mapel Prioritas (Decision Tree)</li>
-                            <li>Materi Teks, Dokumen PDF, &amp; Visual</li>
-                            <li>Kuis PG/Isian Otomatis &amp; Pengumpulan Tugas</li>
-                            <li>Gradebook &amp; 4 Lencana Pencapaian</li>
+                            <li>Rekomendasi mata pelajaran prioritas</li>
+                            <li>Materi bacaan bergambar &amp; modul PDF</li>
+                            <li>Kuis latihan otomatis &amp; unggah tugas</li>
+                            <li>Rekap nilai lengkap &amp; lencana belajar</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 21st.dev Asymmetric 12-Column Bento Grid with Mini-UI Previews -->
-        <div class="mentora-bento-grid" data-motion-stagger>
-            <!-- Bento Card 1 (Span 7): Decision Tree Priority Engine -->
-            <div class="mentora-bento-card bento-span-7" data-motion-item>
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="mentora-ledger-icon" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="3"></circle>
-                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                            </svg>
-                        </div>
-                        <span class="badge-21st badge-21st-primary font-mono-code">AI-01 &middot; BR-11</span>
-                    </div>
-                    <h4 class="h5 fw-bold mb-2">Pemetaan Prioritas Belajar dengan <em>Decision Tree</em></h4>
+        <!-- 4 Kartu Fitur Utama yang Bersih -->
+        <div class="row g-4" data-motion-stagger>
+            <div class="col-md-6" data-motion-item>
+                <div class="mentora-feature-card">
+                    <h4 class="h5 fw-bold mb-2">Rekomendasi Mapel Sesuai Target</h4>
                     <p class="text-secondary small mb-0">
-                        Mengolah hasil kuesioner minat dan 7 skor diagnostik awal menggunakan model <em>Decision Tree</em> (<code>scikit-learn</code>) yang dilengkapi mekanisme <em>fallback</em> deterministik otomatis apabila model belum tersedia.
+                        Setiap siswa punya kelemahan dan target yang berbeda. Berdasarkan pilihan minat dan hasil tes awalmu di 7 mata pelajaran, Mentora menyarankan mata pelajaran mana yang sebaiknya kamu dahulukan.
                     </p>
-                </div>
-
-                <!-- Mini-UI Visual: Decision Tree Flow -->
-                <div class="mentora-bento-visual">
-                    <div class="row g-2 align-items-center text-center">
-                        <div class="col-md-4">
-                            <div class="mentora-mini-node">
-                                <div class="font-mono-code text-muted" style="font-size: 0.68rem;">INPUT FITUR</div>
-                                <div class="fw-bold text-dark">Minat + 7 Skor</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mentora-mini-node" style="border-color: var(--mentora-primary-border); background: var(--mentora-primary-soft);">
-                                <div class="font-mono-code text-primary fw-bold" style="font-size: 0.68rem;">DECISION TREE</div>
-                                <div class="fw-bold text-primary">Klasifikasi Prioritas</div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="mentora-mini-node" style="border-color: var(--mentora-emerald-border); background: var(--mentora-emerald-soft);">
-                                <div class="font-mono-code text-success fw-bold" style="font-size: 0.68rem;">OUTPUT REKOMENDASI</div>
-                                <div class="fw-bold text-dark">Mapel Prioritas #1</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 
-            <!-- Bento Card 2 (Span 5): Adaptive Module Gate -->
-            <div class="mentora-bento-card bento-span-5" data-motion-item>
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="mentora-ledger-icon" style="background: var(--mentora-emerald-soft); color: var(--mentora-emerald); border-color: var(--mentora-emerald-border);" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 9.9-1"></path>
-                            </svg>
-                        </div>
-                        <span class="badge-21st badge-21st-emerald font-mono-code">BR-08 &middot; BR-09</span>
-                    </div>
-                    <h4 class="h5 fw-bold mb-2">Pembukaan Kunci Modul Adaptif</h4>
+            <div class="col-md-6" data-motion-item>
+                <div class="mentora-feature-card">
+                    <h4 class="h5 fw-bold mb-2">Modul Dasar &amp; Lanjutan yang Fleksibel</h4>
                     <p class="text-secondary small mb-0">
-                        Modul Level Lanjutan terbuka otomatis apabila siswa meraih skor <strong>Pretest &ge; {{ batas_lulus_pretest|default:85 }}</strong> atau menuntaskan <strong>Kuis Dasar &ge; {{ batas_lulus_kuis|default:75 }}</strong>.
+                        Jika kamu sudah menguasai konsep dasar dari awal (nilai tes diagnostik minimal {{ batas_lulus_pretest|default:85 }}), modul lanjutan langsung terbuka. Jika belum, kamu bisa belajar bertahap dan membukanya setelah lulus kuis dasar.
                     </p>
-                </div>
-
-                <!-- Mini-UI Visual: Dual Unlock Gate -->
-                <div class="mentora-bento-visual d-flex flex-column gap-2">
-                    <div class="d-flex justify-content-between align-items-center mentora-mini-node">
-                        <span class="small fw-semibold">Jalur 1: Skor Pretest &ge; {{ batas_lulus_pretest|default:85 }}</span>
-                        <span class="badge-21st badge-21st-emerald">Fast-Track</span>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mentora-mini-node">
-                        <span class="small fw-semibold">Jalur 2: Skor Kuis Dasar &ge; {{ batas_lulus_kuis|default:75 }}</span>
-                        <span class="badge-21st badge-21st-primary">Bertahap</span>
-                    </div>
                 </div>
             </div>
 
-            <!-- Bento Card 3 (Span 5): 72-Hour Parent Approval Token -->
-            <div class="mentora-bento-card bento-span-5" data-motion-item>
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="mentora-ledger-icon" style="background: var(--mentora-amber-soft); color: var(--mentora-amber); border-color: var(--mentora-amber-border);" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                        </div>
-                        <span class="badge-21st badge-21st-amber font-mono-code">BR-07 &middot; BR-10</span>
-                    </div>
-                    <h4 class="h5 fw-bold mb-2">Token Persetujuan Orang Tua {{ masa_berlaku_token_jam|default:72 }} Jam</h4>
+            <div class="col-md-6" data-motion-item>
+                <div class="mentora-feature-card">
+                    <h4 class="h5 fw-bold mb-2">Dikoreksi Sistem &amp; Guru Pengampu</h4>
                     <p class="text-secondary small mb-0">
-                        Setiap pembuatan tagihan mengirimkan tautan token pembayaran sekali pakai yang berlaku {{ masa_berlaku_token_jam|default:72 }} jam ke email orang tua disertai persetujuan Syarat &amp; Ketentuan.
+                        Soal pilihan ganda dan isian singkat langsung keluar nilainya begitu selesai dikerjakan. Khusus untuk soal esai dan tugas mandiri, jawabanmu akan diperiksa dan diberi catatan langsung oleh guru mata pelajaran.
                     </p>
-                </div>
-
-                <!-- Mini-UI Visual: Token Security Preview -->
-                <div class="mentora-bento-visual">
-                    <div class="mentora-mini-node d-flex justify-content-between align-items-center mb-2">
-                        <span class="font-mono-code small text-dark">TKN-ORTU-72H</span>
-                        <span class="badge-21st badge-21st-amber">Aktif 72 Jam</span>
-                    </div>
-                    <div class="small text-secondary d-flex align-items-center gap-2">
-                        <span class="text-success fw-bold">&check;</span>
-                        <span>Wajib centang persetujuan ToS sebelum aktivasi</span>
-                    </div>
                 </div>
             </div>
 
-            <!-- Bento Card 4 (Span 7): Hybrid Grading + Invoice PDF & 14-Day Reports -->
-            <div class="mentora-bento-card bento-span-7" data-motion-item>
-                <div>
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div class="mentora-ledger-icon" style="background: var(--mentora-violet-soft); color: var(--mentora-violet); border-color: var(--mentora-violet-border);" aria-hidden="true">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                            </svg>
-                        </div>
-                        <span class="badge-21st badge-21st-violet font-mono-code">BR-12 &middot; BR-15/16/17</span>
-                    </div>
-                    <h4 class="h5 fw-bold mb-2">Penilaian Hibrida (Otomatis &amp; Guru) + Laporan 14 Hari</h4>
+            <div class="col-md-6" data-motion-item>
+                <div class="mentora-feature-card">
+                    <h4 class="h5 fw-bold mb-2">Transparan bagi Orang Tua</h4>
                     <p class="text-secondary small mb-0">
-                        Soal Pilihan Ganda dan Isian Singkat dinilai seketika oleh sistem, soal Esai dan Tugas Mandiri dievaluasi Guru Pengampu, disertai penerbitan <em>Invoice</em> PDF <code>ReportLab</code> dan laporan progres orang tua tiap {{ interval_laporan_hari|default:14 }} hari.
+                        Pembayaran paket dilakukan oleh orang tua melalui tautan aman di email yang berlaku selama {{ masa_berlaku_token_jam|default:72 }} jam. Setiap {{ interval_laporan_hari|default:14 }} hari, orang tua juga menerima email berisi ringkasan materi dan nilai anak.
                     </p>
-                </div>
-
-                <!-- Mini-UI Visual: Grading + Report Split -->
-                <div class="mentora-bento-visual">
-                    <div class="row g-2">
-                        <div class="col-sm-6">
-                            <div class="mentora-mini-node h-100">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fw-bold text-dark">Evaluasi Akademik</span>
-                                    <span class="font-mono-code text-primary fw-bold">Gradebook</span>
-                                </div>
-                                <div class="text-secondary" style="font-size: 0.74rem;">
-                                    PG/Isian Instan + Umpan Balik Esai Guru &amp; 4 Lencana (<code>BR-14</code>)
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="mentora-mini-node h-100">
-                                <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fw-bold text-dark">Dokumen &amp; Laporan</span>
-                                    <span class="font-mono-code text-success fw-bold">ReportLab</span>
-                                </div>
-                                <div class="text-secondary" style="font-size: 0.74rem;">
-                                    Invoice PDF Resmi &amp; Email Laporan Ortu Tiap {{ interval_laporan_hari|default:14 }} Hari
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -418,15 +322,14 @@
 </section>
 
 <!-- ======================================================================
-     3. ALUR BELAJAR 4 TAHAP (SEQUENTIAL PIPELINE)
+     3. ALUR BELAJAR 4 LANGKAH
      ====================================================================== -->
 <section class="mentora-section mentora-section-white" id="alur-belajar">
     <div class="container">
-        <div class="mb-4" style="max-width: 680px;" data-motion-reveal>
-            <span class="badge-21st badge-21st-primary mb-2">Alur Kerja Terstruktur</span>
-            <h2 class="fw-bold display-6 mb-2">Empat Langkah Menuju Ketuntasan Materi</h2>
+        <div class="mb-4" style="max-width: 640px;" data-motion-reveal>
+            <h2 class="fw-bold display-6 mb-2">Cara Mulai Belajar di Mentora</h2>
             <p class="text-secondary mb-0">
-                Setiap tahapan di Mentora-LMS mengikuti urutan sistematis dari pemetaan profil awal hingga evaluasi berkala.
+                Empat langkah sederhana dari pendaftaran akun sampai materi siap dipelajari.
             </p>
         </div>
 
@@ -434,40 +337,40 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <span class="mentora-step-num">Tahap 1 &middot; UC-01/08</span>
-                        <h5 class="fw-bold mb-2">Registrasi &amp; Pilih Paket</h5>
+                        <span class="mentora-step-num">Langkah 1</span>
+                        <h5 class="fw-bold mb-2">Daftar &amp; Isi Kuesioner</h5>
                         <p class="text-secondary small mb-0">
-                            Siswa Kelas X–XII mendaftarkan akun beserta email orang tua, memilih paket satuan atau bundel di keranjang, lalu orang tua menyetujui pembayaran via tautan token.
+                            Buat akun siswa dengan memasukkan kelas dan email orang tua, lalu pilih mata pelajaran favorit serta tujuan belajarmu.
                         </p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <span class="mentora-step-num">Tahap 2 &middot; UC-03</span>
-                        <h5 class="fw-bold mb-2">Kuesioner &amp; Tes Diagnostik</h5>
+                        <span class="mentora-step-num">Langkah 2</span>
+                        <h5 class="fw-bold mb-2">Kerjakan Tes Diagnostik</h5>
                         <p class="text-secondary small mb-0">
-                            Siswa menentukan tujuan belajar (<strong>UTBK</strong>, <strong>Nilai Rapor</strong>, atau <strong>Olimpiade</strong>) dan mengerjakan kuis diagnostik 10 soal pilihan ganda per mapel.
+                            Jawab soal-soal pilihan ganda singkat untuk memetakan pemahaman awalmu dan melihat rekomendasi mapel prioritas.
                         </p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <span class="mentora-step-num">Tahap 3 &middot; UC-10/12</span>
-                        <h5 class="fw-bold mb-2">Belajar di Jalur Adaptif</h5>
+                        <span class="mentora-step-num">Langkah 3</span>
+                        <h5 class="fw-bold mb-2">Pilih Paket &amp; Aktivasi</h5>
                         <p class="text-secondary small mb-0">
-                            Model <em>Decision Tree</em> merekomendasikan mapel prioritas. Siswa mempelajari modul Dasar atau langsung melompat ke modul Lanjutan bila skor <em>Pretest</em> &ge; {{ batas_lulus_pretest|default:85 }}.
+                            Pilih paket mata pelajaran atau bundel sesuai kebutuhan. Rincian tagihan akan dikirim ke email orang tua untuk disetujui.
                         </p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <span class="mentora-step-num">Tahap 4 &middot; UC-14/18</span>
-                        <h5 class="fw-bold mb-2">Evaluasi &amp; Laporan Ortu</h5>
+                        <span class="mentora-step-num">Langkah 4</span>
+                        <h5 class="fw-bold mb-2">Pelajari Materi &amp; Latihan</h5>
                         <p class="text-secondary small mb-0">
-                            Siswa mengerjakan latihan kuis dan tugas mandiri yang dikoreksi Guru Pengampu, meraih lencana <em>Achievement</em>, dan orang tua menerima laporan tiap {{ interval_laporan_hari|default:14 }} hari.
+                            Akses modul belajar, kerjakan kuis latihan maupun tugas mandiri, dan pantau terus peningkatan nilaimu di dasbor.
                         </p>
                     </div>
                 </div>
@@ -477,22 +380,21 @@
 </section>
 
 <!-- ======================================================================
-     4. KATALOG 7 MATA PELAJARAN KURIKULUM MERDEKA (AI-03)
+     4. KATALOG 7 MATA PELAJARAN KURIKULUM MERDEKA
      ====================================================================== -->
 <section class="mentora-section mentora-section-subtle" id="katalog-mapel">
     <div class="container">
         <div class="row justify-content-between align-items-end mb-4 gy-3" data-motion-reveal>
             <div class="col-lg-7">
-                <span class="badge-21st badge-21st-emerald font-mono-code mb-2">Katalog Kurikulum &middot; AI-03</span>
-                <h2 class="fw-bold display-6 mb-2">Tujuh Mata Pelajaran Kurikulum Merdeka</h2>
+                <h2 class="fw-bold display-6 mb-2">Tujuh Mata Pelajaran SMA</h2>
                 <p class="mentora-prose mb-0">
-                    Seluruh 7 mata pelajaran inti SMA dibagi ke dalam modul <strong>Level Dasar</strong> dan <strong>Level Lanjutan</strong> lengkap dengan materi teks, unduhan PDF, kuis diagnostik, latihan, dan tugas mandiri.
+                    Seluruh materi disusun mengikuti Kurikulum Merdeka dan dibagi menjadi <strong>Modul Dasar</strong> serta <strong>Modul Lanjutan</strong>.
                 </p>
             </div>
             <div class="col-lg-5 d-flex justify-content-lg-end">
                 <div class="mentora-filter-pill-group" data-sliding-group role="group" aria-label="Filter kategori mata pelajaran">
                     <span class="mentora-sliding-pill mentora-sliding-pill-dark" aria-hidden="true"></span>
-                    <button type="button" class="mapel-filter-btn active" data-filter="all">Semua (7 Mapel)</button>
+                    <button type="button" class="mapel-filter-btn active" data-filter="all">Semua (7)</button>
                     <button type="button" class="mapel-filter-btn" data-filter="sains">MIPA &amp; Sains (4)</button>
                     <button type="button" class="mapel-filter-btn" data-filter="bahasa">Bahasa &amp; Umum (3)</button>
                 </div>
@@ -500,22 +402,21 @@
         </div>
 
         <div class="row g-4" id="mapelCatalogGrid" data-motion-stagger>
-            <!-- 7 Official SKPL Subjects (AI-03 & BR-01) -->
             <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-MTK</span>
-                            <span class="badge-21st badge-21st-primary font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Matematika</h5>
                         <p class="text-secondary small mb-3">
-                            Aljabar fungsi, kalkulus dasar, peluang, geometri analitik, dan penalaran kuantitatif standar Kurikulum Merdeka &amp; UTBK.
+                            Aljabar dasar, fungsi kuadrat, kalkulus, peluang, dan latihan penalaran kuantitatif untuk persiapan ujian.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">PG &middot; Isian &middot; Esai</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Materi PDF &amp; Latihan</span>
                     </div>
                 </div>
             </div>
@@ -525,16 +426,16 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-FIS</span>
-                            <span class="badge-21st badge-21st-primary font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Fisika</h5>
                         <p class="text-secondary small mb-3">
-                            Kinematika, dinamika rotasi, fluida, termodinamika, rangkaian listrik arus searah/bolak-balik, dan gelombang elektromagnetik.
+                            Gerak lurus, dinamika partikel dan hukum Newton, fluida, kalor, serta kelistrikan.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">Eksperimen &amp; Tugas</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Kuis &amp; Tugas Analisis</span>
                     </div>
                 </div>
             </div>
@@ -544,16 +445,16 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-KIM</span>
-                            <span class="badge-21st badge-21st-primary font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Kimia</h5>
                         <p class="text-secondary small mb-3">
-                            Struktur atom, stoikiometri reaksi, laju reaksi, kesetimbangan asam-basa, termokimia, elektrokimia, dan senyawa karbon.
+                            Struktur atom, stoikiometri, laju reaksi, kesetimbangan asam-basa, termokimia, dan senyawa karbon.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">PG &middot; Isian &middot; Esai</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Materi &amp; Soal Latihan</span>
                     </div>
                 </div>
             </div>
@@ -563,16 +464,16 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-BIO</span>
-                            <span class="badge-21st badge-21st-primary font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Biologi</h5>
                         <p class="text-secondary small mb-3">
-                            Biologi sel dan molekuler, metabolisme enzim, pewarisan sifat genetika, sistem organ manusia, dan inovasi bioteknologi.
+                            Biologi sel, metabolisme, genetika, sistem organ tubuh manusia, ekologi, dan bioteknologi.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">Ilustrasi &amp; PDF</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Ilustrasi &amp; Rangkuman</span>
                     </div>
                 </div>
             </div>
@@ -582,16 +483,16 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-BIN</span>
-                            <span class="badge-21st badge-21st-emerald font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Bahasa Indonesia</h5>
                         <p class="text-secondary small mb-3">
-                            Literasi membaca teks informasi dan sastra, penalaran induktif-deduktif, tata bahasa baku PUEBI/EYD, dan penulisan argumen.
+                            Pemahaman bacaan, analisis teks informasi dan sastra, kaidah ejaan, serta penulisan paragraf argumentatif.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">Literasi &amp; Esai</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Literasi &amp; Esai</span>
                     </div>
                 </div>
             </div>
@@ -601,16 +502,16 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-BIG</span>
-                            <span class="badge-21st badge-21st-emerald font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Bahasa Inggris</h5>
                         <p class="text-secondary small mb-3">
-                            Reading comprehension akademik, inferensi wacana, evaluasi struktur kalimat, dan penulisan esai bahasa Inggris.
+                            Penguasaan grammar dasar (tenses), reading comprehension, kosakata akademik, dan latihan menulis.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">Fokus SNBT &amp; Rapor</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Reading &amp; Writing</span>
                     </div>
                 </div>
             </div>
@@ -620,16 +521,16 @@
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-PPK</span>
-                            <span class="badge-21st badge-21st-amber font-tabular">Rp 50.000 / bln</span>
+                            <span class="text-primary fw-semibold small">Rp 50.000 / bln</span>
                         </div>
                         <h5 class="fw-bold mb-2">Pendidikan Pancasila</h5>
                         <p class="text-secondary small mb-3">
-                            Filsafat Pancasila, konstitusi UUD NRI Tahun 1945, Bhinneka Tunggal Ika, sistem hukum, dan ketatanegaraan NKRI.
+                            Nilai-nilai Pancasila, konstitusi UUD NRI Tahun 1945, Bhinneka Tunggal Ika, dan ketatanegaraan.
                         </p>
                     </div>
-                    <div class="pt-3 border-top d-flex flex-wrap justify-content-between align-items-center gap-2 small">
-                        <span class="text-muted">Modul Dasar &amp; Lanjutan</span>
-                        <span class="badge-21st">Studi Kasus &amp; Tugas</span>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-muted">
+                        <span>Dasar &amp; Lanjutan</span>
+                        <span>Studi Kasus &amp; Tugas</span>
                     </div>
                 </div>
             </div>
@@ -638,19 +539,15 @@
 </section>
 
 <!-- ======================================================================
-     5. 21st.dev TIERED PRICING SHOWCASE & PRICINGSERVICE CALCULATOR (BR-01..18)
+     5. PILIHAN PAKET & KALKULATOR BIAYA LANGGANAN
      ====================================================================== -->
 <section class="mentora-section mentora-section-white" id="kalkulator-langganan">
     <div class="container">
-        <!-- Header + Quick Billing Duration Toggle Pills -->
         <div class="row justify-content-between align-items-end mb-4 gy-3" data-motion-reveal>
             <div class="col-lg-7">
-                <span class="badge-21st badge-21st-amber font-mono-code mb-2">
-                    Tabel Resmi BR-01 &middot; Diskon Durasi {{ durasi_diskon|default:12 }} Bulan = {{ persen_diskon|default:20 }}% (BR-04)
-                </span>
-                <h2 class="fw-bold display-6 mb-2">Daftar Paket Belajar &amp; Kalkulator Diskon 12 Bulan</h2>
+                <h2 class="fw-bold display-6 mb-2">Pilihan Paket Belajar</h2>
                 <p class="mentora-prose mb-0">
-                    Pilih <strong>3 Paket Bundel Unggulan</strong> atau <strong>7 Paket Satuan Mata Pelajaran</strong> dengan durasi fleksibel <strong>{{ durasi_min|default:1 }}–{{ durasi_max|default:12 }} bulan</strong>. Berlangganan tepat <strong>{{ durasi_diskon|default:12 }} bulan</strong> otomatis mendapatkan potongan <strong>{{ persen_diskon|default:20 }}%</strong>.
+                    Bisa pilih paket per mata pelajaran atau paket bundel yang lebih hemat. Ambil durasi <strong>{{ durasi_diskon|default:12 }} bulan</strong> untuk mendapatkan potongan langsung sebesar <strong>{{ persen_diskon|default:20 }}%</strong>.
                 </p>
             </div>
             <div class="col-lg-5 d-flex justify-content-lg-end">
@@ -659,34 +556,29 @@
                     <button type="button" class="mentora-duration-preset" data-months="1">1 Bln</button>
                     <button type="button" class="mentora-duration-preset" data-months="3">3 Bln</button>
                     <button type="button" class="mentora-duration-preset" data-months="6">6 Bln</button>
-                    <button type="button" class="mentora-duration-preset active" data-months="12">12 Bln &middot; Hemat 20%</button>
+                    <button type="button" class="mentora-duration-preset active" data-months="12">12 Bln (-20%)</button>
                 </div>
             </div>
         </div>
 
-        <!-- 21st.dev 3 Featured Bundle Tier Cards (BDL-BHS, BDL-SAINS, BDL-FULL) -->
+        <!-- 3 Paket Bundel -->
         <div class="row g-4 mb-4 align-items-stretch" data-motion-stagger>
-            <!-- Tier 1: Bundel Bahasa (BDL-BHS) -->
             <div class="col-lg-4" data-motion-item>
                 <button type="button"
                         class="mentora-tier-card calc-paket-btn"
                         data-kode="BDL-BHS"
-                        data-nama="Bundel Bahasa (BIN & BIG)"
+                        data-nama="Bundel Bahasa (Indonesia & Inggris)"
                         data-jenis="bundel"
                         data-harga="80000">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="font-mono-code fw-bold text-primary small">BDL-BHS</span>
-                            <span class="badge-21st">2 Mata Pelajaran</span>
+                            <span class="badge bg-light text-dark border">2 Mapel</span>
                         </div>
                         <h4 class="fw-bold mb-1">Bundel Bahasa</h4>
                         <p class="text-secondary small mb-3">
-                            Fokus penguasaan literasi teks informasi, sastra, dan <em>reading comprehension</em> SNBT.
+                            Gabungan Bahasa Indonesia dan Bahasa Inggris untuk penguatan literasi dan persiapan ujian.
                         </p>
-                        <div class="d-flex flex-wrap gap-1 mb-3">
-                            <span class="badge-21st badge-21st-emerald font-mono-code">MAP-BIN</span>
-                            <span class="badge-21st badge-21st-emerald font-mono-code">MAP-BIG</span>
-                        </div>
                     </div>
                     <div class="pt-3 border-top w-100">
                         <div class="d-flex align-items-baseline justify-content-between">
@@ -694,35 +586,28 @@
                                 <span class="font-tabular fw-bold fs-4 text-dark">Rp 80.000</span>
                                 <span class="text-muted small">/ bulan</span>
                             </div>
-                            <span class="small fw-semibold text-primary">Pilih Paket &rarr;</span>
+                            <span class="small fw-semibold text-primary">Hitung Biaya &rarr;</span>
                         </div>
                     </div>
                 </button>
             </div>
 
-            <!-- Tier 2 (Featured Center Card): Bundel Sains (BDL-SAINS) -->
             <div class="col-lg-4" data-motion-item>
                 <button type="button"
                         class="mentora-tier-card is-featured active calc-paket-btn"
                         data-kode="BDL-SAINS"
-                        data-nama="Bundel Sains (MTK, FIS, KIM, BIO)"
+                        data-nama="Bundel Sains (Matematika, Fisika, Kimia, Biologi)"
                         data-jenis="bundel"
                         data-harga="150000">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="font-mono-code fw-bold text-primary small">BDL-SAINS</span>
-                            <span class="badge-21st badge-21st-primary">Paling Populer &middot; 4 Mapel</span>
+                            <span class="badge bg-primary text-white">Paling Diminati &middot; 4 Mapel</span>
                         </div>
-                        <h4 class="fw-bold mb-1">Bundel Sains &amp; MIPA</h4>
+                        <h4 class="fw-bold mb-1">Bundel Sains</h4>
                         <p class="text-secondary small mb-3">
-                            Paket lengkap rumpun IPA untuk persiapan intensif UTBK Saintek, nilai rapor, &amp; olimpiade.
+                            Mencakup Matematika, Fisika, Kimia, dan Biologi. Lebih hemat dibanding beli satuan.
                         </p>
-                        <div class="d-flex flex-wrap gap-1 mb-3">
-                            <span class="badge-21st badge-21st-primary font-mono-code">MAP-MTK</span>
-                            <span class="badge-21st badge-21st-primary font-mono-code">MAP-FIS</span>
-                            <span class="badge-21st badge-21st-primary font-mono-code">MAP-KIM</span>
-                            <span class="badge-21st badge-21st-primary font-mono-code">MAP-BIO</span>
-                        </div>
                     </div>
                     <div class="pt-3 border-top w-100">
                         <div class="d-flex align-items-baseline justify-content-between">
@@ -730,34 +615,28 @@
                                 <span class="font-tabular fw-bold fs-4 text-primary">Rp 150.000</span>
                                 <span class="text-muted small">/ bulan</span>
                             </div>
-                            <span class="badge-21st badge-21st-amber">Hemat Rp 50rb/bln</span>
+                            <span class="small fw-semibold text-primary">Hitung Biaya &rarr;</span>
                         </div>
                     </div>
                 </button>
             </div>
 
-            <!-- Tier 3: Bundel Lengkap (BDL-FULL) -->
             <div class="col-lg-4" data-motion-item>
                 <button type="button"
                         class="mentora-tier-card calc-paket-btn"
                         data-kode="BDL-FULL"
-                        data-nama="Bundel Lengkap 7 Mata Pelajaran"
+                        data-nama="Bundel Lengkap (Semua 7 Mata Pelajaran)"
                         data-jenis="bundel"
                         data-harga="250000">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="font-mono-code fw-bold text-primary small">BDL-FULL</span>
-                            <span class="badge-21st badge-21st-emerald">Akses Penuh &middot; 7 Mapel</span>
+                            <span class="badge bg-success-subtle text-success border">Semua 7 Mapel</span>
                         </div>
-                        <h4 class="fw-bold mb-1">Bundel Lengkap SMA</h4>
+                        <h4 class="fw-bold mb-1">Bundel Lengkap</h4>
                         <p class="text-secondary small mb-3">
-                            Akses tak terbatas ke seluruh 7 mata pelajaran Kurikulum Merdeka (Sains, Bahasa, &amp; Pancasila).
+                            Akses penuh ke ketujuh mata pelajaran SMA tanpa terkecuali.
                         </p>
-                        <div class="d-flex flex-wrap gap-1 mb-3">
-                            <span class="badge-21st">4 Mapel Sains</span>
-                            <span class="badge-21st">2 Mapel Bahasa</span>
-                            <span class="badge-21st">Pancasila</span>
-                        </div>
                     </div>
                     <div class="pt-3 border-top w-100">
                         <div class="d-flex align-items-baseline justify-content-between">
@@ -765,116 +644,105 @@
                                 <span class="font-tabular fw-bold fs-4 text-dark">Rp 250.000</span>
                                 <span class="text-muted small">/ bulan</span>
                             </div>
-                            <span class="badge-21st badge-21st-emerald">Hemat Rp 100rb/bln</span>
+                            <span class="small fw-semibold text-primary">Hitung Biaya &rarr;</span>
                         </div>
                     </div>
                 </button>
             </div>
         </div>
 
-        <!-- Bottom Row: 7 Single-Subject Packages + Interactive Slider + Live PricingService Receipt -->
+        <!-- Baris Bawah: Paket Satuan + Kalkulator Simulasi Tagihan -->
         <div class="row g-4 align-items-stretch">
-            <!-- Left: 7 Paket Satuan (MAP-*) & Slider Durasi 1-12 Bulan -->
             <div class="col-lg-7" data-motion-reveal>
                 <div class="card border rounded-4 p-4 h-100 shadow-sm bg-white d-flex flex-column justify-content-between">
                     <div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h5 class="fw-bold mb-0">Atau Pilih Paket Satuan Mata Pelajaran</h5>
-                                <p class="text-secondary small mb-0">Setiap paket satuan berharga tetap <code>Rp 50.000 / bulan</code> sesuai tabel <code>BR-01</code>.</p>
-                            </div>
-                            <span class="badge-21st">7 Mapel Satuan</span>
+                        <div class="mb-3">
+                            <h5 class="fw-bold mb-1">Atau Pilih Paket Satuan (Rp 50.000 / bulan)</h5>
+                            <p class="text-secondary small mb-0">Klik salah satu mata pelajaran di bawah untuk menghitung estimasi biayanya.</p>
                         </div>
 
                         <div class="row g-2 mb-4" id="calcPaketGrid">
                             <div class="col-6 col-sm-3">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-MTK"
-                                        data-nama="Paket Satuan Matematika"
-                                        data-jenis="satuan"
+                                        data-nama="Matematika"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-MTK</div>
                                     <div class="fw-bold text-dark small">Matematika</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
                                 </button>
                             </div>
                             <div class="col-6 col-sm-3">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-FIS"
-                                        data-nama="Paket Satuan Fisika"
-                                        data-jenis="satuan"
+                                        data-nama="Fisika"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-FIS</div>
                                     <div class="fw-bold text-dark small">Fisika</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
                                 </button>
                             </div>
                             <div class="col-6 col-sm-3">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-KIM"
-                                        data-nama="Paket Satuan Kimia"
-                                        data-jenis="satuan"
+                                        data-nama="Kimia"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-KIM</div>
                                     <div class="fw-bold text-dark small">Kimia</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
                                 </button>
                             </div>
                             <div class="col-6 col-sm-3">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-BIO"
-                                        data-nama="Paket Satuan Biologi"
-                                        data-jenis="satuan"
+                                        data-nama="Biologi"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-BIO</div>
                                     <div class="fw-bold text-dark small">Biologi</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
                                 </button>
                             </div>
                             <div class="col-6 col-sm-4">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-BIN"
-                                        data-nama="Paket Satuan Bahasa Indonesia"
-                                        data-jenis="satuan"
+                                        data-nama="Bahasa Indonesia"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-BIN</div>
-                                    <div class="fw-bold text-dark small">Bahasa Indonesia</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
+                                    <div class="fw-bold text-dark small">B. Indonesia</div>
                                 </button>
                             </div>
                             <div class="col-6 col-sm-4">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-BIG"
-                                        data-nama="Paket Satuan Bahasa Inggris"
-                                        data-jenis="satuan"
+                                        data-nama="Bahasa Inggris"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-BIG</div>
-                                    <div class="fw-bold text-dark small">Bahasa Inggris</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
+                                    <div class="fw-bold text-dark small">B. Inggris</div>
                                 </button>
                             </div>
                             <div class="col-12 col-sm-4">
                                 <button type="button" class="mentora-paket-option calc-paket-btn"
                                         data-kode="MAP-PPK"
-                                        data-nama="Paket Satuan Pendidikan Pancasila"
-                                        data-jenis="satuan"
+                                        data-nama="Pendidikan Pancasila"
+                                        data-jenis="mapel"
                                         data-harga="50000">
                                     <div class="font-mono-code fw-bold text-primary" style="font-size: 0.72rem;">MAP-PPK</div>
-                                    <div class="fw-bold text-dark small">Pend. Pancasila</div>
-                                    <div class="font-tabular text-muted" style="font-size: 0.75rem;">Rp 50.000/bln</div>
+                                    <div class="fw-bold text-dark small">Pancasila</div>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Fine-Grained 1-12 Months Slider -->
+                    <!-- Slider Durasi 1-12 Bulan -->
                     <div class="p-3 rounded-3 bg-light border">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <label for="calcDurationRange" class="fw-bold small text-dark mb-0">
-                                Kustomisasi Durasi Langganan ({{ durasi_min|default:1 }}–{{ durasi_max|default:12 }} Bulan)
+                                Atur Durasi Langganan ({{ durasi_min|default:1 }}–{{ durasi_max|default:12 }} Bulan)
                             </label>
                             <span id="calcDurationBadge" class="badge bg-warning text-dark font-tabular px-2 py-1">
-                                12 Bulan (Hemat {{ persen_diskon|default:20 }}%)
+                                12 Bulan (Diskon {{ persen_diskon|default:20 }}%)
                             </span>
                         </div>
                         <input
@@ -891,23 +759,23 @@
                             <span>3 Bln</span>
                             <span>6 Bln</span>
                             <span>9 Bln</span>
-                            <span class="fw-bold text-primary">12 Bln (Diskon {{ persen_diskon|default:20 }}%)</span>
+                            <span class="fw-bold text-primary">12 Bln (Hemat {{ persen_diskon|default:20 }}%)</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right: Dark Obsidian PricingService Receipt Panel -->
+            <!-- Kanan: Ringkasan Estimasi Tagihan -->
             <div class="col-lg-5" data-motion-reveal>
                 <div id="calcReceiptPanel" class="mentora-calc-panel h-100 d-flex flex-column justify-content-between">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="font-mono-code small text-info">Simulasi PricingService (BR-05)</span>
-                            <span class="font-mono-code small px-2 py-1 rounded bg-white bg-opacity-10 text-white">INV-20261026-0001</span>
+                            <span class="small text-info fw-semibold">Ringkasan Biaya Paket</span>
+                            <span class="font-mono-code small px-2 py-1 rounded bg-white bg-opacity-10 text-white" id="calcSelectedKode">BDL-SAINS</span>
                         </div>
-                        <h4 class="text-white fw-bold mb-1" id="calcSelectedName">Bundel Sains (MTK, FIS, KIM, BIO)</h4>
+                        <h4 class="text-white fw-bold mb-1" id="calcSelectedName">Bundel Sains (Matematika, Fisika, Kimia, Biologi)</h4>
                         <p class="small mb-4" style="color: #94A3B8;">
-                            Kode Paket: <code class="text-white" id="calcSelectedKode">BDL-SAINS</code> &middot; Jenis: <span id="calcSelectedJenis" class="text-uppercase font-mono-code">bundel</span>
+                            Kategori: <span id="calcSelectedJenis" class="text-uppercase">bundel</span>
                         </p>
 
                         <div class="mentora-calc-receipt mb-4">
@@ -916,7 +784,7 @@
                                 <span class="font-tabular fw-semibold text-white" id="calcHargaBulan">Rp 150.000</span>
                             </div>
                             <div class="d-flex justify-content-between small mb-2" style="color: #CBD5E1;">
-                                <span>Durasi Langganan</span>
+                                <span>Durasi</span>
                                 <span class="font-tabular fw-semibold text-white" id="calcDurasiText">12 Bulan</span>
                             </div>
                             <div class="d-flex justify-content-between small mb-2" style="color: #CBD5E1;">
@@ -924,27 +792,26 @@
                                 <span class="font-tabular fw-semibold text-white" id="calcSubtotal">Rp 1.800.000</span>
                             </div>
                             <div class="d-flex justify-content-between small pb-3 mb-3 border-bottom border-secondary border-opacity-50" id="calcDiscountRow">
-                                <span class="text-warning fw-semibold">Diskon Durasi 12 Bulan (20%)</span>
+                                <span class="text-warning fw-semibold">Potongan 12 Bulan (20%)</span>
                                 <span class="font-tabular text-warning fw-bold" id="calcDiskonNominal">- Rp 360.000</span>
                             </div>
                             <div class="d-flex justify-content-between align-items-baseline">
-                                <span class="fw-bold text-white">Total Tagihan</span>
+                                <span class="fw-bold text-white">Total Pembayaran</span>
                                 <span class="font-tabular fw-bold fs-3 text-white" id="calcTotal">Rp 1.440.000</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <div class="p-3 rounded-3 mb-3 small" style="background: rgba(255,255,255,0.06); color: #CBD5E1;">
-                            <div class="fw-semibold text-white mb-1">Alur Persetujuan Orang Tua (BR-07 &amp; BR-10):</div>
-                            Saat tagihan dibuat, sistem mengirimkan tautan token pembayaran (berlaku <strong>{{ masa_berlaku_token_jam|default:72 }} jam</strong>) ke email orang tua. Setelah disetujui &amp; dibayar, langganan aktif dan <em>Invoice PDF</em> diterbitkan.
-                        </div>
+                        <p class="small mb-3" style="color: #CBD5E1;">
+                            Di dalam akun siswa, kamu juga bisa menggabungkan beberapa paket sekaligus dalam satu keranjang sebelum mengirim tagihan ke email orang tua.
+                        </p>
                         <div class="d-flex gap-2">
                             <a href="{% url 'daftar' %}" class="btn btn-mentora-outline rounded-pill flex-grow-1 py-2">
-                                Daftar Siswa
+                                Daftar Akun
                             </a>
                             <a href="{% url 'masuk' %}" class="btn btn-mentora-primary rounded-pill flex-grow-1 py-2">
-                                Masuk &amp; Pilih Paket
+                                Masuk &amp; Langganan
                             </a>
                         </div>
                     </div>
@@ -955,21 +822,17 @@
 </section>
 
 <!-- ======================================================================
-     6. LENCANA PENCAPAIAN (ACHIEVEMENTS) & KREDENSIAL AKUN UJI DEMO
+     6. LENCANA BELAJAR & AKUN DEMO PENGUJIAN
      ====================================================================== -->
 <section class="mentora-section mentora-section-subtle" id="akun-uji">
     <div class="container">
         <div class="row g-4 align-items-stretch">
-            <!-- Left: 4 Lencana Achievement -->
+            <!-- Kiri: 4 Lencana Pencapaian Sesuai SKPL & Database -->
             <div class="col-lg-6" data-motion-reveal>
                 <div class="card border rounded-4 p-4 h-100 bg-white shadow-sm">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="badge-21st badge-21st-amber font-mono-code">Gamifikasi &middot; UC-15</span>
-                        <span class="small text-muted fw-semibold">4 Lencana Otomatis</span>
-                    </div>
-                    <h3 class="fw-bold mb-2">Empat Lencana Pencapaian Siswa</h3>
+                    <h3 class="fw-bold mb-2">Lencana Pencapaian Belajar</h3>
                     <p class="text-secondary small mb-4">
-                        <code>AchievementService</code> memeriksa syarat pencapaian siswa secara otomatis setiap kali menyelesaikan materi, kuis, maupun tugas mandiri.
+                        Kumpulkan keempat lencana ini seiring ketekunanmu menyelesaikan materi dan latihan soal di Mentora.
                     </p>
 
                     <div class="row g-3" data-motion-stagger>
@@ -977,7 +840,6 @@
                             {% for ach in daftar_achievement %}
                                 <div class="col-sm-6" data-motion-item>
                                     <div class="p-3 rounded-3 border bg-light h-100">
-                                        <span class="badge-21st badge-21st-primary font-mono-code mb-2">{{ ach.kode }}</span>
                                         <h6 class="fw-bold mb-1">{{ ach.nama }}</h6>
                                         <p class="small text-secondary mb-0">{{ ach.deskripsi }}</p>
                                     </div>
@@ -986,30 +848,26 @@
                         {% else %}
                             <div class="col-sm-6" data-motion-item>
                                 <div class="p-3 rounded-3 border bg-light h-100">
-                                    <span class="badge-21st badge-21st-primary font-mono-code mb-2">ACH-01</span>
-                                    <h6 class="fw-bold mb-1">Langkah Pertama</h6>
-                                    <p class="small text-secondary mb-0">Menyelesaikan kuesioner minat dan tes diagnostik pertama untuk pemetaan belajar.</p>
+                                    <h6 class="fw-bold mb-1 text-primary">Langkah Pertama</h6>
+                                    <p class="small text-secondary mb-0">Menyelesaikan materi pertama.</p>
                                 </div>
                             </div>
                             <div class="col-sm-6" data-motion-item>
                                 <div class="p-3 rounded-3 border bg-light h-100">
-                                    <span class="badge-21st badge-21st-emerald font-mono-code mb-2">ACH-02</span>
-                                    <h6 class="fw-bold mb-1">Penakluk Pretest</h6>
-                                    <p class="small text-secondary mb-0">Meraih skor tes diagnostik &ge; {{ batas_lulus_pretest|default:85 }} dan membuka modul Level Lanjutan.</p>
+                                    <h6 class="fw-bold mb-1 text-success">Naik Level</h6>
+                                    <p class="small text-secondary mb-0">Membuka modul lanjutan pertama.</p>
                                 </div>
                             </div>
                             <div class="col-sm-6" data-motion-item>
                                 <div class="p-3 rounded-3 border bg-light h-100">
-                                    <span class="badge-21st badge-21st-amber font-mono-code mb-2">ACH-03</span>
-                                    <h6 class="fw-bold mb-1">Tuntas Modul</h6>
-                                    <p class="small text-secondary mb-0">Menuntaskan seluruh materi dan lulus kuis dasar dengan skor minimal {{ batas_lulus_kuis|default:75 }}.</p>
+                                    <h6 class="fw-bold mb-1 text-warning">Nilai Sempurna</h6>
+                                    <p class="small text-secondary mb-0">Mendapat skor otomatis 100 di satu kuis.</p>
                                 </div>
                             </div>
                             <div class="col-sm-6" data-motion-item>
                                 <div class="p-3 rounded-3 border bg-light h-100">
-                                    <span class="badge-21st font-mono-code mb-2">ACH-04</span>
-                                    <h6 class="fw-bold mb-1">Disiplin Tepat Waktu</h6>
-                                    <p class="small text-secondary mb-0">Mengumpulkan tugas mandiri sebelum tenggat waktu dengan evaluasi baik.</p>
+                                    <h6 class="fw-bold mb-1 text-dark">Rajin Belajar</h6>
+                                    <p class="small text-secondary mb-0">Menyelesaikan 10 materi pembelajaran.</p>
                                 </div>
                             </div>
                         {% endif %}
@@ -1017,17 +875,16 @@
                 </div>
             </div>
 
-            <!-- Right: Panel Kredensial Uji Demo -->
+            <!-- Kanan: Akun Demo untuk Pengujian -->
             <div class="col-lg-6" data-motion-reveal>
                 <div class="card border rounded-4 p-4 h-100 bg-white shadow-sm d-flex flex-column justify-content-between">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="badge-21st badge-21st-primary font-mono-code">Lingkungan Pengujian &middot; UC-02</span>
+                            <h3 class="fw-bold mb-0">Akun Contoh (Demo)</h3>
                             <span class="badge bg-dark font-mono-code">Sandi: Mentora123!</span>
                         </div>
-                        <h3 class="fw-bold mb-2">Siap Menguji Mentora-LMS?</h3>
                         <p class="text-secondary small mb-3">
-                            Gunakan akun pengujian di bawah ini untuk masuk sebagai <strong>Siswa</strong>, <strong>Guru Pengampu</strong>, atau <strong>Admin</strong>. Sistem autentikasi memverifikasi hash <code>bcrypt</code> dan mengarahkan Anda otomatis ke dasbor sesuai peran.
+                            Untuk keperluan demo dan pengujian, silakan masuk menggunakan salah satu akun contoh berikut:
                         </p>
 
                         <div class="mentora-demo-box mb-4">
@@ -1036,25 +893,25 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th class="ps-3 py-2">Peran</th>
-                                            <th class="py-2">Email Akun</th>
-                                            <th class="pe-3 py-2">Rute Dasbor</th>
+                                            <th class="py-2">Email</th>
+                                            <th class="pe-3 py-2">Halaman Tujuan</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="font-mono-code">
+                                    <tbody>
                                         <tr>
-                                            <td class="ps-3 py-2"><span class="badge-21st badge-21st-primary">SISWA</span></td>
-                                            <td class="py-2">andi.pratama@mentora.id</td>
-                                            <td class="pe-3 py-2 text-muted">/siswa/</td>
+                                            <td class="ps-3 py-2"><span class="badge bg-primary-subtle text-primary">Siswa</span></td>
+                                            <td class="py-2 font-mono-code">andi.pratama@mentora.id</td>
+                                            <td class="pe-3 py-2 text-muted">Dasbor Siswa</td>
                                         </tr>
                                         <tr>
-                                            <td class="ps-3 py-2"><span class="badge-21st badge-21st-emerald">GURU</span></td>
-                                            <td class="py-2">fajar.nugroho@mentora.id</td>
-                                            <td class="pe-3 py-2 text-muted">/guru/</td>
+                                            <td class="ps-3 py-2"><span class="badge bg-success-subtle text-success">Guru</span></td>
+                                            <td class="py-2 font-mono-code">fajar.nugroho@mentora.id</td>
+                                            <td class="pe-3 py-2 text-muted">Dasbor Guru</td>
                                         </tr>
                                         <tr>
-                                            <td class="ps-3 py-2"><span class="badge-21st">ADMIN</span></td>
-                                            <td class="py-2">admin@mentora.id</td>
-                                            <td class="pe-3 py-2 text-muted">/admin-panel/guru/</td>
+                                            <td class="ps-3 py-2"><span class="badge bg-secondary-subtle text-dark">Admin</span></td>
+                                            <td class="py-2 font-mono-code">admin@mentora.id</td>
+                                            <td class="pe-3 py-2 text-muted">Panel Admin</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1064,7 +921,7 @@
 
                     <div class="d-flex flex-wrap gap-2">
                         <a href="{% url 'masuk' %}" class="btn btn-mentora-primary rounded-pill px-4">
-                            Masuk ke Halaman Login
+                            Masuk Sekarang
                         </a>
                         <a href="{% url 'daftar' %}" class="btn btn-mentora-outline rounded-pill px-3">
                             Daftar Akun
@@ -1102,7 +959,7 @@
     }
 
     /* ======================================================================
-       0. UNIVERSAL SLIDING PILL ENGINE (iOS / 21st.dev layoutId Style)
+       0. SLIDING PILL ENGINE
        ====================================================================== */
     document.documentElement.classList.add("js-sliding-ready");
 
@@ -1142,7 +999,7 @@
     });
 
     /* ======================================================================
-       1. SIMULASI MESIN ADAPTIF (AI-01, BR-08, BR-09, BR-11)
+       1. SIMULASI PENENTUAN MATERI
        ====================================================================== */
     var goalButtons = document.querySelectorAll(".mentora-sim-goal-btn");
     var kelasSelect = document.getElementById("simKelasSelect");
@@ -1151,7 +1008,6 @@
     var recommendedMapelEl = document.getElementById("simRecommendedMapel");
     var recommendationReasonEl = document.getElementById("simRecommendationReason");
     var sourceBadgeEl = document.getElementById("simSourceBadge");
-    var recommendationCardEl = document.getElementById("simRecommendationCard");
     var ruleLabelEl = document.getElementById("simRuleLabel");
     var advancedNodeEl = document.getElementById("simAdvancedNode");
     var advancedDescEl = document.getElementById("simAdvancedDesc");
@@ -1163,38 +1019,38 @@
     var goalRecommendations = {
         utbk: {
             high: {
-                mapel: "MTK — Matematika & FIS — Fisika",
-                reason: "Skor diagnostik kuat. Decision Tree mengarahkan langsung ke latihan penalaran kuantitatif & mekanika Level Lanjutan untuk UTBK.",
-                source: "Sumber: model (Decision Tree)"
+                mapel: "Matematika & Fisika",
+                reason: "Nilai tes awalmu sudah sangat baik. Kamu bisa langsung fokus berlatih soal-soal tingkat lanjutan untuk persiapan UTBK.",
+                source: "Jalur Cepat"
             },
             low: {
-                mapel: "MTK — Matematika & BIN — Bahasa Indonesia",
-                reason: "Fokus penguatan konsep fondasi aljabar dan literasi membaca pada Modul Dasar sebelum membuka soal HOTS UTBK.",
-                source: "Sumber: model (Decision Tree)"
+                mapel: "Matematika & Bahasa Indonesia",
+                reason: "Disarankan memperkuat konsep dasar aljabar dan pemahaman bacaan di Modul Dasar terlebih dahulu.",
+                source: "Penguatan Dasar"
             }
         },
         rapor: {
             high: {
-                mapel: "KIM — Kimia & BIO — Biologi",
-                reason: "Penguasaan konsep dasar terverifikasi. Siswa dapat langsung mendalami studi kasus & tugas esai Level Lanjutan untuk capaian nilai rapor.",
-                source: "Sumber: model (Decision Tree)"
+                mapel: "Kimia & Biologi",
+                reason: "Pemahaman konsep dasar sudah matang. Kamu dapat langsung mempelajari materi lanjutan untuk mendongkrak nilai rapor.",
+                source: "Jalur Cepat"
             },
             low: {
-                mapel: "FIS — Fisika & KIM — Kimia",
-                reason: "Rekomendasi penguatan bertahap melalui Modul Level Dasar dan latihan kuis mingguan (ambang kelulusan kuis >= " + BATAS_KUIS + ").",
-                source: "Sumber: fallback deterministik (BR-11)"
+                mapel: "Fisika & Kimia",
+                reason: "Pelajari materi Modul Dasar secara bertahap dan selesaikan kuis latihan dengan skor minimal " + BATAS_KUIS + ".",
+                source: "Penguatan Dasar"
             }
         },
         olimpiade: {
             high: {
-                mapel: "MTK — Matematika & FIS — Fisika (Olimpiade)",
-                reason: "Skor Pretest melampaui ambang " + BATAS_PRETEST + ". Jalur Fast-Track aktif untuk mengakses soal eksplorasi dan pembuktian.",
-                source: "Sumber: model (Decision Tree)"
+                mapel: "Matematika & Fisika",
+                reason: "Skor tes awal melampaui batas " + BATAS_PRETEST + ". Modul Lanjutan langsung terbuka untuk latihan soal eksplorasi.",
+                source: "Jalur Cepat"
             },
             low: {
-                mapel: "MTK — Matematika & KIM — Kimia",
-                reason: "Menyelesaikan fondasi teori di Modul Dasar terlebih dahulu dengan target skor kuis >= " + BATAS_KUIS + " untuk membuka materi olimpiade.",
-                source: "Sumber: model (Decision Tree)"
+                mapel: "Matematika & Kimia",
+                reason: "Tuntaskan materi fondasi di Modul Dasar hingga mencapai skor kuis minimal " + BATAS_KUIS + " sebelum masuk ke materi lanjutan.",
+                source: "Penguatan Dasar"
             }
         }
     };
@@ -1225,20 +1081,20 @@
         }
 
         if (isUnlocked) {
-            ruleLabelEl.textContent = "Fast-Track Terbuka";
+            ruleLabelEl.textContent = "Langsung Lanjutan";
             ruleLabelEl.className = "text-success";
             advancedNodeEl.classList.remove("is-locked");
             advancedNodeEl.classList.add("is-unlocked");
-            advancedDescEl.textContent = "Terbuka langsung karena Skor Pretest >= " + BATAS_PRETEST + " (BR-08)";
-            advancedBadgeEl.textContent = "Terbuka (Pretest)";
+            advancedDescEl.textContent = "Langsung terbuka karena nilai tes awal minimal " + BATAS_PRETEST;
+            advancedBadgeEl.textContent = "Terbuka";
             advancedBadgeEl.className = "mentora-status-badge unlocked";
         } else {
-            ruleLabelEl.textContent = "Jalur Bertahap";
+            ruleLabelEl.textContent = "Mulai dari Dasar";
             ruleLabelEl.className = "text-secondary";
             advancedNodeEl.classList.remove("is-unlocked");
             advancedNodeEl.classList.add("is-locked");
-            advancedDescEl.textContent = "Terkunci — Selesaikan Kuis Dasar dengan skor >= " + BATAS_KUIS + " (BR-09)";
-            advancedBadgeEl.textContent = "Butuh Kuis \u2265 " + BATAS_KUIS;
+            advancedDescEl.textContent = "Terkunci — Terbuka setelah lulus Kuis Dasar minimal " + BATAS_KUIS;
+            advancedBadgeEl.textContent = "Terkunci";
             advancedBadgeEl.className = "mentora-status-badge locked";
         }
     }
@@ -1262,7 +1118,7 @@
     updateAdaptiveSimulation(false);
 
     /* ======================================================================
-       2. PEMILIH PERAN PENGGUNA (SISWA, GURU PENGAMPU, ORANG TUA)
+       2. PEMILIH PERAN PENGGUNA (SISWA, GURU, ORANG TUA)
        ====================================================================== */
     var roleTabs = document.querySelectorAll(".mentora-role-tab");
     var roleBadge = document.getElementById("roleBadge");
@@ -1273,39 +1129,39 @@
 
     var roleData = {
         siswa: {
-            badge: "Peran: Siswa (Kelas X / XI / XII)",
-            title: "Belajar Sesuai Kecepatan Sendiri dengan Umpan Balik Nyata",
-            desc: "Siswa memulai dengan mengisi kuesioner tujuan belajar (utbk, rapor, atau olimpiade) dan mengerjakan tes diagnostik 7 mata pelajaran. Sistem menyusun rekomendasi mapel prioritas, membuka modul sesuai penguasaan kompetensi, serta mencatat setiap progres di Gradebook.",
-            header: "Kapabilitas Dasbor Siswa:",
+            badge: "Untuk Siswa SMA (Kelas X, XI, XII)",
+            title: "Belajar Sesuai Kecepatanmu Sendiri",
+            desc: "Mulai dengan memilih target belajarmu—apakah ingin mengejar UTBK, memperbaiki nilai rapor, atau ikut olimpiade—lalu kerjakan tes diagnostik singkat. Kamu bisa membaca materi teks maupun PDF, mengerjakan kuis latihan, mengumpulkan tugas, dan melihat perkembangan nilaimu di buku nilai.",
+            header: "Yang didapat siswa:",
             items: [
-                "Rekomendasi Mapel Prioritas (Decision Tree)",
-                "Materi Teks, Dokumen PDF, & Visual",
-                "Kuis PG/Isian Otomatis & Pengumpulan Tugas",
-                "Gradebook & 4 Lencana Pencapaian"
+                "Rekomendasi mata pelajaran prioritas",
+                "Materi bacaan bergambar & modul PDF",
+                "Kuis latihan otomatis & unggah tugas",
+                "Rekap nilai lengkap & lencana belajar"
             ]
         },
         guru: {
-            badge: "Peran: Guru Pengampu Mata Pelajaran",
-            title: "Kelola Konten Kurikulum & Evaluasi Tugas Secara Terukur",
-            desc: "Guru Pengampu mengelola modul Level Dasar dan Lanjutan pada mata pelajaran yang diampu, menyusun bank soal latihan/kuis, serta memberikan skor dan catatan umpan balik mendalam untuk jawaban Esai dan Tugas Mandiri siswa (BR-16).",
-            header: "Kapabilitas Dasbor Guru:",
+            badge: "Untuk Guru Pengampu",
+            title: "Pantau Siswa & Nilai Tugas Lebih Praktis",
+            desc: "Guru fokus memeriksa jawaban esai serta file tugas mandiri dari siswa di mata pelajaran yang diampu. Begitu nilai dan catatan disimpan, skor akhir siswa langsung diperbarui dan siswa otomatis menerima notifikasi.",
+            header: "Fitur untuk guru:",
             items: [
-                "Manajemen Modul & Materi Pembelajaran (UC-11)",
-                "Pembuatan Kuis & Tugas Mandiri (UC-13)",
-                "Penilaian Jawaban Esai & Tugas Siswa (UC-16)",
-                "Pemantauan Statistik Ketuntasan Kelas"
+                "Antrean penilaian jawaban esai & tugas",
+                "Pemberian nilai & catatan umpan balik",
+                "Pemantauan persentase materi selesai per siswa",
+                "Rekap rata-rata nilai kelas di setiap mapel"
             ]
         },
         ortu: {
-            badge: "Peran: Orang Tua / Wali Siswa",
-            title: "Kendali Persetujuan Biaya & Laporan Progres Berkala",
-            desc: "Orang tua memegang kendali persetujuan pembayaran paket belajar melalui tautan token khusus yang dikirimkan via email (berlaku 72 jam) tanpa perlu membuat akun terpisah, serta menerima laporan perkembangan akademik siswa setiap 14 hari.",
-            header: "Transparansi untuk Orang Tua:",
+            badge: "Untuk Orang Tua / Wali",
+            title: "Pembayaran Aman & Laporan Rutin via Email",
+            desc: "Orang tua tidak perlu repot menghafal kata sandi atau membuat akun baru. Cukup buka tautan pembayaran yang dikirim ke email saat anak memilih paket belajar, dan terima laporan hasil belajar anak secara berkala setiap dua minggu.",
+            header: "Kemudahan bagi orang tua:",
             items: [
-                "Persetujuan Tagihan via Tautan Token 72 Jam (BR-07)",
-                "Penerbitan Invoice PDF Resmi Otomatis (BR-17)",
-                "Laporan Progres & Nilai Tiap 14 Hari via Email (BR-12)",
-                "Rekomendasi Langkah Belajar Siswa Berikutnya"
+                "Konfirmasi pembayaran praktis lewat tautan email",
+                "Bukti pembayaran (Invoice PDF) otomatis dikirim",
+                "Laporan materi selesai & nilai kuis tiap 14 hari",
+                "Informasi rekomendasi fokus belajar anak"
             ]
         }
     };
@@ -1358,7 +1214,7 @@
     });
 
     /* ======================================================================
-       4. KALKULATOR PAKET & DISKON 12 BULAN (BR-01 s.d. BR-05, BR-18)
+       4. KALKULATOR PAKET & DISKON 12 BULAN
        ====================================================================== */
     var paketButtons = document.querySelectorAll(".calc-paket-btn");
     var durationRange = document.getElementById("calcDurationRange");
@@ -1376,7 +1232,7 @@
 
     var selectedPaket = {
         kode: "BDL-SAINS",
-        nama: "Bundel Sains (MTK, FIS, KIM, BIO)",
+        nama: "Bundel Sains (Matematika, Fisika, Kimia, Biologi)",
         jenis: "bundel",
         harga: 150000
     };
@@ -1411,13 +1267,13 @@
         subtotalEl.textContent = formatRupiah(subtotal);
 
         if (isDiskon) {
-            durationBadge.textContent = durasi + " Bulan (Hemat " + PERSEN_DISKON + "%)";
+            durationBadge.textContent = durasi + " Bulan (Diskon " + PERSEN_DISKON + "%)";
             durationBadge.className = "badge bg-warning text-dark font-tabular px-2 py-1";
             diskonNominalEl.textContent = "- " + formatRupiah(diskon);
         } else {
-            durationBadge.textContent = durasi + " Bulan (Harga Normal)";
+            durationBadge.textContent = durasi + " Bulan";
             durationBadge.className = "badge bg-secondary text-white font-tabular px-2 py-1";
-            diskonNominalEl.textContent = "Rp 0 (Khusus 12 Bln)";
+            diskonNominalEl.textContent = "Rp 0 (Khusus 12 Bulan)";
         }
 
         totalEl.textContent = formatRupiah(total);
@@ -1459,7 +1315,7 @@
     }
 
     /* ======================================================================
-       5. MOTION SCROLL REVEAL & STAGGER ENGINE (COMPOSITOR-ONLY, ZERO THRASH)
+       5. SCROLL REVEAL ENGINE
        ====================================================================== */
     var prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
