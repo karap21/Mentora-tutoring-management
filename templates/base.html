@@ -4,23 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Mentora-LMS — Bimbel online pintar untuk siswa SMA Kelas X–XII. Belajar lebih terarah sesuai target UTBK, Nilai Rapor, dan Olimpiade.">
-    <title>{% block title %}Mentora-LMS — Bimbel Online Pintar SMA Kelas X–XII{% endblock %}</title>
+    <meta name="description" content="Mentora-LMS — Bimbingan belajar mandiri SMA Kelas X–XII berbasis Kurikulum Merdeka dengan jalur modul adaptif dan laporan berkala untuk orang tua.">
+    <title>{% block title %}Mentora-LMS — Belajar Mandiri SMA Kelas X–XII{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z'/%3E%3Cpath d='M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z'/%3E%3C/svg%3E">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'css/mentora.css' %}" rel="stylesheet">
+    <link href="{% static 'css/mentora.css' %}?v=12" rel="stylesheet">
     {% block extra_head %}{% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
-    <!-- Floating Glass Pill Navbar -->
+    <!-- Header & Navigasi Utama -->
     <header class="mentora-nav-shell sticky-top">
         <div class="container">
             <nav class="navbar navbar-expand-lg mentora-floating-pill" aria-label="Navigasi Utama">
                 <a class="mentora-brand" href="{% url 'beranda' %}">
                     <span class="mentora-brand-mark" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                             <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                         </svg>
@@ -29,7 +30,7 @@
                     <span class="mentora-brand-badge d-none d-sm-inline-block">SMA X–XII</span>
                 </a>
 
-                <button class="navbar-toggler mentora-nav-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mentoraNavbar" aria-controls="mentoraNavbar" aria-expanded="false" aria-label="Buka navigasi">
+                <button class="navbar-toggler mentora-nav-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#mentoraNavbar" aria-controls="mentoraNavbar" aria-expanded="false" aria-label="Buka navigasi">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -52,28 +53,24 @@
                         </li>
                     </ul>
 
-                    <div class="d-flex align-items-center gap-2 pt-2 pt-lg-0">
+                    <div class="d-flex flex-wrap align-items-center gap-2 pt-2 pt-lg-0">
                         {% if user.is_authenticated %}
                             <span class="text-secondary small me-1">
                                 Halo, <strong class="text-dark">{{ user.nama }}</strong>
-                                <span class="badge-21st badge-21st-primary ms-1 text-uppercase font-mono-code">{{ user.peran }}</span>
+                                <span class="mentora-role-pill ms-1">{{ user.peran|title }}</span>
                             </span>
                             {% if user.peran == 'admin' %}
-                                <a href="{% url 'kelola_guru' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3">Panel Admin</a>
+                                <a href="{% url 'kelola_guru' %}" class="btn btn-mentora-primary">Panel Admin</a>
                             {% elif user.peran == 'guru' %}
-                                <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3">Dasbor Guru</a>
+                                <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-primary">Dasbor Guru</a>
                             {% else %}
-                                <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3">Ruang Belajar</a>
+                                <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-primary">Ruang Belajar</a>
                             {% endif %}
-                            <a href="{% url 'keluar' %}" class="btn btn-mentora-outline btn-sm rounded-pill px-3">Keluar</a>
+                            <a href="{% url 'keluar' %}" class="btn btn-mentora-outline">Keluar</a>
                         {% else %}
-                            <a href="{% url 'daftar' %}" class="btn btn-mentora-outline btn-sm rounded-pill px-3">Daftar</a>
-                            <a href="{% url 'masuk' %}" class="btn btn-mentora-primary btn-sm rounded-pill px-3 d-inline-flex align-items-center gap-1">
+                            <a href="{% url 'daftar' %}" class="btn btn-mentora-outline">Daftar</a>
+                            <a href="{% url 'masuk' %}" class="btn btn-mentora-primary">
                                 <span>Masuk</span>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                    <path d="M5 12h14"></path>
-                                    <path d="m12 5 7 7-7 7"></path>
-                                </svg>
                             </a>
                         {% endif %}
                     </div>
@@ -103,48 +100,50 @@
                 <div class="col-lg-5">
                     <div class="d-flex align-items-center gap-2 mb-3">
                         <span class="mentora-brand-mark" aria-hidden="true">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                             </svg>
                         </span>
                         <span class="fw-bold text-white fs-5">Mentora-LMS</span>
                     </div>
-                    <p class="mb-3" style="max-width: 46ch; color: #94A3B8; line-height: 1.65;">
-                        Teman belajar mandiri untuk siswa SMA Kelas X, XI, dan XII. Fokus pada materi yang benar-benar kamu butuhkan untuk menaklukkan nilai rapor, UTBK-SNBT, hingga olimpiade sains.
+                    <p class="mentora-footer-desc mb-3">
+                        Platform belajar mandiri untuk siswa SMA Kelas X, XI, dan XII. Fokus pada materi yang benar-benar kamu butuhkan untuk persiapan nilai rapor, UTBK-SNBT, hingga olimpiade sains.
                     </p>
-                    <div class="d-flex flex-wrap gap-2 font-mono-code small" style="color: #CBD5E1;">
-                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Jalur Cepat Bebas Bosan</span>
-                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Rekomendasi Pintar</span>
-                        <span class="px-2 py-1 rounded-pill" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);">Laporan Rutin Orang Tua</span>
+                    <div class="d-flex flex-wrap gap-2">
+                        <span class="mentora-footer-pill">Jalur Modul Adaptif</span>
+                        <span class="mentora-footer-pill">Koreksi Esai Guru</span>
+                        <span class="mentora-footer-pill">Laporan Berkala Orang Tua</span>
                     </div>
                 </div>
 
-                <div class="col-6 col-md-3 col-lg-2">
-                    <h6 class="text-white fw-semibold mb-3">Program Belajar</h6>
-                    <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                        <li><a href="{% url 'beranda' %}#simulasi-adaptif">Simulasi Jalur Belajar</a></li>
-                        <li><a href="{% url 'beranda' %}#fitur-utama">Keunggulan Mentora</a></li>
-                        <li><a href="{% url 'beranda' %}#katalog-mapel">Pilihan Mata Pelajaran</a></li>
-                        <li><a href="{% url 'beranda' %}#kalkulator-langganan">Hitung Biaya Belajar</a></li>
+                <div class="col-6 col-md-3 col-lg-3">
+                    <h2 class="mentora-footer-heading">Program Belajar</h2>
+                    <ul class="list-unstyled d-flex flex-column gap-1 mb-0">
+                        <li><a class="mentora-footer-link" href="{% url 'beranda' %}#simulasi-adaptif">Simulasi Jalur Belajar</a></li>
+                        <li><a class="mentora-footer-link" href="{% url 'beranda' %}#fitur-utama">Keunggulan Mentora</a></li>
+                        <li><a class="mentora-footer-link" href="{% url 'beranda' %}#katalog-mapel">Pilihan Mata Pelajaran</a></li>
+                        <li><a class="mentora-footer-link" href="{% url 'beranda' %}#kalkulator-langganan">Hitung Biaya Belajar</a></li>
                     </ul>
                 </div>
 
                 <div class="col-6 col-md-4 col-lg-3">
-                    <h6 class="text-white fw-semibold mb-3">Akses &amp; Bantuan</h6>
-                    <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                        <li><a href="{% url 'daftar' %}">Daftar Akun Baru</a></li>
-                        <li><a href="{% url 'masuk' %}">Masuk ke Akun</a></li>
-                        <li><a href="{% url 'syarat_ketentuan' %}">Syarat &amp; Ketentuan</a></li>
-                        <li><a href="{% url 'beranda' %}#akun-uji">Coba Akun Demo Gratis</a></li>
+                    <h2 class="mentora-footer-heading">Akses &amp; Informasi</h2>
+                    <ul class="list-unstyled d-flex flex-column gap-1 mb-0">
+                        <li><a class="mentora-footer-link" href="{% url 'daftar' %}">Daftar Akun Siswa</a></li>
+                        <li><a class="mentora-footer-link" href="{% url 'masuk' %}">Masuk ke Akun</a></li>
+                        <li><a class="mentora-footer-link" href="{% url 'syarat_ketentuan' %}">Syarat &amp; Ketentuan</a></li>
+                        {% if debug %}
+                        <li><a class="mentora-footer-link" href="{% url 'beranda' %}#akun-uji">Akun Contoh (Debug)</a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
 
             <hr class="my-4 border-secondary border-opacity-25">
-            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 small" style="color: #94A3B8;">
+            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mentora-footer-bottom">
                 <span>&copy; 2026 Mentora-LMS. Hak cipta dilindungi undang-undang.</span>
-                <span class="font-mono-code">Kurikulum Merdeka &middot; SMA Kelas X&ndash;XII</span>
+                <span>Kurikulum Merdeka &middot; SMA Kelas X&ndash;XII</span>
             </div>
         </div>
     </footer>

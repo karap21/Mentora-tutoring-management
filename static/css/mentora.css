@@ -1,99 +1,236 @@
 /* ==========================================================================
-   Mentora-LMS — Design System (Modern Bento & Sliding Pill UI)
-   UI/UX Pro Max (WCAG AA/AAA) + 21st.dev Bento Architecture + Smooth Motion
+   Mentora-LMS — Stylesheet Utama
    ========================================================================== */
 
+/* Variabel Dasar: Warna, Spasi, Tipografi, Radius, dan Animasi */
 :root {
-    /* Surface & Canvas Palette (Warm Alabaster & Crisp Slate) */
-    --mentora-canvas: #F8FAFC;
-    --mentora-surface: #FFFFFF;
-    --mentora-surface-subtle: #F1F5F9;
-    --mentora-surface-elevated: #0B0F19;
-    --mentora-surface-glass: rgba(255, 255, 255, 0.84);
+    /* Palet Netral (Slate Akademik) */
+    --primitive-slate-50:  #F8FAFC;
+    --primitive-slate-100: #F1F5F9;
+    --primitive-slate-200: #E2E8F0;
+    --primitive-slate-300: #CBD5E1;
+    --primitive-slate-400: #94A3B8;
+    --primitive-slate-500: #64748B;
+    --primitive-slate-600: #475569;
+    --primitive-slate-700: #334155;
+    --primitive-slate-800: #1E293B;
+    --primitive-slate-900: #0F172A;
+    --primitive-slate-950: #0B0F19;
+    --primitive-white:     #FFFFFF;
 
-    /* Typography Hierarchy — Verified WCAG 2.1 AA / AAA Contrast Ratios */
-    --mentora-ink: #0F172A;            /* 17.4:1 on #FFFFFF (WCAG AAA) */
-    --mentora-ink-secondary: #334155;  /* 10.3:1 on #FFFFFF (WCAG AAA) */
-    --mentora-ink-muted: #475569;      /*  7.5:1 on #FFFFFF (WCAG AAA) */
+    /* Palet Biru Akademik (Cobalt) */
+    --primitive-blue-50:   #EFF6FF;
+    --primitive-blue-100:  #DBEAFE;
+    --primitive-blue-200:  #BFDBFE;
+    --primitive-blue-300:  #93C5FD;
+    --primitive-blue-600:  #2563EB;
+    --primitive-blue-700:  #1D4ED8;
+    --primitive-blue-800:  #1E40AF;
+    --primitive-blue-900:  #1E3A8A;
 
-    /* Primary Brand Accent: Academic Royal Blue */
-    --mentora-primary: #1D4ED8;        /*  6.7:1 on #FFFFFF (WCAG AA/AAA) */
-    --mentora-primary-bright: #2563EB;
-    --mentora-primary-hover: #1E40AF;
-    --mentora-primary-soft: #EFF6FF;
-    --mentora-primary-border: #BFDBFE;
+    /* Palet Status (Hijau, Kuning, Merah) */
+    --primitive-emerald-50:  #ECFDF5;
+    --primitive-emerald-200: #A7F3D0;
+    --primitive-emerald-600: #059669;
+    --primitive-emerald-700: #047857;
+    --primitive-emerald-800: #065F46;
 
-    /* Semantic Accent: Mastery Emerald (Unlock / Pretest >= 85 / Quiz >= 75) */
-    --mentora-emerald: #047857;
-    --mentora-emerald-bright: #10B981;
-    --mentora-emerald-soft: #ECFDF5;
-    --mentora-emerald-border: #A7F3D0;
+    --primitive-amber-50:    #FFFBEB;
+    --primitive-amber-200:   #FDE68A;
+    --primitive-amber-400:   #FBBF24;
+    --primitive-amber-700:   #B45309;
+    --primitive-amber-800:   #92400E;
 
-    /* Semantic Accent: Achievement & 20% Discount Amber */
-    --mentora-amber: #B45309;
-    --mentora-amber-bright: #F59E0B;
-    --mentora-amber-soft: #FFFBEB;
-    --mentora-amber-border: #FDE68A;
+    --primitive-rose-50:     #FEF2F2;
+    --primitive-rose-200:    #FECACA;
+    --primitive-rose-700:    #B91C1C;
 
-    /* Semantic Accent: Science Violet */
-    --mentora-violet: #6D28D9;
-    --mentora-violet-soft: #F5F3FF;
-    --mentora-violet-border: #DDD6FE;
+    /* Tipografi Primitif */
+    --primitive-font-sans:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --primitive-font-heading: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --primitive-font-mono:    'JetBrains Mono', monospace;
 
-    /* 21st.dev Precision Borders & Dividers */
-    --mentora-border: #E2E8F0;
-    --mentora-border-strong: #CBD5E1;
+    /* Skala Spasi (Basis 4px) */
+    --primitive-space-1:  0.25rem;  /* 4px */
+    --primitive-space-2:  0.5rem;   /* 8px */
+    --primitive-space-3:  0.75rem;  /* 12px */
+    --primitive-space-4:  1rem;     /* 16px */
+    --primitive-space-5:  1.25rem;  /* 20px */
+    --primitive-space-6:  1.5rem;   /* 24px */
+    --primitive-space-8:  2rem;     /* 32px */
+    --primitive-space-10: 2.5rem;   /* 40px */
+    --primitive-space-12: 3rem;     /* 48px */
+    --primitive-space-16: 4rem;     /* 64px */
 
-    /* Typography Tokens (UI/UX Pro Max Dual-Font Pairing: Outfit + Plus Jakarta Sans) */
-    --font-display: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    /* Skala Radius Sudut */
+    --primitive-radius-xs:   0.375rem; /* 6px */
+    --primitive-radius-sm:   0.5rem;   /* 8px */
+    --primitive-radius-md:   0.625rem; /* 10px */
+    --primitive-radius-lg:   0.875rem; /* 14px */
+    --primitive-radius-xl:   1.125rem; /* 18px */
+    --primitive-radius-pill: 9999px;
 
-    /* 21st.dev Multi-Layer Shadows */
-    --shadow-21st-sm:
-        0 1px 2px rgba(15, 23, 42, 0.03),
-        0 2px 6px rgba(15, 23, 42, 0.04);
-    --shadow-21st-card:
-        0 1px 2px rgba(15, 23, 42, 0.03),
+    /* Skala Bayangan */
+    --primitive-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --primitive-shadow-sm:
+        0 1px 2px rgba(15, 23, 42, 0.04),
         0 4px 12px -2px rgba(15, 23, 42, 0.05),
-        0 12px 24px -6px rgba(15, 23, 42, 0.04);
-    --shadow-21st-hover:
-        0 4px 8px -2px rgba(15, 23, 42, 0.05),
-        0 14px 28px -6px rgba(29, 78, 216, 0.09),
-        0 20px 40px -12px rgba(15, 23, 42, 0.07);
-    --shadow-workbench:
-        0 0 0 1px rgba(15, 23, 42, 0.08),
-        0 20px 45px -12px rgba(15, 23, 42, 0.16),
-        0 36px 72px -20px rgba(29, 78, 216, 0.14);
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    --primitive-shadow-md:
+        0 1px 3px rgba(15, 23, 42, 0.05),
+        0 14px 32px -8px rgba(15, 23, 42, 0.08),
+        0 24px 48px -16px rgba(29, 78, 216, 0.06);
+    --primitive-shadow-lg:
+        0 20px 38px -12px rgba(15, 23, 42, 0.14),
+        0 4px 10px -2px rgba(15, 23, 42, 0.06);
 
-    /* Critically-Damped Smooth Curves (Zero Harsh Bounce / Overshoot) */
-    --spring-hover: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-    --spring-snappy: 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-    --spring-slide: 0.34s cubic-bezier(0.22, 1, 0.36, 1);
-    --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+    /* Skala Gerak (150ms - 360ms, Tanpa Bounce) */
+    --primitive-ease-out:        cubic-bezier(0.22, 1, 0.36, 1);
+    --primitive-duration-fast:   160ms;
+    --primitive-duration-normal: 240ms;
+    --primitive-duration-slide:  300ms;
+    --primitive-duration-reveal: 360ms;
+}
 
-    /* Radius Scale */
-    --radius-xs: 8px;
-    --radius-sm: 10px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 26px;
-    --radius-pill: 9999px;
+/* Variabel Tema & Warna Elemen (Latar, Teks, Status, dan Border) */
+:root {
+    /* Permukaan & Latar */
+    --color-bg-canvas:         var(--primitive-slate-50);
+    --color-bg-surface:        var(--primitive-white);
+    --color-bg-subtle:         var(--primitive-slate-100);
+    --color-bg-elevated:       var(--primitive-slate-950);
+    --color-bg-elevated-soft:  var(--primitive-slate-800);
+    --color-bg-highlight:      var(--primitive-blue-50);
+
+    /* Teks & Tipografi */
+    --color-text-primary:      var(--primitive-slate-900); /* 17.4:1 */
+    --color-text-secondary:    var(--primitive-slate-700); /* 10.3:1 */
+    --color-text-muted:        var(--primitive-slate-600); /*  7.5:1 */
+    --color-text-on-primary:   var(--primitive-white);
+    --color-text-on-dark:      var(--primitive-slate-100);
+    --color-text-on-dark-muted: var(--primitive-slate-300);
+
+    /* Aksen Merek & Interaksi */
+    --color-brand-primary:       var(--primitive-blue-700);
+    --color-brand-primary-hover: var(--primitive-blue-800);
+    --color-brand-soft-bg:       var(--primitive-blue-50);
+    --color-brand-soft-border:   var(--primitive-blue-200);
+    --color-brand-hover-border:  var(--primitive-blue-300);
+
+    /* Indikator Status & Hasil */
+    --color-status-success-fg:     var(--primitive-emerald-700);
+    --color-status-success-strong: var(--primitive-emerald-800);
+    --color-status-success-bg:     var(--primitive-emerald-50);
+    --color-status-success-border: var(--primitive-emerald-200);
+
+    --color-status-warning-fg:     var(--primitive-amber-700);
+    --color-status-warning-strong: var(--primitive-amber-800);
+    --color-status-warning-bg:     var(--primitive-amber-50);
+    --color-status-warning-border: var(--primitive-amber-200);
+    --color-status-warning-on-dark: var(--primitive-amber-400);
+
+    --color-status-danger-fg:      var(--primitive-rose-700);
+    --color-status-danger-bg:      var(--primitive-rose-50);
+    --color-status-danger-border:  var(--primitive-rose-200);
+
+    /* Garis Batas & Fokus */
+    --color-border-subtle:  var(--primitive-slate-200);
+    --color-border-strong:  var(--primitive-slate-300);
+    --color-focus-ring:     var(--primitive-blue-700);
+
+    /* Tipografi Semantik */
+    --font-display: var(--primitive-font-heading);
+    --font-sans:    var(--primitive-font-sans);
+    --font-mono:    var(--primitive-font-mono);
+
+    /* Spasi & Target Sentuh */
+    --space-section-y:  clamp(3.25rem, 6vw, 4.75rem);
+    --space-card-pad:   var(--primitive-space-6);
+    --touch-target-min: 2.75rem; /* 44px wajib untuk aksesibilitas mobile */
+
+    /* Sinkronisasi Bootstrap 5.3 */
+    --bs-primary:      var(--color-brand-primary);
+    --bs-primary-rgb:  29, 78, 216;
+    --bs-body-color:   var(--color-text-primary);
+    --bs-body-bg:      var(--color-bg-canvas);
+    --bs-border-color: var(--color-border-subtle);
+
+    /* Alias Kompatibilitas Mundur (`--mentora-*`) */
+    --mentora-canvas:          var(--color-bg-canvas);
+    --mentora-surface:         var(--color-bg-surface);
+    --mentora-surface-subtle:  var(--color-bg-subtle);
+    --mentora-surface-elevated: var(--color-bg-elevated);
+    --mentora-ink:             var(--color-text-primary);
+    --mentora-ink-secondary:   var(--color-text-secondary);
+    --mentora-ink-muted:       var(--color-text-muted);
+    --mentora-primary:         var(--color-brand-primary);
+    --mentora-primary-bright:  var(--primitive-blue-600);
+    --mentora-primary-hover:   var(--color-brand-primary-hover);
+    --mentora-primary-soft:    var(--color-brand-soft-bg);
+    --mentora-primary-border:  var(--color-brand-soft-border);
+    --mentora-emerald:         var(--color-status-success-fg);
+    --mentora-emerald-soft:    var(--color-status-success-bg);
+    --mentora-emerald-border:  var(--color-status-success-border);
+    --mentora-amber:           var(--color-status-warning-fg);
+    --mentora-amber-soft:      var(--color-status-warning-bg);
+    --mentora-amber-border:    var(--color-status-warning-border);
+    --mentora-border:          var(--color-border-subtle);
+    --mentora-border-strong:   var(--color-border-strong);
+    --radius-xs:               var(--primitive-radius-xs);
+    --radius-sm:               var(--primitive-radius-sm);
+    --radius-md:               var(--primitive-radius-md);
+    --radius-lg:               var(--primitive-radius-lg);
+    --radius-xl:               var(--primitive-radius-xl);
+    --radius-pill:             var(--primitive-radius-pill);
+}
+
+/* Pengaturan Ukuran Komponen (Tombol, Kartu, Input, dan Navigasi) */
+:root {
+    /* Tombol Utama & Sekunder */
+    --btn-min-height:        var(--touch-target-min);
+    --btn-radius:            var(--primitive-radius-md);
+    --btn-padding-x:         var(--primitive-space-5);
+    --btn-primary-bg:        var(--color-brand-primary);
+    --btn-primary-hover-bg:  var(--color-brand-primary-hover);
+    --btn-primary-fg:        var(--color-text-on-primary);
+
+    /* Segmented Control & Sliding Pill Indicator */
+    --segmented-bg:          var(--color-bg-subtle);
+    --segmented-border:      var(--color-border-strong);
+    --segmented-radius:      var(--primitive-radius-md);
+    --segmented-item-height: var(--touch-target-min);
+    --segmented-pill-bg:     var(--color-bg-surface);
+    --segmented-pill-shadow: var(--primitive-shadow-xs);
+
+    /* Kartu Workbench (Simulasi & Kalkulator) */
+    --workbench-bg:          var(--color-bg-surface);
+    --workbench-border:      var(--color-border-strong);
+    --workbench-radius:      var(--primitive-radius-lg);
+    --workbench-shadow:      var(--primitive-shadow-md);
+    --workbench-header-bg:   var(--color-bg-subtle);
+
+    /* Kartu Katalog Mapel & Keunggulan */
+    --card-bg:               var(--color-bg-surface);
+    --card-border:           rgba(203, 213, 225, 0.85);
+    --card-border-hover:     var(--color-brand-hover-border);
+    --card-radius:           var(--primitive-radius-lg);
+    --card-padding:          var(--primitive-space-5);
+    --card-shadow:           var(--primitive-shadow-sm);
 }
 
 /* ==========================================================================
-   Base & Typography Rules
+   Aturan Dasar, Tipografi, dan Fokus Keyboard
    ========================================================================== */
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 5.5rem;
     overflow-x: clip;
 }
 
 body {
     font-family: var(--font-sans);
-    background-color: var(--mentora-canvas);
-    color: var(--mentora-ink);
+    background-color: var(--color-bg-canvas);
+    color: var(--color-text-primary);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -102,260 +239,311 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6,
-.display-4, .display-5, .display-6,
+.display-5, .display-6,
 .mentora-brand {
     font-family: var(--font-display);
-    color: var(--mentora-ink);
+    color: var(--color-text-primary);
     letter-spacing: -0.025em;
     line-height: 1.18;
     text-wrap: balance;
 }
 
 .font-tabular {
-    font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
 }
 
+/* JetBrains Mono HANYA untuk kode paket (MAP-*, BDL-*) & kredensial debug */
 .font-mono-code {
     font-family: var(--font-mono);
     font-variant-numeric: tabular-nums;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .mentora-prose {
-    max-width: 64ch;
-    color: var(--mentora-ink-secondary);
-    font-size: 1.05rem;
-    line-height: 1.72;
+    max-width: 62ch;
+    color: var(--color-text-secondary);
+    font-size: 1.035rem;
+    line-height: 1.68;
 }
 
-/* Keyboard-only focus ring; suppress outline on mouse click */
+.mentora-section-intro {
+    max-width: 40rem;
+}
+
+.mentora-section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--primitive-space-2);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-brand-primary);
+    background-color: var(--color-brand-soft-bg);
+    border: 1px solid var(--color-brand-soft-border);
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--primitive-radius-xs);
+    margin-bottom: var(--primitive-space-3);
+}
+
+/* Fokus Keyboard */
 :focus:not(:focus-visible) {
     outline: none;
-    box-shadow: none;
 }
 
 :focus-visible {
-    outline: 2px solid var(--mentora-primary-bright);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-focus-ring) !important;
+    outline-offset: 2px !important;
 }
 
 /* ==========================================================================
-   21st.dev Floating Glass Pill Navbar
+   Navbar & Header (Digunakan Lintas Halaman via base.html)
    ========================================================================== */
 .mentora-nav-shell {
-    padding-top: 0.85rem;
-    padding-bottom: 0.35rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
     z-index: 1030;
-    pointer-events: none;
 }
 
 .mentora-floating-pill {
-    pointer-events: auto;
-    background: var(--mentora-surface-glass);
-    backdrop-filter: blur(18px) saturate(180%);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-    border: 1px solid rgba(203, 213, 225, 0.85);
-    border-radius: var(--radius-pill);
-    padding: 0.5rem 0.75rem 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(203, 213, 225, 0.9);
+    border-radius: var(--primitive-radius-lg);
+    padding: 0.45rem 0.9rem;
     box-shadow:
         0 1px 2px rgba(15, 23, 42, 0.04),
-        0 12px 32px -8px rgba(15, 23, 42, 0.08),
-        inset 0 1px 0 rgba(255, 255, 255, 0.92);
-    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+        0 10px 26px -6px rgba(15, 23, 42, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .mentora-brand {
     font-weight: 800;
-    font-size: 1.12rem;
-    color: var(--mentora-ink) !important;
-    letter-spacing: -0.03em;
+    font-size: 1.125rem;
+    color: var(--color-text-primary) !important;
+    letter-spacing: -0.025em;
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    gap: 0.5rem;
     text-decoration: none;
+    min-height: var(--touch-target-min);
 }
 
 .mentora-brand-mark {
     width: 34px;
     height: 34px;
-    border-radius: 10px;
-    background: linear-gradient(145deg, #0F172A 0%, #1E293B 100%);
-    color: #FFFFFF;
+    border-radius: var(--primitive-radius-sm);
+    background: linear-gradient(180deg, #2563EB 0%, #1D4ED8 100%);
+    color: var(--color-text-on-primary);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.22);
-    transition: transform var(--spring-snappy);
-}
-
-.mentora-brand:hover .mentora-brand-mark {
-    transform: translate3d(0, -1px, 0) scale(1.03);
+    border: 1px solid #1E40AF;
+    box-shadow:
+        0 2px 5px rgba(29, 78, 216, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    flex-shrink: 0;
 }
 
 .mentora-brand-badge {
-    font-family: var(--font-mono);
-    font-size: 0.66rem;
-    font-weight: 700;
-    padding: 0.16rem 0.5rem;
-    border-radius: var(--radius-pill);
-    background-color: var(--mentora-primary-soft);
-    color: var(--mentora-primary);
-    border: 1px solid var(--mentora-primary-border);
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.18rem 0.5rem;
+    border-radius: var(--primitive-radius-xs);
+    background-color: var(--color-brand-soft-bg);
+    color: var(--color-brand-primary);
+    border: 1px solid var(--color-brand-soft-border);
     white-space: nowrap;
 }
 
+.mentora-nav-toggler {
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-strong) !important;
+    border-radius: var(--primitive-radius-sm);
+    padding: 0.4rem;
+}
+
 .mentora-nav-track {
-    background: rgba(241, 245, 249, 0.78);
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    border-radius: var(--radius-pill);
-    padding: 0.22rem;
-    gap: 0.15rem;
+    gap: 0.25rem;
 }
 
 .mentora-nav-link {
-    color: var(--mentora-ink-secondary) !important;
+    color: var(--color-text-secondary) !important;
     font-weight: 600;
-    font-size: 0.85rem;
-    padding: 0.38rem 0.85rem !important;
-    border-radius: var(--radius-pill);
+    font-size: 0.875rem;
+    min-height: var(--touch-target-min);
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.85rem !important;
+    border-radius: var(--primitive-radius-sm);
     transition:
-        color 0.18s ease,
-        background-color 0.18s ease,
-        box-shadow 0.18s ease;
+        color var(--primitive-duration-fast) ease,
+        background-color var(--primitive-duration-fast) ease;
 }
 
 .mentora-nav-link:hover {
-    color: var(--mentora-ink) !important;
-    background-color: #FFFFFF;
-    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+    color: var(--color-text-primary) !important;
+    background-color: var(--color-bg-subtle);
+}
+
+.mentora-role-pill {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--primitive-radius-xs);
+    background-color: var(--color-brand-soft-bg);
+    color: var(--color-brand-primary);
+    border: 1px solid var(--color-brand-soft-border);
 }
 
 /* ==========================================================================
-   21st.dev Buttons & Badges with Smooth Hover
+   Tombol & Lencana (Target Sentuh >= 44px)
    ========================================================================== */
 .btn-mentora-primary {
-    position: relative;
+    min-height: var(--btn-min-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
     background: linear-gradient(180deg, #2563EB 0%, #1D4ED8 100%);
-    color: #FFFFFF;
+    color: var(--btn-primary-fg);
     font-weight: 600;
+    font-size: 0.9375rem;
     border: 1px solid #1E40AF;
-    border-radius: var(--radius-sm);
-    padding: 0.62rem 1.3rem;
+    border-radius: var(--btn-radius);
+    padding: 0.58rem var(--btn-padding-x);
     box-shadow:
         0 1px 2px rgba(15, 23, 42, 0.1),
         0 4px 12px rgba(29, 78, 216, 0.22),
         inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    text-decoration: none;
     cursor: pointer;
     transition:
-        transform var(--spring-hover),
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        transform var(--primitive-duration-fast) var(--primitive-ease-out),
+        box-shadow var(--primitive-duration-fast) ease,
+        background var(--primitive-duration-fast) ease;
 }
 
 .btn-mentora-primary:hover,
 .btn-mentora-primary:focus {
     background: linear-gradient(180deg, #1D4ED8 0%, #1E40AF 100%);
-    color: #FFFFFF;
+    color: var(--btn-primary-fg);
     transform: translate3d(0, -1.5px, 0);
     box-shadow:
         0 4px 10px rgba(15, 23, 42, 0.12),
-        0 10px 20px -4px rgba(29, 78, 216, 0.32),
+        0 10px 20px -4px rgba(29, 78, 216, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.32);
 }
 
 .btn-mentora-primary:active {
-    transform: translate3d(0, 0, 0) scale(0.99);
+    transform: translate3d(0, 0, 0);
 }
 
 .btn-mentora-outline {
-    background-color: var(--mentora-surface);
-    color: var(--mentora-ink);
+    min-height: var(--btn-min-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-primary);
     font-weight: 600;
-    border: 1px solid var(--mentora-border-strong);
-    border-radius: var(--radius-sm);
-    padding: 0.62rem 1.3rem;
-    box-shadow: var(--shadow-21st-sm);
+    font-size: 0.9375rem;
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--btn-radius);
+    padding: 0.58rem var(--btn-padding-x);
+    box-shadow:
+        0 1px 2px rgba(15, 23, 42, 0.03),
+        0 2px 6px rgba(15, 23, 42, 0.04);
+    text-decoration: none;
     cursor: pointer;
     transition:
-        transform var(--spring-hover),
-        border-color 0.18s ease,
-        background-color 0.18s ease,
-        box-shadow 0.18s ease;
+        transform var(--primitive-duration-fast) var(--primitive-ease-out),
+        border-color var(--primitive-duration-fast) ease,
+        background-color var(--primitive-duration-fast) ease,
+        box-shadow var(--primitive-duration-fast) ease;
 }
 
 .btn-mentora-outline:hover,
 .btn-mentora-outline:focus {
-    background-color: var(--mentora-surface-subtle);
-    border-color: #94A3B8;
-    color: var(--mentora-ink);
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text-primary);
+    border-color: var(--primitive-slate-400);
     transform: translate3d(0, -1.5px, 0);
     box-shadow: 0 6px 14px -4px rgba(15, 23, 42, 0.07);
 }
 
-.btn-mentora-outline:active {
-    transform: translate3d(0, 0, 0) scale(0.99);
+.btn-mentora-outline-light {
+    min-height: var(--btn-min-height);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--primitive-space-2);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--color-text-on-primary);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: var(--btn-radius);
+    padding: 0.55rem var(--btn-padding-x);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+        transform var(--primitive-duration-fast) var(--primitive-ease-out),
+        opacity var(--primitive-duration-fast) ease;
 }
 
-/* 21st.dev Pill Badge Component */
+.btn-mentora-outline-light:hover,
+.btn-mentora-outline-light:focus {
+    background-color: rgba(255, 255, 255, 0.16);
+    color: var(--color-text-on-primary);
+    transform: translate3d(0, -1px, 0);
+}
+
 .badge-21st {
     display: inline-flex;
     align-items: center;
-    gap: 0.42rem;
-    font-size: 0.74rem;
+    gap: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
     font-weight: 600;
-    line-height: 1.2;
-    padding: 0.34rem 0.74rem;
-    border-radius: var(--radius-pill);
-    border: 1px solid var(--mentora-border);
-    background: var(--mentora-surface);
-    color: var(--mentora-ink-secondary);
-    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    padding: 0.28rem 0.65rem;
+    border-radius: var(--primitive-radius-xs);
+    border: 1px solid var(--color-border-strong);
+    background-color: var(--color-bg-surface);
+    color: var(--color-text-secondary);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.85);
     white-space: nowrap;
 }
 
 .badge-21st-primary {
-    background: var(--mentora-primary-soft);
-    color: var(--mentora-primary);
-    border-color: var(--mentora-primary-border);
+    background-color: var(--color-brand-soft-bg);
+    color: var(--color-brand-primary);
+    border-color: var(--color-brand-soft-border);
 }
 
 .badge-21st-emerald {
-    background: var(--mentora-emerald-soft);
-    color: var(--mentora-emerald);
-    border-color: var(--mentora-emerald-border);
+    background-color: var(--color-status-success-bg);
+    color: var(--color-status-success-fg);
+    border-color: var(--color-status-success-border);
 }
 
 .badge-21st-amber {
-    background: var(--mentora-amber-soft);
-    color: var(--mentora-amber);
-    border-color: var(--mentora-amber-border);
-}
-
-.badge-21st-violet {
-    background: var(--mentora-violet-soft);
-    color: var(--mentora-violet);
-    border-color: var(--mentora-violet-border);
-}
-
-.badge-dot-pulse {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: var(--mentora-primary-bright);
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
-    animation: mentoraPulseDot 2.4s infinite ease-in-out;
-}
-
-@keyframes mentoraPulseDot {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.2); opacity: 0.72; }
+    background-color: var(--color-status-warning-bg);
+    color: var(--color-status-warning-fg);
+    border-color: var(--color-status-warning-border);
 }
 
 /* ==========================================================================
-   Universal Sliding Pill Segmented Control System (iOS / 21st.dev layoutId)
+   Universal Sliding Pill Segmented Control (Hanya Transform & Opacity)
    ========================================================================== */
 [data-sliding-group] {
     position: relative;
@@ -368,581 +556,576 @@ h1, h2, h3, h4, h5, h6,
     left: 0;
     z-index: 0;
     pointer-events: none;
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border);
-    border-radius: 8px;
-    box-shadow:
-        0 1px 3px rgba(15, 23, 42, 0.08),
-        0 2px 6px rgba(15, 23, 42, 0.04);
+    background-color: var(--segmented-pill-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--primitive-radius-sm);
+    box-shadow: var(--segmented-pill-shadow);
     opacity: 0;
 }
 
+/* Hanya menganimasikan transform dan opacity (150-400ms, nol layout thrash) */
 .mentora-sliding-pill.is-ready {
     opacity: 1;
     transition:
-        transform var(--spring-slide),
-        width var(--spring-slide),
-        height var(--spring-slide),
-        opacity 0.2s ease;
+        transform var(--primitive-duration-slide) var(--primitive-ease-out),
+        opacity var(--primitive-duration-fast) ease;
 }
 
 .mentora-sliding-pill-dark {
-    background: var(--mentora-ink);
-    border-color: var(--mentora-ink);
-    border-radius: var(--radius-pill);
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.18);
+    background-color: var(--color-brand-primary);
+    border-color: var(--color-brand-primary-hover);
+    border-radius: var(--primitive-radius-sm);
 }
 
 /* ==========================================================================
-   Section 1: Spotlight Radial Grid Hero & Double-Bezel Workbench
+   Section 1: Hero Beranda
    ========================================================================== */
 .mentora-hero {
     position: relative;
-    padding: 3.25rem 0 5rem;
+    padding: clamp(2.75rem, 5vw, 4.5rem) 0;
     overflow: hidden;
-    background-color: var(--mentora-canvas);
+    background-color: var(--color-bg-surface);
     background-image:
-        radial-gradient(circle at 14% 18%, rgba(37, 99, 235, 0.09) 0%, transparent 42%),
-        radial-gradient(circle at 86% 22%, rgba(16, 185, 129, 0.07) 0%, transparent 38%),
-        radial-gradient(#CBD5E1 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 24px 24px;
-    border-bottom: 1px solid var(--mentora-border);
+        radial-gradient(circle at 82% 16%, rgba(37, 99, 235, 0.045) 0%, transparent 48%),
+        linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
-.mentora-hero-pill {
+.mentora-eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
-    padding: 0.36rem 0.9rem 0.36rem 0.65rem;
-    border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.92);
-    color: var(--mentora-ink);
-    border: 1px solid var(--mentora-border-strong);
-    font-size: 0.8rem;
+    gap: var(--primitive-space-2);
+    font-size: 0.8125rem;
     font-weight: 600;
-    margin-bottom: 1.35rem;
-    box-shadow: var(--shadow-21st-sm);
+    color: var(--color-brand-primary);
+    background-color: var(--color-brand-soft-bg);
+    border: 1px solid var(--color-brand-soft-border);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--primitive-radius-xs);
+    margin-bottom: var(--primitive-space-4);
+    box-shadow: 0 1px 2px rgba(29, 78, 216, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 .mentora-hero-title {
     font-family: var(--font-display);
-    font-size: clamp(2.25rem, 3.85vw, 3.45rem);
+    font-size: clamp(2.1rem, 3.6vw, 3.15rem);
     font-weight: 800;
-    color: var(--mentora-ink);
-    letter-spacing: -0.03em;
-    line-height: 1.08;
-    margin-bottom: 1.25rem;
+    color: var(--color-text-primary);
+    letter-spacing: -0.028em;
+    line-height: 1.12;
+    margin-bottom: var(--primitive-space-4);
 }
 
-.mentora-hero-highlight {
-    background: linear-gradient(120deg, rgba(37, 99, 235, 0.12) 0%, rgba(16, 185, 129, 0.14) 100%);
-    color: var(--mentora-primary);
-    padding: 0 0.3rem;
-    border-radius: 8px;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
+.mentora-hero-scroll-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-brand-primary);
+    text-decoration: none;
+    transition: opacity var(--primitive-duration-fast) ease;
 }
 
-.mentora-rule-strip {
+.mentora-hero-scroll-link:hover {
+    color: var(--color-brand-primary-hover);
+    opacity: 0.85;
+}
+
+/* Ledger Strip Ringkasan Fakta di Hero */
+.mentora-ledger-strip {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.75rem;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--mentora-border);
+    gap: var(--primitive-space-4);
+    margin-top: var(--primitive-space-6);
+    padding-top: var(--primitive-space-5);
+    border-top: 1px solid var(--color-border-subtle);
 }
 
-.mentora-rule-item {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid var(--mentora-border);
-    border-radius: var(--radius-md);
-    padding: 0.9rem 1rem;
-    box-shadow: var(--shadow-21st-sm);
-    transition:
-        transform var(--spring-hover),
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+.mentora-ledger-item {
+    border-left: 2.5px solid var(--color-brand-primary);
+    padding-left: 0.85rem;
 }
 
-.mentora-rule-item:hover {
-    transform: translate3d(0, -2px, 0);
-    border-color: var(--mentora-primary-border);
-    box-shadow: var(--shadow-21st-card);
+.mentora-ledger-value {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+    margin-bottom: 0.2rem;
 }
 
-/* Double-Bezel Application Window */
-.mentora-window-bezel {
-    padding: 7px;
-    border-radius: 26px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(226, 232, 240, 0.55) 100%);
-    border: 1px solid rgba(203, 213, 225, 0.9);
-    box-shadow: var(--shadow-workbench);
+.mentora-ledger-label {
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.45;
+    margin-bottom: 0;
 }
 
+/* ==========================================================================
+   Section 2: Panel Workbench Simulasi Jalur Belajar Adaptif
+   ========================================================================== */
 .mentora-workbench {
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border);
-    border-radius: 20px;
+    background-color: var(--workbench-bg);
+    border: 1px solid var(--color-border-strong);
+    border-top: 3px solid var(--color-brand-primary);
+    border-radius: var(--workbench-radius);
+    box-shadow:
+        0 1px 3px rgba(15, 23, 42, 0.05),
+        0 16px 36px -8px rgba(15, 23, 42, 0.09),
+        0 28px 56px -16px rgba(29, 78, 216, 0.07);
     overflow: hidden;
 }
 
 .mentora-workbench-header {
-    background: var(--mentora-surface-elevated);
-    color: #F8FAFC;
-    padding: 0.85rem 1.25rem;
+    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: 1rem 1.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    gap: var(--primitive-space-3);
 }
 
-.mentora-status-beacon {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: #10B981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-    display: inline-block;
-    flex-shrink: 0;
-    animation: mentoraBeaconPulse 2.4s ease-in-out infinite;
+.mentora-workbench-title {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
 }
 
-@keyframes mentoraBeaconPulse {
-    0%, 100% {
-        box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
-    }
-    50% {
-        box-shadow: 0 0 0 5px rgba(16, 185, 129, 0.45);
-    }
-}
-
-.mentora-window-url {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: #CBD5E1;
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-pill);
-    padding: 0.2rem 0.75rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
+.mentora-workbench-subtitle {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    margin: 0.1rem 0 0;
 }
 
 .mentora-workbench-body {
-    padding: 1.35rem;
+    padding: 1.25rem;
 }
 
-/* Segmented Goal Control with Sliding White Pill */
+.mentora-control-select {
+    min-height: var(--touch-target-min);
+    padding: 0.45rem 2rem 0.45rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--primitive-radius-sm);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
+}
+
 .mentora-sim-goal-group {
-    position: relative;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 0.25rem;
-    background: var(--mentora-surface-subtle);
-    padding: 0.28rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--mentora-border);
+    background-color: var(--segmented-bg);
+    padding: 0.25rem;
+    border-radius: var(--segmented-radius);
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.03);
 }
 
 .mentora-sim-goal-btn {
     position: relative;
     z-index: 1;
+    min-height: var(--segmented-item-height);
     border: none;
     background: transparent;
-    color: var(--mentora-ink-secondary);
-    font-size: 0.81rem;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
     font-weight: 600;
-    padding: 0.48rem 0.5rem;
-    border-radius: 7px;
+    padding: 0.45rem 0.4rem;
+    border-radius: var(--primitive-radius-sm);
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: opacity var(--primitive-duration-fast) ease;
 }
 
 .mentora-sim-goal-btn:hover {
-    color: var(--mentora-ink);
+    color: var(--color-text-primary);
 }
 
 .mentora-sim-goal-btn.active {
-    color: var(--mentora-primary);
+    color: var(--color-brand-primary);
 }
 
-/* Fallback if JS is disabled */
 html:not(.js-sliding-ready) .mentora-sim-goal-btn.active {
-    background: var(--mentora-surface);
-    box-shadow: var(--shadow-21st-sm);
+    background-color: var(--color-bg-surface);
+    box-shadow: var(--primitive-shadow-xs);
+}
+
+.mentora-diag-box {
+    background-color: var(--color-bg-canvas);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--primitive-radius-md);
+    padding: 0.95rem 1rem;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.025);
+}
+
+/* Input Range dengan Area Sentuh >= 44px */
+.mentora-range-input {
+    min-height: var(--touch-target-min);
+    margin: 0;
+    cursor: pointer;
+}
+
+.mentora-range-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--primitive-space-2);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: 0.15rem;
+}
+
+.mentora-rec-box {
+    background-color: var(--color-brand-soft-bg);
+    border: 1px solid var(--color-brand-soft-border);
+    border-left: 3px solid var(--color-brand-primary);
+    border-radius: var(--primitive-radius-md);
+    padding: 0.95rem 1rem;
+    box-shadow: 0 1px 2px rgba(29, 78, 216, 0.04);
 }
 
 .mentora-module-track {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.55rem;
 }
 
 .mentora-module-node {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.8rem 1rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--mentora-border);
-    background: var(--mentora-surface);
-    transition:
-        border-color 0.25s ease,
-        background-color 0.25s ease;
+    gap: var(--primitive-space-3);
+    padding: 0.75rem 0.95rem;
+    border-radius: var(--primitive-radius-md);
+    border: 1px solid var(--color-border-subtle);
+    background-color: var(--color-bg-surface);
 }
 
 .mentora-module-node.is-unlocked {
-    border-color: var(--mentora-emerald-border);
-    background-color: var(--mentora-emerald-soft);
+    border-color: var(--color-status-success-border);
+    background-color: var(--color-status-success-bg);
 }
 
 .mentora-module-node.is-locked {
-    border-color: var(--mentora-border);
-    background-color: var(--mentora-surface-subtle);
+    border-color: var(--color-border-strong);
+    background-color: var(--color-bg-subtle);
+}
+
+.mentora-module-desc {
+    font-size: 0.78rem;
+    color: var(--color-text-secondary);
 }
 
 .mentora-status-badge {
     font-family: var(--font-sans);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    padding: 0.25rem 0.65rem;
-    border-radius: var(--radius-pill);
+    padding: 0.28rem 0.65rem;
+    border-radius: var(--primitive-radius-xs);
     white-space: nowrap;
-    transition: background-color 0.22s ease, color 0.22s ease;
 }
 
 .mentora-status-badge.unlocked {
-    background-color: var(--mentora-emerald);
-    color: #FFFFFF;
+    background-color: var(--color-status-success-fg);
+    color: var(--color-text-on-primary);
 }
 
 .mentora-status-badge.locked {
-    background-color: #E2E8F0;
-    color: var(--mentora-ink-secondary);
+    background-color: var(--color-border-strong);
+    color: var(--color-text-primary);
 }
 
 /* ==========================================================================
-   Section 2: Asymmetric Bento Grid & Sliding Role Switcher
+   Section 3: Keunggulan & Peran Pengguna (Siswa, Guru, Orang Tua)
    ========================================================================== */
 .mentora-section {
-    padding: 5rem 0;
+    padding: var(--space-section-y) 0;
 }
 
 .mentora-section-white {
-    background-color: var(--mentora-surface);
-    border-top: 1px solid var(--mentora-border);
-    border-bottom: 1px solid var(--mentora-border);
+    background-color: var(--color-bg-surface);
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .mentora-section-subtle {
-    background-color: var(--mentora-canvas);
+    background-color: var(--color-bg-canvas);
 }
 
-/* Sliding Role Pill Group */
 .mentora-role-tab-group {
-    position: relative;
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: inline-grid;
+    grid-template-columns: repeat(3, minmax(96px, 1fr));
     gap: 0.25rem;
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border-strong);
-    padding: 0.3rem;
-    border-radius: var(--radius-pill);
-    box-shadow: var(--shadow-21st-sm);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-strong);
+    padding: 0.25rem;
+    border-radius: var(--segmented-radius);
+    box-shadow: var(--primitive-shadow-xs);
 }
 
 .mentora-role-tab {
     position: relative;
     z-index: 1;
+    min-height: var(--segmented-item-height);
     border: none;
     background: transparent;
-    color: var(--mentora-ink-secondary);
+    color: var(--color-text-secondary);
     font-weight: 600;
     font-size: 0.85rem;
-    padding: 0.45rem 1.05rem;
-    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.95rem;
+    border-radius: var(--primitive-radius-sm);
     cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.mentora-role-tab:hover {
-    color: var(--mentora-ink);
 }
 
 .mentora-role-tab.active {
-    color: #FFFFFF;
+    color: var(--color-text-on-primary);
 }
 
 html:not(.js-sliding-ready) .mentora-role-tab.active {
-    background: var(--mentora-ink);
+    background-color: var(--color-brand-primary);
 }
 
-/* Asymmetric 12-Column Bento Grid */
-.mentora-bento-grid {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 1.25rem;
+.mentora-role-highlight {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--card-radius);
+    padding: var(--primitive-space-6);
+    box-shadow: var(--card-shadow);
 }
 
-.bento-span-7 {
-    grid-column: span 7;
+.mentora-role-checklist-box {
+    background-color: var(--color-bg-canvas);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--primitive-radius-md);
+    padding: var(--primitive-space-4);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.bento-span-5 {
-    grid-column: span 5;
+@media (min-width: 992px) {
+    .mentora-role-desc {
+        min-height: 4.75rem;
+    }
 }
 
-.bento-span-6 {
-    grid-column: span 6;
-}
-
-.mentora-bento-card {
+.mentora-feature-card {
     position: relative;
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border);
-    border-radius: var(--radius-lg);
-    padding: 1.65rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: 1.4rem 1.5rem;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1.25rem;
-    box-shadow: var(--shadow-21st-card);
-    overflow: hidden;
-    transition:
-        transform var(--spring-hover),
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
+    gap: 0.85rem;
+    box-shadow: var(--card-shadow);
 }
 
-.mentora-bento-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 10%;
-    right: 10%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--mentora-primary-bright), var(--mentora-emerald-bright), transparent);
-    opacity: 0;
-    transition: opacity 0.25s ease;
-}
-
-.mentora-bento-card:hover {
-    transform: translate3d(0, -2px, 0);
-    border-color: var(--mentora-primary-border);
-    box-shadow: var(--shadow-21st-hover);
-}
-
-.mentora-bento-card:hover::before {
-    opacity: 1;
-}
-
-.mentora-bento-visual {
-    background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
-    border: 1px solid var(--mentora-border);
-    border-radius: var(--radius-md);
-    padding: 1.1rem;
-    position: relative;
-}
-
-.mentora-mini-node {
-    background: #FFFFFF;
-    border: 1px solid var(--mentora-border-strong);
-    border-radius: var(--radius-xs);
-    padding: 0.5rem 0.75rem;
-    font-size: 0.78rem;
-    box-shadow: var(--shadow-21st-sm);
-}
-
-.mentora-ledger-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+.mentora-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--primitive-radius-sm);
+    background-color: var(--color-brand-soft-bg);
+    color: var(--color-brand-primary);
+    border: 1px solid var(--color-brand-soft-border);
+    box-shadow: 0 1px 2px rgba(29, 78, 216, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.85);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--mentora-primary-soft);
-    color: var(--mentora-primary);
-    border: 1px solid var(--mentora-primary-border);
+    margin-bottom: var(--primitive-space-3);
+}
+
+.mentora-feature-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: 0.775rem;
+    color: var(--color-text-muted);
+}
+
+.mentora-feature-meta strong {
+    color: var(--color-text-primary);
+    font-weight: 600;
 }
 
 /* ==========================================================================
-   Section 3: 4-Step Connected Pipeline Cards
+   Section 4: Alur Belajar 4 Langkah
    ========================================================================== */
 .mentora-step-card {
     position: relative;
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border);
-    border-radius: var(--radius-md);
-    padding: 1.5rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
     height: 100%;
-    box-shadow: var(--shadow-21st-card);
-    transition:
-        transform var(--spring-hover),
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    box-shadow: var(--card-shadow);
 }
 
-.mentora-step-card:hover {
-    transform: translate3d(0, -2px, 0);
-    border-color: var(--mentora-primary-border);
-    box-shadow: var(--shadow-21st-hover);
+.mentora-step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--primitive-space-3);
 }
 
 .mentora-step-num {
     font-family: var(--font-sans);
-    font-size: 0.74rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    color: var(--mentora-primary);
-    background: var(--mentora-primary-soft);
-    border: 1px solid var(--mentora-primary-border);
+    color: var(--color-brand-primary);
+    background-color: var(--color-brand-soft-bg);
+    border: 1px solid var(--color-brand-soft-border);
     padding: 0.24rem 0.65rem;
-    border-radius: var(--radius-pill);
+    border-radius: var(--primitive-radius-xs);
     display: inline-block;
-    margin-bottom: 0.85rem;
 }
 
 /* ==========================================================================
-   Section 4: 7-Subject Curriculum Cards & Sliding Filter Bar
+   Section 5: Katalog 7 Mata Pelajaran Kurikulum Merdeka
    ========================================================================== */
 .mentora-filter-pill-group {
-    position: relative;
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: inline-grid;
+    grid-template-columns: repeat(3, minmax(105px, 1fr));
     gap: 0.25rem;
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border-strong);
-    padding: 0.3rem;
-    border-radius: var(--radius-pill);
-    box-shadow: var(--shadow-21st-sm);
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--color-border-strong);
+    padding: 0.25rem;
+    border-radius: var(--segmented-radius);
+    box-shadow: var(--primitive-shadow-xs);
 }
 
 .mapel-filter-btn {
     position: relative;
     z-index: 1;
+    min-height: var(--segmented-item-height);
     border: none;
     background: transparent;
-    color: var(--mentora-ink-secondary);
+    color: var(--color-text-secondary);
     font-weight: 600;
-    font-size: 0.83rem;
-    padding: 0.42rem 0.95rem;
-    border-radius: var(--radius-pill);
+    font-size: 0.8125rem;
+    padding: 0.45rem 0.75rem;
+    border-radius: var(--primitive-radius-sm);
     cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.mapel-filter-btn:hover {
-    color: var(--mentora-ink);
 }
 
 .mapel-filter-btn.active {
-    color: #FFFFFF;
+    color: var(--color-text-on-primary);
 }
 
 html:not(.js-sliding-ready) .mapel-filter-btn.active {
-    background: var(--mentora-ink);
+    background-color: var(--color-brand-primary);
+}
+
+.mapel-card-col {
+    order: 0;
+}
+
+.mapel-card-col.is-dimmed {
+    order: 1;
 }
 
 .mentora-mapel-card {
-    position: relative;
-    background: var(--mentora-surface);
-    border: 1px solid var(--mentora-border);
-    border-radius: var(--radius-md);
-    padding: 1.45rem;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--card-radius);
+    padding: var(--card-padding);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    box-shadow: var(--shadow-21st-card);
-    overflow: hidden;
-    transition:
-        transform var(--spring-hover),
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+    box-shadow: var(--card-shadow);
+    transition: opacity var(--primitive-duration-normal) ease;
 }
 
-.mentora-mapel-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 12%;
-    right: 12%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--mentora-primary-bright), transparent);
-    opacity: 0;
-    transition: opacity 0.25s ease;
+.mentora-mapel-card p {
+    min-height: 4.25rem;
 }
 
-.mentora-mapel-card:hover {
-    border-color: #93C5FD;
-    transform: translate3d(0, -2.5px, 0);
-    box-shadow: var(--shadow-21st-hover);
+.mapel-card-col.is-dimmed .mentora-mapel-card {
+    opacity: 0.32;
+    background-color: var(--color-bg-subtle);
+    box-shadow: none;
 }
 
-.mentora-mapel-card:hover::before {
-    opacity: 1;
+.mapel-card-col.is-highlighted .mentora-mapel-card {
+    border-color: var(--color-brand-soft-border);
 }
 
 .mentora-mapel-code {
     font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 700;
-    padding: 0.24rem 0.62rem;
-    border-radius: 6px;
-    background: var(--mentora-surface-subtle);
-    color: var(--mentora-ink);
-    border: 1px solid var(--mentora-border-strong);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.22rem 0.6rem;
+    border-radius: var(--primitive-radius-xs);
+    background-color: var(--color-bg-subtle);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-strong);
     white-space: nowrap;
 }
 
+.mentora-mapel-price {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: 0.875rem;
+    color: var(--color-brand-primary);
+}
+
 /* ==========================================================================
-   Section 5: Tiered Pricing Showcase & Sliding Duration Bar
+   Section 6: Pilihan Paket & Kalkulator Biaya Langganan
    ========================================================================== */
 .mentora-duration-pill-group {
-    position: relative;
-    display: inline-flex;
-    flex-wrap: wrap;
+    display: inline-grid;
+    grid-template-columns: repeat(4, minmax(72px, 1fr));
     gap: 0.25rem;
-    background: var(--mentora-surface-subtle);
-    border: 1px solid var(--mentora-border-strong);
-    padding: 0.32rem;
-    border-radius: var(--radius-pill);
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border-strong);
+    padding: 0.25rem;
+    border-radius: var(--segmented-radius);
 }
 
 .mentora-duration-preset {
     position: relative;
     z-index: 1;
+    min-height: var(--segmented-item-height);
     border: none;
     background: transparent;
-    color: var(--mentora-ink-secondary);
-    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
     font-weight: 600;
-    padding: 0.42rem 0.95rem;
-    border-radius: var(--radius-pill);
+    padding: 0.45rem 0.65rem;
+    border-radius: var(--primitive-radius-sm);
     cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.mentora-duration-preset:hover {
-    color: var(--mentora-ink);
 }
 
 .mentora-duration-preset.active {
-    color: #FFFFFF;
+    color: var(--color-text-on-primary);
 }
 
 html:not(.js-sliding-ready) .mentora-duration-preset.active {
-    background: var(--mentora-ink);
+    background-color: var(--color-brand-primary);
 }
 
-/* 3 Featured Bundle Tier Cards */
 .mentora-tier-card {
     position: relative;
-    background: var(--mentora-surface);
-    border: 1.5px solid var(--mentora-border);
-    border-radius: var(--radius-lg);
-    padding: 1.6rem;
+    background-color: var(--card-bg);
+    border: 1.5px solid var(--color-border-subtle);
+    border-radius: var(--primitive-radius-md);
+    padding: 0.9rem 1rem;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -950,118 +1133,284 @@ html:not(.js-sliding-ready) .mentora-duration-preset.active {
     cursor: pointer;
     text-align: left;
     width: 100%;
-    box-shadow: var(--shadow-21st-card);
-    transition:
-        transform var(--spring-hover),
-        border-color 0.22s ease,
-        background-color 0.22s ease,
-        box-shadow 0.22s ease;
+    transition: transform var(--primitive-duration-fast) var(--primitive-ease-out);
 }
 
 .mentora-tier-card:hover {
-    transform: translate3d(0, -2.5px, 0);
-    border-color: #93C5FD;
-    box-shadow: var(--shadow-21st-hover);
+    transform: translate3d(0, -2px, 0);
+    border-color: var(--card-border-hover);
 }
 
 .mentora-tier-card.is-featured {
-    border-color: #93C5FD;
-    background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFF 100%);
+    border-color: var(--color-brand-soft-border);
 }
 
 .mentora-tier-card.active {
-    border-color: var(--mentora-primary-bright);
-    background: linear-gradient(180deg, #EFF6FF 0%, #FFFFFF 100%);
-    box-shadow:
-        0 0 0 2.5px rgba(37, 99, 235, 0.16),
-        var(--shadow-21st-hover);
+    border-color: var(--color-brand-primary);
+    background-color: var(--color-brand-soft-bg);
+    box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.14), var(--card-shadow);
 }
 
-/* Single Subject Selector Pills */
+.mentora-single-paket-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--card-radius);
+    padding: var(--primitive-space-6);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--primitive-space-4);
+    box-shadow: var(--card-shadow);
+}
+
 .mentora-paket-option {
-    position: relative;
-    background: var(--mentora-surface);
-    border: 1.5px solid var(--mentora-border);
-    border-radius: var(--radius-md);
-    padding: 0.85rem 1rem;
+    min-height: 3.5rem;
+    background-color: var(--color-bg-surface);
+    border: 1.5px solid var(--color-border-subtle);
+    border-radius: var(--primitive-radius-md);
+    padding: 0.65rem 0.85rem;
     cursor: pointer;
     text-align: left;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    box-shadow: var(--shadow-21st-sm);
-    transition:
-        transform var(--spring-hover),
-        border-color 0.18s ease,
-        background-color 0.18s ease,
-        box-shadow 0.18s ease;
+    justify-content: center;
+    transition: transform var(--primitive-duration-fast) var(--primitive-ease-out);
 }
 
 .mentora-paket-option:hover {
-    transform: translate3d(0, -1.5px, 0);
-    border-color: #93C5FD;
-    box-shadow: var(--shadow-21st-card);
+    transform: translate3d(0, -1px, 0);
+    border-color: var(--card-border-hover);
 }
 
 .mentora-paket-option.active {
-    border-color: var(--mentora-primary-bright);
-    background-color: var(--mentora-primary-soft);
-    box-shadow: 0 0 0 2.5px rgba(37, 99, 235, 0.14), var(--shadow-21st-sm);
+    border-color: var(--color-brand-primary);
+    background-color: var(--color-brand-soft-bg);
 }
 
-/* Dark Obsidian PricingService Receipt Panel */
+.mentora-paket-code {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--color-brand-primary);
+}
+
+.mentora-parent-trust-strip {
+    background-color: var(--color-bg-canvas);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--primitive-radius-md);
+    padding: 0.85rem 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    font-size: 0.8125rem;
+    color: var(--color-text-secondary);
+}
+
+/* Panel Nota Estimasi Tagihan (Kanan) */
 .mentora-calc-panel {
-    background: linear-gradient(160deg, #0B0F19 0%, #1E293B 100%);
-    color: #FFFFFF;
-    border-radius: var(--radius-xl);
-    padding: 2rem;
-    box-shadow: var(--shadow-workbench);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background-color: var(--color-bg-elevated);
+    color: var(--color-text-on-primary);
+    border-radius: var(--card-radius);
+    padding: var(--primitive-space-6);
+    box-shadow: var(--primitive-shadow-lg);
+    border: 1px solid var(--primitive-slate-800);
+}
+
+.mentora-calc-title-box {
+    min-height: 4.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#calcSelectedName {
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+.mentora-calc-meta {
+    color: var(--color-text-on-dark-muted);
+    font-size: 0.85rem;
+}
+
+.mentora-calc-code-badge {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--primitive-radius-xs);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-text-on-primary);
+}
+
+.mentora-calc-duration-bar {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.25rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 0.25rem;
+    border-radius: var(--segmented-radius);
+}
+
+.mentora-calc-dur-btn {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+    border: none;
+    color: var(--color-text-on-dark-muted);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.45rem 0.35rem;
+    border-radius: var(--primitive-radius-sm);
+    cursor: pointer;
+    min-height: var(--touch-target-min);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color var(--primitive-duration-fast) ease;
+}
+
+.mentora-calc-dur-btn:hover {
+    color: var(--color-text-on-primary);
+}
+
+.mentora-calc-dur-btn.active {
+    color: var(--color-text-on-primary);
+}
+
+html:not(.js-sliding-ready) .mentora-calc-dur-btn.active {
+    background-color: var(--color-brand-primary);
 }
 
 .mentora-calc-receipt {
-    background: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-lg);
-    padding: 1.35rem;
+    border-radius: var(--primitive-radius-md);
+    padding: 1.15rem;
+}
+
+.mentora-calc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--primitive-space-2);
+    font-size: 0.875rem;
+    color: var(--color-text-on-dark-muted);
+    margin-bottom: 0.55rem;
+}
+
+.mentora-calc-discount-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--primitive-space-2);
+    font-size: 0.875rem;
+    color: var(--color-status-warning-on-dark);
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.mentora-calc-total-value {
+    font-family: var(--font-display);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    font-size: clamp(1.35rem, 4.2vw, 1.75rem);
+    color: var(--color-text-on-primary);
+    white-space: nowrap;
+}
+
+/* Lencana Pencapaian & Kotak Demo (Debug) */
+.mentora-achievement-card {
+    background-color: var(--color-bg-canvas);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--primitive-radius-md);
+    padding: var(--primitive-space-4);
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--primitive-space-3);
 }
 
 .mentora-demo-box {
-    background: var(--mentora-surface-subtle);
-    border: 1px solid var(--mentora-border-strong);
-    border-radius: var(--radius-md);
-    padding: 1.15rem 1.35rem;
-}
-
-/* Footer */
-.mentora-footer {
-    background: #0B0F19;
-    color: #CBD5E1;
-    padding: 3.75rem 0 2.5rem;
-    font-size: 0.9rem;
-}
-
-.mentora-footer a {
-    color: #E2E8F0;
-    text-decoration: none;
-    transition: color 0.15s ease;
-}
-
-.mentora-footer a:hover {
-    color: #FFFFFF;
-    text-decoration: underline;
+    background-color: var(--color-bg-canvas);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--primitive-radius-md);
+    padding: var(--primitive-space-4);
 }
 
 /* ==========================================================================
-   Motion Scroll Reveal & Smooth Content Swap (Zero Bounce / Zero Thrash)
+   Section 7: Footer (Digunakan Lintas Halaman via base.html)
+   ========================================================================== */
+.mentora-footer {
+    background-color: var(--color-bg-elevated);
+    color: var(--color-text-on-dark-muted);
+    padding: 3.5rem 0 2.25rem;
+    font-size: 0.875rem;
+    border-top: 1px solid var(--primitive-slate-800);
+}
+
+.mentora-footer-desc {
+    max-width: 46ch;
+    color: var(--color-text-on-dark-muted);
+    line-height: 1.65;
+}
+
+.mentora-footer-heading {
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-text-on-primary);
+    margin-bottom: 0.75rem;
+}
+
+.mentora-footer-pill {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text-on-dark);
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.28rem 0.7rem;
+    border-radius: var(--primitive-radius-xs);
+}
+
+.mentora-footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--touch-target-min);
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+    transition: opacity var(--primitive-duration-fast) ease;
+}
+
+.mentora-footer-link:hover,
+.mentora-footer-link:focus {
+    color: var(--color-text-on-primary);
+    text-decoration: underline;
+}
+
+.mentora-footer-bottom {
+    color: var(--color-text-on-dark-muted);
+    font-size: 0.8125rem;
+}
+
+/* ==========================================================================
+   Motion Scroll Reveal & Content Swap (150-400ms, Hanya Transform/Opacity)
    ========================================================================== */
 .js-motion-ready [data-motion-reveal],
 .js-motion-ready [data-motion-item] {
     opacity: 0;
-    transform: translate3d(0, 14px, 0);
-    will-change: transform, opacity;
+    transform: translate3d(0, 12px, 0);
 }
 
 .js-motion-ready [data-motion-reveal].is-inview,
@@ -1069,50 +1418,45 @@ html:not(.js-sliding-ready) .mentora-duration-preset.active {
     opacity: 1;
     transform: translate3d(0, 0, 0);
     transition:
-        opacity 0.42s var(--ease-out-quart),
-        transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+        opacity var(--primitive-duration-reveal) var(--primitive-ease-out),
+        transform var(--primitive-duration-reveal) var(--primitive-ease-out);
     transition-delay: var(--stagger-delay, 0ms);
 }
 
-/* Subtle Content Glide when Switching Tabs/Options (Replaces Harsh Bounce) */
 .motion-content-glide {
-    animation: mentoraContentGlide 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: mentoraContentGlide var(--primitive-duration-fast) ease-out;
 }
 
 @keyframes mentoraContentGlide {
     0% {
-        opacity: 0.55;
-        transform: translate3d(0, 4px, 0);
+        opacity: 0.72;
     }
     100% {
         opacity: 1;
-        transform: translate3d(0, 0, 0);
     }
 }
 
 /* ==========================================================================
-   Responsive Adjustments (360px Mobile Compliance per NFR-09)
+   Penyesuaian Responsif Layar Tablet & Mobile
    ========================================================================== */
 @media (max-width: 991.98px) {
-    .mentora-floating-pill {
-        border-radius: 20px;
-        padding: 0.6rem 0.9rem;
-    }
-    .mentora-nav-track {
-        background: transparent;
-        border: none;
-        padding: 0.25rem 0;
-    }
-    .mentora-hero {
-        padding: 2.25rem 0 3.5rem;
-    }
-    .mentora-rule-strip {
+    .mentora-ledger-strip {
         grid-template-columns: 1fr;
+        gap: var(--primitive-space-3);
     }
-    .bento-span-7,
-    .bento-span-5,
-    .bento-span-6 {
-        grid-column: span 12;
+    .mentora-role-tab-group,
+    .mentora-filter-pill-group,
+    .mentora-duration-pill-group {
+        width: 100%;
+    }
+    .mentora-role-tab-group {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .mentora-filter-pill-group {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .mentora-duration-pill-group {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -1122,17 +1466,20 @@ html:not(.js-sliding-ready) .mentora-duration-preset.active {
     }
     .mentora-workbench-body,
     .mentora-calc-panel,
-    .mentora-bento-card {
+    .mentora-single-paket-card,
+    .mentora-role-highlight {
         padding: 1.15rem;
     }
-    .badge-21st,
-    .mentora-hero-pill {
-        white-space: normal;
-        max-width: 100%;
+    .mentora-sim-goal-btn,
+    .mapel-filter-btn,
+    .mentora-duration-preset {
+        font-size: 0.75rem;
+        padding-left: 0.25rem;
+        padding-right: 0.25rem;
     }
 }
 
-/* Accessibility: Reduced Motion Compliance */
+/* Kepatuhan Penuh prefers-reduced-motion */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;

@@ -27,20 +27,32 @@ class LandingPageDanAutentikasiTest(TestCase):
         )
 
     def test_halaman_beranda_200_dan_template_benar(self):
-        """Memastikan rute publik '/' mengembalikan status 200, elemen wajib DPPL Bab 5.1, SKPL BR-01, & Motion."""
+        """Memastikan rute publik '/' menampilkan informasi paket dan tombol navigasi utama dengan benar."""
         response = self.client.get(reverse("beranda"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "beranda.html")
         self.assertTemplateUsed(response, "base.html")
         self.assertContains(response, "Mentora-LMS")
-        self.assertContains(response, "Simulasi Mesin Adaptif Mentora")
-        # DPPL Bab 5.1: Penjelasan singkat, daftar paket, tombol Daftar dan Masuk
+        self.assertContains(response, "Coba Simulasi Penentuan Materi")
         self.assertContains(response, reverse("daftar"))
         self.assertContains(response, reverse("masuk"))
-        self.assertContains(response, "BDL-SAINS")
-        self.assertContains(response, "BDL-BHS")
-        self.assertContains(response, "BDL-FULL")
-        # Motion scroll-reveal & stagger attributes
+        for kode in (
+            "BDL-BHS",
+            "BDL-SAINS",
+            "BDL-FULL",
+            "MAP-MTK",
+            "MAP-FIS",
+            "MAP-KIM",
+            "MAP-BIO",
+            "MAP-BIN",
+            "MAP-BIG",
+            "MAP-PPK",
+        ):
+            self.assertContains(response, kode)
+        html = response.content.decode("utf-8")
+        self.assertNotRegex(html, r"\b(BR|UC)-\d{2}\b")
+        self.assertNotIn("Mentora123!", html)
+        self.assertNotIn("<style>", html)
         self.assertContains(response, "data-motion-reveal")
         self.assertContains(response, "data-motion-stagger")
 
@@ -49,7 +61,7 @@ class LandingPageDanAutentikasiTest(TestCase):
         response = self.client.get(reverse("syarat_ketentuan"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "syarat_ketentuan.html")
-        self.assertContains(response, "Syarat dan Ketentuan Penggunaan Mentora-LMS")
+        self.assertContains(response, "Syarat dan Ketentuan Layanan Mentora")
 
     def test_login_siswa_berhasil_dan_redirect_ke_dasbor_siswa(self):
         """Memastikan login akun siswa mengarahkan ke /siswa/."""
