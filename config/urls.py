@@ -9,6 +9,7 @@ urlpatterns = [
     path("", akun_views.beranda_view, name="beranda"),
     path("syarat-ketentuan/", akun_views.syarat_ketentuan_view, name="syarat_ketentuan"),
     path("akun/", include("akun.urls")),
+    path("langganan/", include("langganan.urls")),
     path("siswa/", akun_views.dasbor_siswa_view, name="dasbor_siswa"),
     path("guru/", akun_views.dasbor_guru_view, name="dasbor_guru"),
     path("admin-panel/guru/", akun_views.kelola_guru_view, name="kelola_guru"),

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Keranjang Paket Belajar - Mentora-LMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4 mb-5">
+    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center fw-bold mb-1">Pemesanan Paket Belajar</h4>
+                <p class="text-center text-muted small mb-4">Pilih paket dan durasi berlangganan</p>
+
+                {% if pesan_sukses %}
+                    <div class="alert alert-success py-2 small" role="alert">
+                        {{ pesan_sukses }}
+                    </div>
+                {% endif %}
+
+                {% if pesan_galat %}
+                    <div class="alert alert-danger py-2 small" role="alert">
+                        {{ pesan_galat }}
+                    </div>
+                {% endif %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.kode_paket.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.kode_paket.label }}
+                        </label>
+                        {{ form.kode_paket }}
+                        {% if form.kode_paket.errors %}
+                            <div class="text-danger small mt-1">{{ form.kode_paket.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.durasi_bulan.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.durasi_bulan.label }}
+                        </label>
+                        {{ form.durasi_bulan }}
+                        {% if form.durasi_bulan.errors %}
+                            <div class="text-danger small mt-1">{{ form.durasi_bulan.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.kode_paket_tambahan.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.kode_paket_tambahan.label }}
+                        </label>
+                        {{ form.kode_paket_tambahan }}
+                        {% if form.kode_paket_tambahan.errors %}
+                            <div class="text-danger small mt-1">{{ form.kode_paket_tambahan.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ form.kode_diskon.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.kode_diskon.label }}
+                        </label>
+                        {{ form.kode_diskon }}
+                        {% if form.kode_diskon.errors %}
+                            <div class="text-danger small mt-1">{{ form.kode_diskon.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                        Buat Tagihan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

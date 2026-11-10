@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import LoginForm
+from .forms import LoginForm, RegistrasiSiswaForm
 from .decorators import peran_wajib
 from .models import Pengguna
 
@@ -136,8 +136,26 @@ def kelola_guru_view(request):
 
 # --- Kerangka / Stub View Lainnya ---
 def daftar_view(request):
-    """Stub UC-01: Registrasi akun siswa."""
-    pass
+    """Realisasi UC-01: Registrasi akun siswa."""
+    form = RegistrasiSiswaForm(request.POST or None)
+    pesan_sukses = None
+    pesan_galat = None
+
+    if request.method == "POST":
+        if form.is_valid():
+            pesan_sukses = "Pendaftaran berhasil. Silakan masuk menggunakan akun Anda."
+        else:
+            pesan_galat = "Terdapat kesalahan pada data pendaftaran. Periksa kembali isian Anda."
+
+    return render(
+        request,
+        "akun/daftar.html",
+        {
+            "form": form,
+            "pesan_sukses": pesan_sukses,
+            "pesan_galat": pesan_galat,
+        },
+    )
 
 
 @peran_wajib("siswa")

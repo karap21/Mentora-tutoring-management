@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Pembayaran Tagihan - Mentora-LMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center mt-4 mb-5">
+    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
+        <div class="card border-0 shadow-sm rounded-3">
+            <div class="card-body p-4">
+                <h4 class="card-title text-center fw-bold mb-1">Pembayaran Tagihan</h4>
+                <p class="text-center text-muted small mb-4">Nomor Invoice: INV-20261110-0001 &middot; Total: Rp 350.000</p>
+
+                {% if pesan_sukses %}
+                    <div class="alert alert-success py-2 small" role="alert">
+                        {{ pesan_sukses }}
+                    </div>
+                {% endif %}
+
+                {% if pesan_galat %}
+                    <div class="alert alert-danger py-2 small" role="alert">
+                        {{ pesan_galat }}
+                    </div>
+                {% endif %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="{{ form.token.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.token.label }}
+                        </label>
+                        {{ form.token }}
+                        {% if form.token.errors %}
+                            <div class="text-danger small mt-1">{{ form.token.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.nominal_bayar.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.nominal_bayar.label }}
+                        </label>
+                        {{ form.nominal_bayar }}
+                        {% if form.nominal_bayar.errors %}
+                            <div class="text-danger small mt-1">{{ form.nominal_bayar.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.nama_file_bukti.id_for_label }}" class="form-label fw-semibold">
+                            {{ form.nama_file_bukti.label }}
+                        </label>
+                        {{ form.nama_file_bukti }}
+                        {% if form.nama_file_bukti.errors %}
+                            <div class="text-danger small mt-1">{{ form.nama_file_bukti.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            {{ form.setuju }}
+                            <label class="form-check-label small" for="{{ form.setuju.id_for_label }}">
+                                {{ form.setuju.label }}
+                            </label>
+                        </div>
+                        {% if form.setuju.errors %}
+                            <div class="text-danger small mt-1">{{ form.setuju.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                        Konfirmasi Pembayaran
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
