@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Tes Diagnostik Awal (Pretest) — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-9">
+        <section class="mentora-workbench" aria-labelledby="diagnostikHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="diagnostikHeading" class="h4 fw-bold mb-1">Tes Diagnostik Awal (Pretest Pemetaan)</h1>
+                    <p class="mentora-workbench-subtitle mb-0">
+                        Bukan ujian penentu kelulusan &mdash; tes ini hanya memetakan titik mulai belajarmu yang paling nyaman
+                    </p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Ambang Lompat Modul &ge; 85</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <div class="mentora-rec-box mb-4">
+                    <div class="fw-bold small text-primary mb-1">Mengapa ada Pretest?</div>
+                    <p class="small text-secondary mb-0">
+                        Jika skormu mencapai <strong class="font-tabular">85</strong> ke atas, <strong>Modul Lanjutan</strong> langsung terbuka agar kamu hemat waktu. Jika skormu di bawah <strong class="font-tabular">85</strong>, sistem akan membimbingmu dari <strong>Modul Dasar</strong> secara bertahap agar fondasi konsepnya kuat.
+                    </p>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                        <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Kembali ke Ruang Belajar</a>
+                        <button type="submit" class="btn btn-mentora-primary">Kumpulkan Hasil Pemetaan</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

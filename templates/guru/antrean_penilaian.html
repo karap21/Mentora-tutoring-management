@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Antrean Penilaian Esai & Tugas — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="antreanPageHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="antreanPageHeading" class="h3 fw-bold mb-1">Antrean Penilaian Jawaban Esai &amp; Tugas</h1>
+                <p class="text-secondary small mb-0">Periksa kiriman jawaban siswa pada mata pelajaran yang Anda ampu.</p>
+            </div>
+            <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-outline">&larr; Dasbor Guru</a>
+        </div>
+    </section>
+
+    <section class="mentora-workbench" aria-label="Daftar Antrean Penilaian">
+        <div class="mentora-workbench-body">
+            <div class="mentora-empty-state">
+                <h2 class="h6 fw-bold text-dark mb-1">Seluruh jawaban esai &amp; tugas telah diperiksa</h2>
+                <p class="small text-secondary mb-0">Kiriman baru dari siswa akan otomatis muncul di daftar antrean ini.</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

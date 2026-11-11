@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Hasil Evaluasi Kuis — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-8">
+        <section class="mentora-workbench" aria-labelledby="hasilKuisHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="hasilKuisHeading" class="h4 fw-bold mb-1">Ringkasan Hasil Kuis</h1>
+                    <p class="mentora-workbench-subtitle mb-0">{{ percobaan.kuis.judul|default:"Evaluasi Pemahaman Modul" }}</p>
+                </div>
+                <span class="badge-21st badge-21st-emerald">{{ percobaan.status|default:"Terkumpul"|title }}</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6">
+                        <div class="mentora-panel-subtle text-center">
+                            <div class="small text-secondary mb-1">Skor Otomatis (PG &amp; Isian)</div>
+                            <div class="display-6 fw-bold text-primary font-tabular">{{ percobaan.skor_otomatis|default:"80" }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mentora-panel-subtle text-center">
+                            <div class="small text-secondary mb-1">Skor Akhir (Termasuk Esai)</div>
+                            <div class="display-6 fw-bold text-dark font-tabular">{{ percobaan.skor_akhir|default:"Menunggu Koreksi Guru" }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mentora-rec-box mb-4">
+                    <div class="fw-bold small text-primary mb-1">Status Jalur Belajar Adaptif</div>
+                    <p class="small text-secondary mb-0">
+                        Bila skor akhir mencapai minimal <strong class="font-tabular">75</strong>, sistem otomatis membuka akses ke <strong>Modul Lanjutan</strong>. Jika masih di bawah ambang tersebut, kamu dapat mengulas kembali rangkuman materi dan mencoba kembali tanpa penalti.
+                    </p>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                    <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Kembali ke Dasbor</a>
+                    <a href="{% url 'dasbor_siswa' %}#jalur-adaptif" class="btn btn-mentora-primary">Lanjutkan Modul Berikutnya</a>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

@@ -1,35 +1,129 @@
 {% extends "base.html" %}
-{% block title %}Kelola Guru - Admin Mentora-LMS{% endblock %}
+{% block title %}Kelola Akun Guru — Panel Admin Mentora-LMS{% endblock %}
+
 {% block content %}
-<h3 class="fw-bold mb-3">Panel Admin: Kelola Akun Guru</h3>
-<div class="card shadow-sm border-0">
-    <div class="card-body">
-        <table class="table table-hover align-middle mb-0">
-            <thead class="table-light">
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Guru</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for g in daftar_guru %}
-                <tr>
-                    <td>{{ g.id }}</td>
-                    <td>{{ g.nama }}</td>
-                    <td>{{ g.email }}</td>
-                    <td>
-                        {% if g.is_active %}
-                            <span class="badge bg-success">Aktif</span>
-                        {% else %}
-                            <span class="badge bg-secondary">Nonaktif</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="py-2">
+    <!-- Header Panel Admin -->
+    <section class="mentora-workspace-header" aria-labelledby="adminHeaderTitle">
+        <div class="row align-items-center gy-3">
+            <div class="col-lg-8">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                    <span class="badge-21st badge-21st-primary">Panel Administrator</span>
+                    <span class="badge-21st font-tabular">{{ daftar_guru|length }} Akun Guru Terdaftar</span>
+                </div>
+                <h1 id="adminHeaderTitle" class="h3 fw-bold mb-1">Panel Admin: Kelola Akun Guru</h1>
+                <p class="text-secondary small mb-0">
+                    Pantau status aktif mitra guru pengampu, periksa penugasan mata pelajaran, dan kelola akses akun di lingkungan Mentora-LMS.
+                </p>
+            </div>
+            <div class="col-lg-4 d-flex flex-wrap justify-content-lg-end gap-2">
+                <a href="/django-admin/" class="btn btn-mentora-outline">Konsol Data Utama</a>
+                <a href="#tabel-guru" class="btn btn-mentora-primary">Daftar Guru</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workbench Tabel Guru dengan Pencarian Cepat -->
+    <section class="mentora-workbench" id="tabel-guru" aria-labelledby="tabelGuruHeading">
+        <div class="mentora-workbench-header flex-wrap">
+            <div>
+                <h2 id="tabelGuruHeading" class="mentora-workbench-title">Daftar Mitra Guru Pengampu</h2>
+                <p class="mentora-workbench-subtitle" id="ringkasan-mapel">Cari berdasarkan nama, email, atau kode mata pelajaran yang diampu</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <label for="guruSearchInput" class="visually-hidden">Cari nama atau email guru</label>
+                <input type="search"
+                       id="guruSearchInput"
+                       class="form-control form-control-sm mentora-form-control mentora-search-input"
+                       placeholder="Cari nama, email, atau mapel..."
+                       aria-label="Cari nama, email, atau mata pelajaran guru">
+            </div>
+        </div>
+
+        <div class="mentora-workbench-body p-0">
+            <div class="table-responsive">
+                <table class="table mentora-table align-middle" id="guruDataTable">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="ps-4">ID</th>
+                            <th scope="col">Nama Guru</th>
+                            <th scope="col">Alamat Email</th>
+                            <th scope="col">Mata Pelajaran Diampu</th>
+                            <th scope="col" class="pe-4">Status Akun</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for g in daftar_guru %}
+                        <tr class="js-guru-row">
+                            <td class="ps-4 font-tabular text-secondary">#{{ g.id }}</td>
+                            <td class="fw-bold text-dark">{{ g.nama }}</td>
+                            <td class="font-mono-code small text-secondary">{{ g.email }}</td>
+                            <td>
+                                <div class="d-flex flex-wrap gap-1">
+                                    {% for gm in g.mapel_diampu.all %}
+                                        <span class="mentora-mapel-code" title="{{ gm.mapel.nama }}">{{ gm.mapel.kode }}</span>
+                                    {% empty %}
+                                        <span class="small text-secondary">Belum ditugaskan</span>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <td class="pe-4">
+                                {% if g.is_active %}
+                                    <span class="badge-21st badge-21st-emerald">Aktif</span>
+                                {% else %}
+                                    <span class="badge-21st">Nonaktif</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-4 text-secondary">
+                                Belum ada data guru pengampu yang terdaftar di sistem.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div id="guruEmptySearch" class="mentora-empty-state m-3" hidden>
+                <p class="small text-secondary mb-0">Tidak ditemukan guru yang cocok dengan kata kunci pencarian.</p>
+            </div>
+        </div>
+    </section>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function () {
+    "use strict";
+    var searchInput = document.getElementById("guruSearchInput");
+    var rows = document.querySelectorAll(".js-guru-row");
+    var emptyNotice = document.getElementById("guruEmptySearch");
+
+    if (searchInput && rows.length > 0) {
+        searchInput.addEventListener("input", function () {
+            var q = (searchInput.value || "").toLowerCase().trim();
+            var visibleCount = 0;
+            rows.forEach(function (row) {
+                var text = (row.textContent || "").toLowerCase();
+                var match = !q || text.indexOf(q) !== -1;
+                if (match) {
+                    row.removeAttribute("hidden");
+                    visibleCount += 1;
+                } else {
+                    row.setAttribute("hidden", "hidden");
+                }
+            });
+            if (emptyNotice) {
+                if (visibleCount === 0) {
+                    emptyNotice.removeAttribute("hidden");
+                } else {
+                    emptyNotice.setAttribute("hidden", "hidden");
+                }
+            }
+        });
+    }
+})();
+</script>
 {% endblock %}

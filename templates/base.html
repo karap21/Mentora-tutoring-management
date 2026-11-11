@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600&family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'css/mentora.css' %}?v=12" rel="stylesheet">
+    <link href="{% static 'css/mentora.css' %}?v=13" rel="stylesheet">
     {% block extra_head %}{% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -35,22 +35,65 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="mentoraNavbar">
+                    {% with current_url=request.resolver_match.url_name %}
                     <ul class="navbar-nav mx-auto my-2 my-lg-0 mentora-nav-track">
-                        <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#simulasi-adaptif">Coba Simulasi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#fitur-utama">Keunggulan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#alur-belajar">Cara Belajar</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#katalog-mapel">Mata Pelajaran</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#kalkulator-langganan">Biaya &amp; Paket</a>
-                        </li>
+                        {% if user.is_authenticated and current_url != 'beranda' %}
+                            {% if user.peran == 'admin' %}
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link {% if current_url == 'kelola_guru' %}active{% endif %}"
+                                       {% if current_url == 'kelola_guru' %}aria-current="page"{% endif %}
+                                       href="{% url 'kelola_guru' %}">Kelola Guru</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link" href="{% url 'kelola_guru' %}#ringkasan-mapel">Penugasan Mapel</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#kalkulator-langganan">Katalog Paket</a>
+                                </li>
+                            {% elif user.peran == 'guru' %}
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link {% if current_url == 'dasbor_guru' %}active{% endif %}"
+                                       {% if current_url == 'dasbor_guru' %}aria-current="page"{% endif %}
+                                       href="{% url 'dasbor_guru' %}">Dasbor Pengampu</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link" href="{% url 'dasbor_guru' %}#antrean-penilaian">Antrean Penilaian</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link" href="{% url 'dasbor_guru' %}#mapel-diampu">Mapel Diampu</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link {% if current_url == 'dasbor_siswa' %}active{% endif %}"
+                                       {% if current_url == 'dasbor_siswa' %}aria-current="page"{% endif %}
+                                       href="{% url 'dasbor_siswa' %}">Ruang Belajar</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link" href="{% url 'dasbor_siswa' %}#jalur-adaptif">Jalur Modul</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link" href="{% url 'dasbor_siswa' %}#langganan-aktif">Paket Saya</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link mentora-nav-link {% if current_url == 'keranjang' %}active{% endif %}"
+                                       {% if current_url == 'keranjang' %}aria-current="page"{% endif %}
+                                       href="{% url 'keranjang' %}">Pesan Paket</a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#simulasi-adaptif">Simulasi Adaptif</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#alur-belajar">Cara Belajar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#katalog-mapel">Mata Pelajaran</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link mentora-nav-link" href="{% url 'beranda' %}#kalkulator-langganan">Biaya &amp; Paket</a>
+                            </li>
+                        {% endif %}
                     </ul>
 
                     <div class="d-flex flex-wrap align-items-center gap-2 pt-2 pt-lg-0">
@@ -63,10 +106,12 @@
                                 <a href="{% url 'kelola_guru' %}" class="btn btn-mentora-primary">Panel Admin</a>
                             {% elif user.peran == 'guru' %}
                                 <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-primary">Dasbor Guru</a>
+                            {% elif current_url == 'dasbor_siswa' %}
+                                <a href="{% url 'keranjang' %}" class="btn btn-mentora-primary">Pesan Paket</a>
                             {% else %}
                                 <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-primary">Ruang Belajar</a>
                             {% endif %}
-                            <a href="{% url 'keluar' %}" class="btn btn-mentora-outline">Keluar</a>
+                            <a href="{% url 'keluar' %}" class="btn btn-mentora-outline ms-lg-1">Keluar</a>
                         {% else %}
                             <a href="{% url 'daftar' %}" class="btn btn-mentora-outline">Daftar</a>
                             <a href="{% url 'masuk' %}" class="btn btn-mentora-primary">
@@ -74,6 +119,7 @@
                             </a>
                         {% endif %}
                     </div>
+                    {% endwith %}
                 </div>
             </nav>
         </div>
@@ -150,6 +196,91 @@
     {% endblock %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    (function () {
+        "use strict";
+        var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduced || !("IntersectionObserver" in window)) return;
+
+        var mainEl = document.getElementById("main-content");
+        if (mainEl && !mainEl.querySelector("[data-motion-reveal], [data-motion-stagger]")) {
+            mainEl.querySelectorAll(".mentora-workspace-header, .mentora-workbench").forEach(function (el) {
+                el.setAttribute("data-motion-reveal", "");
+            });
+            mainEl.querySelectorAll(".row.g-4, .row.g-3").forEach(function (row) {
+                var cols = Array.prototype.filter.call(row.children, function (c) {
+                    return c.querySelector(".mentora-panel-card, .mentora-single-paket-card, .mentora-feature-card");
+                });
+                if (cols.length > 0) {
+                    row.setAttribute("data-motion-stagger", "");
+                    cols.forEach(function (col) { col.setAttribute("data-motion-item", ""); });
+                }
+            });
+        }
+
+        document.documentElement.classList.add("js-motion-ready");
+        document.querySelectorAll("[data-motion-stagger]").forEach(function (container) {
+            container.querySelectorAll("[data-motion-item]").forEach(function (item, idx) {
+                item.style.setProperty("--stagger-delay", Math.min(idx * 50, 320) + "ms");
+            });
+        });
+
+        var observer = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                var target = entry.target;
+                if (target.hasAttribute("data-motion-stagger")) {
+                    target.querySelectorAll("[data-motion-item]").forEach(function (child) {
+                        child.classList.add("is-inview");
+                    });
+                } else {
+                    target.classList.add("is-inview");
+                }
+                obs.unobserve(target);
+            });
+        }, { root: null, rootMargin: "0px 0px -6% 0px", threshold: 0.06 });
+
+        document.querySelectorAll("[data-motion-reveal], [data-motion-stagger]").forEach(function (el) {
+            observer.observe(el);
+        });
+
+        /* Highlight target workbench/card & update active navbar link when clicking same-page anchors */
+        function highlightAnchorTarget(hashLink) {
+            if (!hashLink) return;
+            var href = hashLink.getAttribute("href") || "";
+            var hashIdx = href.indexOf("#");
+            if (hashIdx === -1) return;
+            var targetId = href.slice(hashIdx + 1);
+            if (!targetId) return;
+            var targetEl = document.getElementById(targetId);
+            if (!targetEl) return;
+
+            var cardEl = targetEl.classList.contains("mentora-workbench")
+                ? targetEl
+                : (targetEl.querySelector(".mentora-workbench") || targetEl);
+
+            if (hashLink.classList.contains("mentora-nav-link")) {
+                document.querySelectorAll(".mentora-nav-link").forEach(function (nav) {
+                    nav.classList.remove("active");
+                });
+                hashLink.classList.add("active");
+            }
+
+            cardEl.classList.remove("is-target-highlighted");
+            void cardEl.offsetWidth;
+            cardEl.classList.add("is-target-highlighted");
+            setTimeout(function () {
+                cardEl.classList.remove("is-target-highlighted");
+            }, 950);
+        }
+
+        document.querySelectorAll('a[href*="#"]').forEach(function (link) {
+            link.addEventListener("click", function () {
+                highlightAnchorTarget(link);
+            });
+        });
+    })();
+    </script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>

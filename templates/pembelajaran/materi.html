@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ materi.judul|default:"Materi Pembelajaran" }} — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-9">
+        <article class="mentora-workbench" aria-labelledby="materiHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="materiHeading" class="h4 fw-bold mb-1">{{ materi.judul|default:"Materi Konsep & Ringkasan Terstruktur" }}</h1>
+                    <p class="mentora-workbench-subtitle mb-0">
+                        Modul: {{ materi.modul.judul|default:"Modul Dasar" }} &middot; Tipe: {{ materi.tipe|default:"Teks & PDF"|upper }}
+                    </p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Materi Belajar</span>
+            </div>
+
+            <div class="mentora-workbench-body p-4">
+                <div class="mentora-prose mb-4">
+                    {{ materi.konten_teks|default:"Pelajari penjelasan konsep di bawah ini secara saksama sebelum mengerjakan latihan kuis untuk mengukur pemahamanmu."|linebreaks }}
+                </div>
+
+                {% if materi.file_pdf %}
+                    <div class="mentora-panel-subtle d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+                        <div>
+                            <div class="fw-bold small text-dark">Lampiran Modul PDF</div>
+                            <div class="small text-secondary font-mono-code">{{ materi.file_pdf }}</div>
+                        </div>
+                        <a href="{{ materi.file_pdf }}" class="btn btn-mentora-outline" target="_blank" rel="noopener">Unduh PDF</a>
+                    </div>
+                {% endif %}
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                    <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Kembali ke Modul</a>
+                    <form method="post" class="m-0">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-mentora-primary">Tandai Materi Selesai &check;</button>
+                    </form>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+{% endblock %}

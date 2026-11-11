@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Pengumpulan Tugas Mandiri — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-8">
+        <section class="mentora-workbench" aria-labelledby="tugasHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="tugasHeading" class="h4 fw-bold mb-1">{{ tugas.judul|default:"Tugas Mandiri & Analisis Studi Kasus" }}</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Tenggat pengumpulan: <span class="font-tabular">{{ tugas.tenggat|date:"d M Y, H:i"|default:"Sesuai jadwal modul" }}</span></p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Diperiksa Guru</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <p class="text-secondary small mb-4">
+                    {{ tugas.deskripsi|default:"Unggah berkas jawaban tugas mandirimu dalam format PDF. Guru pengampu akan memberikan skor beserta catatan umpan balik tertulis." }}
+                </p>
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="id_file_tugas" class="form-label small fw-bold text-dark mb-1">Pilih Berkas Jawaban (PDF)</label>
+                        <input type="file" name="file" id="id_file_tugas" class="form-control mentora-form-control" accept=".pdf" required>
+                        <div class="form-text small text-secondary">Pastikan berkas PDF terbaca jelas sebelum dikirim ke antrean penilaian guru.</div>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                        <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Kembali ke Modul</a>
+                        <button type="submit" class="btn btn-mentora-primary">Unggah &amp; Kirim Tugas</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

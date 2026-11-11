@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Katalog Paket Langganan — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="katalogLanggananHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="katalogLanggananHeading" class="h3 fw-bold mb-1">Katalog Paket Belajar</h1>
+                <p class="text-secondary small mb-0">Pilih paket satuan atau bundel hemat, atur durasi 1–12 bulan (potongan 20% khusus 12 bulan).</p>
+            </div>
+            <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Dasbor Siswa</a>
+        </div>
+    </section>
+
+    <div class="row g-3">
+        {% for pkt in daftar_paket %}
+            <div class="col-md-6 col-lg-4">
+                <article class="mentora-panel-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="mentora-mapel-code">{{ pkt.kode }}</span>
+                            <span class="badge-21st badge-21st-primary">{{ pkt.jenis|title }}</span>
+                        </div>
+                        <h2 class="h5 fw-bold text-dark mb-1">{{ pkt.nama }}</h2>
+                        <div class="font-tabular fw-bold text-primary mb-2">Rp {{ pkt.harga_per_bulan }} / bulan</div>
+                    </div>
+                    <a href="{% url 'beranda' %}#kalkulator-langganan" class="btn btn-mentora-primary w-100">Hitung &amp; Pilih Paket</a>
+                </article>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="mentora-empty-state">
+                    <p class="small text-secondary mb-3">Lihat simulasi biaya lengkap paket bundel dan satuan di kalkulator langganan.</p>
+                    <a href="{% url 'beranda' %}#kalkulator-langganan" class="btn btn-mentora-primary">Buka Kalkulator Paket</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

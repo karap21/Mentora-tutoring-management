@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Formulir Penilaian & Umpan Balik Guru — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-8">
+        <section class="mentora-workbench" aria-labelledby="formNilaiHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="formNilaiHeading" class="h4 fw-bold mb-1">Pemeriksaan Jawaban &amp; Catatan Umpan Balik</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Skor dan catatan akan langsung memperbarui Buku Nilai siswa</p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Evaluasi Guru</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_nilai" class="form-label small fw-bold text-dark mb-1">Skor Penilaian (0–100)</label>
+                        <input type="number" name="nilai" id="id_nilai" class="form-control mentora-form-control font-tabular" min="0" max="100" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="id_catatan" class="form-label small fw-bold text-dark mb-1">Catatan Umpan Balik untuk Siswa</label>
+                        <textarea name="catatan" id="id_catatan" rows="4" class="form-control mentora-form-control" placeholder="Tuliskan apresiasi dan saran perbaikan konsep untuk siswa..." required></textarea>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                        <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-outline">&larr; Kembali ke Dasbor Guru</a>
+                        <button type="submit" class="btn btn-mentora-primary">Simpan Nilai &amp; Umpan Balik</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

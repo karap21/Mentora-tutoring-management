@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Lencana Pencapaian Belajar — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="achPageHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="achPageHeading" class="h3 fw-bold mb-1">Koleksi Lencana Pencapaian Belajar</h1>
+                <p class="text-secondary small mb-0">Apresiasi atas konsistensi belajarmu yang turut dilampirkan pada laporan berkala orang tua.</p>
+            </div>
+            <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Dasbor Siswa</a>
+        </div>
+    </section>
+
+    <div class="row g-3">
+        {% for item in daftar_achievement %}
+            <div class="col-md-6 col-lg-3">
+                <div class="mentora-achievement-card">
+                    <span class="mentora-icon-box mb-0" aria-hidden="true">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="8" r="6"></circle>
+                            <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
+                        </svg>
+                    </span>
+                    <div>
+                        <h2 class="h6 fw-bold mb-1">{{ item.nama }}</h2>
+                        <p class="small text-secondary mb-0">{{ item.deskripsi }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="mentora-empty-state">
+                    <p class="small text-secondary mb-0">Selesaikan materi pertamamu atau capai skor pretest &ge; 85 untuk membuka lencana belajar.</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Mata Pelajaran Saya — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="mapelSayaHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="mapelSayaHeading" class="h3 fw-bold mb-1">Mata Pelajaran Aktif Saya</h1>
+                <p class="text-secondary small mb-0">Pilih mata pelajaran dari paket aktifmu untuk membuka Modul Dasar maupun Modul Lanjutan.</p>
+            </div>
+            <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Dasbor Siswa</a>
+        </div>
+    </section>
+
+    <div class="row g-4">
+        {% for m in daftar_mapel %}
+            <div class="col-md-6 col-lg-4">
+                <article class="mentora-panel-card">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="mentora-mapel-code">{{ m.kode }}</span>
+                            <span class="badge-21st badge-21st-emerald">Terbuka</span>
+                        </div>
+                        <h2 class="h5 fw-bold text-dark mb-1">{{ m.nama }}</h2>
+                        <p class="small text-secondary mb-0">Mencakup Modul Dasar (Fondasi) dan Modul Lanjutan (Penalaran HOTS).</p>
+                    </div>
+                    <div class="pt-3 border-top d-flex justify-content-between align-items-center small">
+                        <span class="text-secondary">Kurikulum Merdeka</span>
+                        <a href="{% url 'dasbor_siswa' %}" class="fw-bold text-primary text-decoration-none">Buka Modul &rarr;</a>
+                    </div>
+                </article>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="mentora-empty-state">
+                    <h2 class="h6 fw-bold text-dark mb-1">Belum ada mata pelajaran aktif</h2>
+                    <p class="small text-secondary mb-3">Aktifkan paket belajar satuan atau bundel untuk mengakses modul mata pelajaran.</p>
+                    <a href="{% url 'beranda' %}#kalkulator-langganan" class="btn btn-mentora-primary">Pilih Paket Belajar</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

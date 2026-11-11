@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Riwayat Transaksi & Invoice — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="riwayatHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="riwayatHeading" class="h3 fw-bold mb-1">Riwayat Tagihan &amp; Langganan</h1>
+                <p class="text-secondary small mb-0">Pantau status persetujuan pembayaran orang tua dan unduh salinan invoice resmi.</p>
+            </div>
+            <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Dasbor Siswa</a>
+        </div>
+    </section>
+
+    <section class="mentora-workbench" aria-label="Tabel Riwayat Tagihan">
+        <div class="mentora-workbench-body p-0">
+            <div class="table-responsive">
+                <table class="table mentora-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="ps-4">Nomor Invoice</th>
+                            <th scope="col">Tanggal Dibuat</th>
+                            <th scope="col">Total Tagihan</th>
+                            <th scope="col" class="pe-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in tagihan_list %}
+                        <tr>
+                            <td class="ps-4 font-mono-code fw-bold text-primary">{{ t.nomor_invoice }}</td>
+                            <td class="font-tabular small text-secondary">{{ t.dibuat_pada|date:"d M Y, H:i" }}</td>
+                            <td class="font-tabular fw-bold text-dark">Rp {{ t.total }}</td>
+                            <td class="pe-4"><span class="badge-21st badge-21st-emerald">{{ t.status|title }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-secondary">
+                                Belum ada riwayat transaksi langganan.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

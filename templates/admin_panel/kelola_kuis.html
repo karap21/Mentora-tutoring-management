@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Kelola Kuis & Soal — Panel Admin Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="kelolaKuisHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="kelolaKuisHeading" class="h3 fw-bold mb-1">Panel Admin: Kelola Kuis &amp; Bank Soal</h1>
+                <p class="text-secondary small mb-0">Manajemen soal Pretest Diagnostik, Pilihan Ganda, Isian Singkat, dan Esai.</p>
+            </div>
+            <a href="{% url 'kelola_guru' %}" class="btn btn-mentora-outline">&larr; Panel Admin Utama</a>
+        </div>
+    </section>
+
+    <section class="mentora-workbench">
+        <div class="mentora-workbench-body">
+            <div class="mentora-empty-state">
+                <p class="small text-secondary mb-0">Pilih mata pelajaran dan modul untuk mengelola daftar kuis serta bobot soal.</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

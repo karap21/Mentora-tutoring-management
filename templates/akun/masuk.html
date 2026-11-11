@@ -1,49 +1,168 @@
 {% extends "base.html" %}
-{% block title %}Masuk - Mentora-LMS{% endblock %}
+{% block title %}Masuk ke Akun — Mentora-LMS{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center mt-4">
-    <div class="col-12 col-sm-10 col-md-6 col-lg-5">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4">
-                <h4 class="card-title text-center fw-bold mb-1">Masuk ke Mentora-LMS</h4>
-                <p class="text-center text-muted small mb-4">Gunakan akun Siswa, Guru, atau Admin Anda</p>
+<div class="row justify-content-center py-3">
+    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
+        <div class="mentora-workbench" role="region" aria-labelledby="loginHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="loginHeading" class="h4 fw-bold mb-1">Masuk ke Mentora-LMS</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Gunakan akun Siswa, Guru Pengampu, atau Admin</p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Akses Aman</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                {% if request.GET.paket %}
+                <div class="mentora-alert-info mb-3 d-flex align-items-start justify-content-between gap-2" role="status">
+                    <div>
+                        <div class="fw-bold small">Pilihan Paket Tersimpan</div>
+                        <div class="small">
+                            Paket <span class="font-mono-code fw-bold">{{ request.GET.paket }}</span>
+                            {% if request.GET.durasi %}&middot; <span class="font-tabular fw-semibold">{{ request.GET.durasi }} Bulan</span>{% endif %}
+                            siap dilanjutkan setelah kamu masuk.
+                        </div>
+                    </div>
+                    <span class="badge-21st badge-21st-primary font-mono-code">{{ request.GET.paket }}</span>
+                </div>
+                {% endif %}
 
                 {% if pesan_galat %}
-                    <div class="alert alert-danger py-2 small" role="alert">
+                    <div class="mentora-alert-danger mb-3" role="alert">
                         {{ pesan_galat }}
                     </div>
                 {% endif %}
 
-                <form method="post" novalidate>
+                {% if form.errors and not pesan_galat %}
+                    <div class="mentora-alert-danger mb-3" role="alert">
+                        Periksa kembali format alamat email dan kata sandi yang kamu masukkan.
+                    </div>
+                {% endif %}
+
+                <form method="post" id="mentoraLoginForm">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="{{ form.email.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.email.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.email.label }}
                         </label>
                         {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="mentora-field-error" id="emailErrorMsg" role="alert">
+                                {% for err in form.email.errors %}<span>{{ err }}</span>{% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
+
                     <div class="mb-4">
-                        <label for="{{ form.password.id_for_label }}" class="form-label fw-semibold">
-                            {{ form.password.label }}
-                        </label>
-                        {{ form.password }}
+                        <div class="d-flex justify-content-between align-items-baseline mb-1">
+                            <label for="{{ form.password.id_for_label }}" class="form-label small fw-bold text-dark mb-0">
+                                {{ form.password.label }}
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            {{ form.password }}
+                            <button type="button"
+                                    class="mentora-password-toggle"
+                                    id="togglePasswordBtn"
+                                    aria-label="Tampilkan kata sandi"
+                                    aria-pressed="false">
+                                Lihat
+                            </button>
+                        </div>
+                        {% if form.password.errors %}
+                            <div class="mentora-field-error" id="passwordErrorMsg" role="alert">
+                                {% for err in form.password.errors %}<span>{{ err }}</span>{% endfor %}
+                            </div>
+                        {% endif %}
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+
+                    <button type="submit" class="btn btn-mentora-primary w-100">
                         Masuk Sekarang
                     </button>
                 </form>
 
-                <hr class="my-4">
-                <div class="bg-light p-3 rounded small text-secondary">
-                    <strong>Akun Uji Database (Sandi: <code>Mentora123!</code>):</strong>
-                    <ul class="mb-0 mt-1 ps-3">
-                        <li>Siswa: <code>andi.pratama@mentora.id</code></li>
-                        <li>Guru: <code>fajar.nugroho@mentora.id</code></li>
-                        <li>Admin: <code>admin@mentora.id</code></li>
-                    </ul>
+                <div class="mentora-panel-subtle mt-4">
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 small">
+                        <span class="text-secondary">Belum memiliki akun belajar siswa?</span>
+                        <a href="{% url 'daftar' %}{% if request.GET.paket %}?paket={{ request.GET.paket|urlencode }}{% if request.GET.durasi %}&amp;durasi={{ request.GET.durasi|urlencode }}{% endif %}{% endif %}" class="fw-bold text-primary text-decoration-none">
+                            Daftar Akun Siswa &rarr;
+                        </a>
+                    </div>
+                    <hr class="my-2 border-secondary border-opacity-25">
+                    <p class="small text-secondary mb-0">
+                        <strong>Info Orang Tua/Wali:</strong> Tidak perlu membuat atau masuk akun. Tautan konfirmasi pembayaran dan rapor belajar dikirim langsung ke email orang tua.
+                    </p>
                 </div>
+
+                {% if debug %}
+                <hr class="my-4">
+                <div class="mentora-demo-box small text-secondary">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-dark">Akun Uji Database (Mode Debug):</strong>
+                        <span class="badge-21st font-mono-code">Sandi: Mentora123!</span>
+                    </div>
+                    <p class="small text-secondary mb-2">Klik salah satu peran untuk mengisi formulir secara otomatis:</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="button" class="btn btn-mentora-outline py-1 px-2 small js-demo-fill"
+                                data-email="andi.pratama@mentora.id" data-pass="Mentora123!">
+                            Siswa (andi.pratama)
+                        </button>
+                        <button type="button" class="btn btn-mentora-outline py-1 px-2 small js-demo-fill"
+                                data-email="fajar.nugroho@mentora.id" data-pass="Mentora123!">
+                            Guru (fajar.nugroho)
+                        </button>
+                        <button type="button" class="btn btn-mentora-outline py-1 px-2 small js-demo-fill"
+                                data-email="admin@mentora.id" data-pass="Mentora123!">
+                            Admin (admin)
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function () {
+    "use strict";
+    var emailInput = document.getElementById("{{ form.email.id_for_label }}");
+    var passInput = document.getElementById("{{ form.password.id_for_label }}");
+    var toggleBtn = document.getElementById("togglePasswordBtn");
+
+    if (emailInput) {
+        emailInput.classList.add("mentora-form-control");
+        {% if form.email.errors or pesan_galat %}
+        emailInput.setAttribute("aria-invalid", "true");
+        {% endif %}
+    }
+    if (passInput) {
+        passInput.classList.add("mentora-form-control");
+        {% if form.password.errors or pesan_galat %}
+        passInput.setAttribute("aria-invalid", "true");
+        {% endif %}
+    }
+
+    if (toggleBtn && passInput) {
+        toggleBtn.addEventListener("click", function () {
+            var isHidden = passInput.getAttribute("type") === "password";
+            passInput.setAttribute("type", isHidden ? "text" : "password");
+            toggleBtn.textContent = isHidden ? "Tutup" : "Lihat";
+            toggleBtn.setAttribute("aria-pressed", isHidden ? "true" : "false");
+            toggleBtn.setAttribute("aria-label", isHidden ? "Sembunyikan kata sandi" : "Tampilkan kata sandi");
+        });
+    }
+
+    document.querySelectorAll(".js-demo-fill").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            if (emailInput) emailInput.value = btn.getAttribute("data-email") || "";
+            if (passInput) passInput.value = btn.getAttribute("data-pass") || "";
+            if (emailInput) emailInput.focus();
+        });
+    });
+})();
+</script>
 {% endblock %}

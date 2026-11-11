@@ -1,17 +1,110 @@
 {% extends "base.html" %}
-{% block title %}Dasbor Guru - Mentora-LMS{% endblock %}
+{% block title %}Dasbor Pemantauan Guru — Mentora-LMS{% endblock %}
+
 {% block content %}
-<h3 class="fw-bold mb-3">Dasbor Pemantauan Guru</h3>
-<div class="card shadow-sm border-0">
-    <div class="card-body">
-        <h5 class="fw-bold">Mata Pelajaran yang Diampu:</h5>
-        <ul class="mt-2 mb-0">
-            {% for gm in mapel_diampu %}
-                <li><strong>{{ gm.mapel.kode }}</strong> - {{ gm.mapel.nama }}</li>
-            {% empty %}
-                <li class="text-muted">Belum ada mata pelajaran yang ditugaskan.</li>
-            {% endfor %}
-        </ul>
+<div class="py-2">
+    <!-- Header Ruang Kerja Guru -->
+    <section class="mentora-workspace-header" aria-labelledby="guruHeaderTitle">
+        <div class="row align-items-center gy-3">
+            <div class="col-lg-8">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                    <span class="badge-21st badge-21st-primary">Ruang Kerja Guru Pengampu</span>
+                    <span class="badge-21st font-tabular">{{ mapel_diampu|length }} Mata Pelajaran Diampu</span>
+                </div>
+                <h1 id="guruHeaderTitle" class="h3 fw-bold mb-1">Dasbor Pemantauan Guru</h1>
+                <p class="text-secondary small mb-0">
+                    Kelola mata pelajaran yang Anda ampu, periksa jawaban esai serta berkas tugas mandiri siswa, dan berikan catatan umpan balik ke buku nilai.
+                </p>
+            </div>
+            <div class="col-lg-4 d-flex flex-wrap justify-content-lg-end gap-2">
+                <a href="#antrean-penilaian" class="btn btn-mentora-primary">Buka Antrean Penilaian</a>
+                <a href="#mapel-diampu" class="btn btn-mentora-outline">Daftar Mapel</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-4">
+        <!-- Kolom Kiri: Mata Pelajaran yang Diampu -->
+        <div class="col-lg-7" id="mapel-diampu">
+            <section class="mentora-workbench h-100" aria-labelledby="mapelDiampuHeading">
+                <div class="mentora-workbench-header">
+                    <div>
+                        <h2 id="mapelDiampuHeading" class="mentora-workbench-title">Mata Pelajaran yang Diampu</h2>
+                        <p class="mentora-workbench-subtitle">Penugasan mata pelajaran aktif untuk pemeriksaan esai &amp; tugas mandiri</p>
+                    </div>
+                    <span class="badge-21st badge-21st-emerald font-tabular">{{ mapel_diampu|length }} Mapel</span>
+                </div>
+
+                <div class="mentora-workbench-body">
+                    {% if mapel_diampu %}
+                        <div class="row g-3">
+                            {% for gm in mapel_diampu %}
+                                <div class="col-md-6">
+                                    <div class="mentora-panel-card">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                                                <span class="mentora-mapel-code">{{ gm.mapel.kode }}</span>
+                                                <span class="badge-21st badge-21st-emerald">Pengampu Aktif</span>
+                                            </div>
+                                            <h3 class="h5 fw-bold text-dark mb-1">{{ gm.mapel.nama }}</h3>
+                                            <p class="small text-secondary mb-0">
+                                                Mencakup pemeriksaan jawaban esai kuis dan berkas tugas pada Modul Dasar serta Modul Lanjutan.
+                                            </p>
+                                        </div>
+                                        <div class="pt-2 border-top d-flex justify-content-between align-items-center small text-secondary">
+                                            <span>Kurikulum Merdeka</span>
+                                            <a href="#antrean-penilaian" class="fw-bold text-primary text-decoration-none">Lihat Antrean &rarr;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="mentora-empty-state">
+                            <h3 class="h6 fw-bold text-dark mb-1">Belum ada mata pelajaran yang ditugaskan</h3>
+                            <p class="small text-secondary mb-0">
+                                Hubungi Administrator Mentora-LMS untuk menautkan akun guru Anda ke mata pelajaran yang diampu.
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+
+        <!-- Kolom Kanan: Ringkasan Antrean Penilaian & Panduan Rubrik -->
+        <div class="col-lg-5" id="antrean-penilaian">
+            <section class="mentora-workbench h-100" aria-labelledby="antreanGuruHeading">
+                <div class="mentora-workbench-header">
+                    <div>
+                        <h2 id="antreanGuruHeading" class="mentora-workbench-title">Antrean Penilaian Esai &amp; Tugas</h2>
+                        <p class="mentora-workbench-subtitle">Jawaban siswa yang menunggu skor manual dan catatan guru</p>
+                    </div>
+                    <span class="badge-21st badge-21st-primary">Koreksi Manual</span>
+                </div>
+
+                <div class="mentora-workbench-body d-flex flex-column justify-content-between gap-3">
+                    <div class="mentora-rec-box">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="small fw-bold text-primary">Alur Penilaian Terintegrasi</span>
+                            <span class="badge-21st">Buku Nilai &amp; Rapor</span>
+                        </div>
+                        <p class="small text-secondary mb-0">
+                            Soal Pilihan Ganda dan Isian Singkat dinilai otomatis oleh sistem. Begitu Anda menyimpan skor esai dan catatan umpan balik, nilai akhir siswa langsung diperbarui dan disertakan dalam laporan berkala orang tua.
+                        </p>
+                    </div>
+
+                    <div class="mentora-panel-subtle">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small fw-bold text-dark">Status Antrean Saat Ini</span>
+                            <span class="badge-21st badge-21st-emerald">Terkendali</span>
+                        </div>
+                        <p class="small text-secondary mb-0">
+                            Pilih mata pelajaran di panel kiri untuk memfilter kiriman jawaban esai kuis dan berkas PDF tugas mandiri dari siswa.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
 </div>
 {% endblock %}

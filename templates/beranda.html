@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Mentora — Bimbingan Belajar Mandiri SMA Kurikulum Merdeka{% endblock %}
+{% block title %}Mentora-LMS — Bimbingan Belajar Mandiri SMA Kurikulum Merdeka{% endblock %}
 
 {% block main_class %}p-0{% endblock %}
 
@@ -14,16 +14,12 @@
         <div class="row align-items-center gy-5">
             <!-- Kolom Kiri: Proposisi Nilai & Ringkasan Aturan Belajar -->
             <div class="col-lg-6" data-motion-reveal>
-                <p class="mentora-eyebrow">
-                    Kurikulum Merdeka &middot; SMA Kelas X, XI, dan XII
-                </p>
-
                 <h1 id="heroHeading" class="mentora-hero-title">
                     Belajar Mandiri Lebih Terarah, Mulai dari Materi yang <span class="text-primary">Paling Kamu Butuhkan</span>
                 </h1>
 
                 <p class="mentora-prose mb-4">
-                    Tak perlu bingung harus mulai belajar dari mana. Di <strong>Mentora</strong>, kamu cukup mengerjakan tes diagnostik singkat di awal, lalu sistem akan menyusun prioritas mata pelajaran, membuka materi lanjutan saat kamu sudah siap, serta mengirimkan laporan perkembangan belajarmu ke orang tua setiap dua minggu.
+                    Dirancang khusus untuk siswa <strong>SMA Kelas X, XI, dan XII Kurikulum Merdeka</strong>. Di <strong>Mentora</strong>, kamu cukup mengerjakan tes diagnostik singkat di awal, lalu sistem menyusun prioritas mata pelajaran, membuka materi lanjutan saat kamu sudah siap, serta mengirimkan laporan perkembangan belajarmu ke orang tua setiap dua minggu.
                 </p>
 
                 <!-- Tombol Aksi Utama (Maksimal 2 Tombol Sejajar) -->
@@ -116,7 +112,7 @@
                                 <label for="simPretestRange" class="small fw-bold text-dark mb-0">
                                     2. Geser contoh nilai tes awalmu
                                 </label>
-                                <span id="simScoreValue" class="font-tabular fw-bold fs-5 text-primary">88 / 100</span>
+                                <span id="simScoreValue" class="font-tabular fw-bold fs-5 text-success">88 / 100</span>
                             </div>
                             <input
                                 type="range"
@@ -128,7 +124,7 @@
                                 value="88"
                             >
                             <div class="mentora-range-meta font-tabular">
-                                <span>40 (Butuh penguatan dasar)</span>
+                                <span>40 (Penguatan fondasi)</span>
                                 <span>Batas lompat modul: {{ ambang_pretest|default:85 }}</span>
                                 <span>100</span>
                             </div>
@@ -138,7 +134,7 @@
                         <div id="simRecommendationCard" class="mentora-rec-box mb-3" aria-live="polite">
                             <div class="d-flex justify-content-between align-items-start gap-2 mb-1">
                                 <span class="small fw-bold text-primary">Saran Fokus Belajar</span>
-                                <span id="simSourceBadge" class="badge-21st badge-21st-primary">
+                                <span id="simSourceBadge" class="badge-21st badge-21st-emerald">
                                     Jalur Cepat
                                 </span>
                             </div>
@@ -197,15 +193,15 @@
             <div class="col-lg-5 d-flex justify-content-lg-end">
                 <div class="mentora-role-tab-group" data-sliding-group role="tablist" aria-label="Pilih peran pengguna">
                     <span class="mentora-sliding-pill mentora-sliding-pill-dark" aria-hidden="true"></span>
-                    <button type="button" class="mentora-role-tab active" data-role="siswa" role="tab" aria-selected="true" aria-controls="roleHighlightBox">Siswa</button>
-                    <button type="button" class="mentora-role-tab" data-role="guru" role="tab" aria-selected="false" aria-controls="roleHighlightBox">Guru</button>
-                    <button type="button" class="mentora-role-tab" data-role="ortu" role="tab" aria-selected="false" aria-controls="roleHighlightBox">Orang Tua</button>
+                    <button type="button" id="roleTabSiswa" class="mentora-role-tab active" data-role="siswa" role="tab" aria-selected="true" aria-controls="roleHighlightBox" tabindex="0">Siswa</button>
+                    <button type="button" id="roleTabGuru" class="mentora-role-tab" data-role="guru" role="tab" aria-selected="false" aria-controls="roleHighlightBox" tabindex="-1">Guru</button>
+                    <button type="button" id="roleTabOrtu" class="mentora-role-tab" data-role="ortu" role="tab" aria-selected="false" aria-controls="roleHighlightBox" tabindex="-1">Orang Tua</button>
                 </div>
             </div>
         </div>
 
         <!-- Kotak Penjelasan Peran -->
-        <div id="roleHighlightBox" class="mentora-role-highlight mb-4" role="tabpanel" aria-live="polite" data-motion-reveal>
+        <div id="roleHighlightBox" class="mentora-role-highlight mb-4" role="tabpanel" aria-labelledby="roleTabSiswa" aria-live="polite" data-motion-reveal>
             <div class="row align-items-stretch gy-3">
                 <div class="col-lg-8">
                     <span id="roleBadge" class="badge-21st badge-21st-primary mb-2">
@@ -266,7 +262,7 @@
                         </div>
                         <h3 class="h5 fw-bold mb-2">Modul Dasar &amp; Lanjutan yang Adaptif</h3>
                         <p class="text-secondary small mb-0">
-                            Bila skor pretest mencapai minimal <span class="font-tabular fw-semibold">{{ ambang_pretest|default:85 }}</span>, Modul Lanjutan langsung terbuka. Bila belum, kamu belajar bertahap dan membukanya setelah lulus kuis dasar minimal <span class="font-tabular fw-semibold">{{ ambang_kuis_dasar|default:75 }}</span>.
+                            Bila skor pretest mencapai minimal <span class="font-tabular fw-semibold">{{ ambang_pretest|default:85 }}</span>, Modul Lanjutan langsung terbuka. Bila belum, kamu memperkuat fondasi dan membukanya setelah lulus kuis dasar minimal <span class="font-tabular fw-semibold">{{ ambang_kuis_dasar|default:75 }}</span>.
                         </p>
                     </div>
                     <div class="mentora-feature-meta font-tabular">
@@ -337,69 +333,93 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <div class="mentora-step-header">
-                            <span class="mentora-step-num">Langkah 1</span>
-                            <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="9" cy="7" r="4"></circle>
-                                <line x1="19" y1="8" x2="19" y2="14"></line>
-                                <line x1="22" y1="11" x2="16" y2="11"></line>
-                            </svg>
+                        <div>
+                            <div class="mentora-step-header">
+                                <span class="mentora-step-num">Langkah 1</span>
+                                <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <line x1="19" y1="8" x2="19" y2="14"></line>
+                                    <line x1="22" y1="11" x2="16" y2="11"></line>
+                                </svg>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Daftar &amp; Isi Kuesioner</h3>
+                            <p class="text-secondary small mb-3">
+                                Buat akun siswa dengan memasukkan kelas dan email orang tua, lalu pilih mata pelajaran minat serta tujuan belajarmu.
+                            </p>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Daftar &amp; Isi Kuesioner</h3>
-                        <p class="text-secondary small mb-0">
-                            Buat akun siswa dengan memasukkan kelas dan email orang tua, lalu pilih mata pelajaran minat serta tujuan belajarmu.
-                        </p>
+                        <div class="pt-2 border-top">
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'dasbor_siswa' %}" class="mentora-step-link">Buka Ruang Belajar &rarr;</a>
+                            {% else %}
+                                <a href="{% url 'daftar' %}" class="mentora-step-link">Daftar Akun Siswa &rarr;</a>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <div class="mentora-step-header">
-                            <span class="mentora-step-num">Langkah 2</span>
-                            <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="16" y1="13" x2="8" y2="13"></line>
-                                <line x1="16" y1="17" x2="8" y2="17"></line>
-                            </svg>
+                        <div>
+                            <div class="mentora-step-header">
+                                <span class="mentora-step-num">Langkah 2</span>
+                                <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                </svg>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Kerjakan Pretest</h3>
+                            <p class="text-secondary small mb-3">
+                                Jawab soal diagnostik singkat untuk memetakan penguasaan awalmu dan melihat rekomendasi mapel prioritas.
+                            </p>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Kerjakan Pretest</h3>
-                        <p class="text-secondary small mb-0">
-                            Jawab soal diagnostik singkat untuk memetakan penguasaan awalmu dan melihat rekomendasi mapel prioritas.
-                        </p>
+                        <div class="pt-2 border-top">
+                            <a href="#simulasi-adaptif" class="mentora-step-link">Coba Simulasi &rarr;</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <div class="mentora-step-header">
-                            <span class="mentora-step-num">Langkah 3</span>
-                            <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                <line x1="1" y1="10" x2="23" y2="10"></line>
-                            </svg>
+                        <div>
+                            <div class="mentora-step-header">
+                                <span class="mentora-step-num">Langkah 3</span>
+                                <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Pilih Paket &amp; Aktivasi</h3>
+                            <p class="text-secondary small mb-3">
+                                Pilih paket satuan atau bundel sesuai kebutuhan. Rincian tagihan dikirim ke email orang tua untuk disetujui.
+                            </p>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Pilih Paket &amp; Aktivasi</h3>
-                        <p class="text-secondary small mb-0">
-                            Pilih paket satuan atau bundel sesuai kebutuhan. Rincian tagihan dikirim ke email orang tua untuk disetujui.
-                        </p>
+                        <div class="pt-2 border-top">
+                            <a href="#kalkulator-langganan" class="mentora-step-link">Hitung Biaya Paket &rarr;</a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3" data-motion-item>
                     <div class="mentora-step-card">
-                        <div class="mentora-step-header">
-                            <span class="mentora-step-num">Langkah 4</span>
-                            <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                            </svg>
+                        <div>
+                            <div class="mentora-step-header">
+                                <span class="mentora-step-num">Langkah 4</span>
+                                <svg class="text-primary" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="h5 fw-bold mb-2">Pelajari Materi &amp; Latihan</h3>
+                            <p class="text-secondary small mb-3">
+                                Akses modul belajar, kerjakan kuis latihan maupun tugas esai, dan pantau terus peningkatan nilaimu di buku nilai.
+                            </p>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Pelajari Materi &amp; Latihan</h3>
-                        <p class="text-secondary small mb-0">
-                            Akses modul belajar, kerjakan kuis latihan maupun tugas esai, dan pantau terus peningkatan nilaimu di buku nilai.
-                        </p>
+                        <div class="pt-2 border-top">
+                            <a href="#katalog-mapel" class="mentora-step-link">Lihat Katalog Mapel &rarr;</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -429,136 +449,136 @@
             </div>
         </div>
 
-        <div class="row g-4" id="mapelCatalogGrid" data-motion-stagger>
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains">
+        <div class="row g-4" id="mapelCatalogGrid" data-motion-stagger aria-live="polite">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains" data-mapel-kode="MAP-MTK">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-MTK</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-MTK">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Matematika</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-MTK">Matematika</h3>
                         <p class="text-secondary small mb-3">
                             Aljabar dasar, fungsi kuadrat, kalkulus, peluang, dan latihan penalaran kuantitatif untuk persiapan ujian.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Materi PDF &amp; Latihan</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-MTK">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains" data-mapel-kode="MAP-FIS">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-FIS</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-FIS">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Fisika</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-FIS">Fisika</h3>
                         <p class="text-secondary small mb-3">
                             Gerak lurus, dinamika partikel dan hukum Newton, fluida, kalor, serta kelistrikan.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Kuis &amp; Tugas Analisis</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-FIS">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains" data-mapel-kode="MAP-KIM">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-KIM</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-KIM">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Kimia</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-KIM">Kimia</h3>
                         <p class="text-secondary small mb-3">
                             Struktur atom, stoikiometri, laju reaksi, kesetimbangan asam-basa, termokimia, dan senyawa karbon.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Materi &amp; Soal Latihan</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-KIM">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="sains" data-mapel-kode="MAP-BIO">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-BIO</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-BIO">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Biologi</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-BIO">Biologi</h3>
                         <p class="text-secondary small mb-3">
                             Biologi sel, metabolisme, genetika, sistem organ tubuh manusia, ekologi, dan bioteknologi.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Ilustrasi &amp; Rangkuman</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-BIO">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="bahasa">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="bahasa" data-mapel-kode="MAP-BIN">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-BIN</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-BIN">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Bahasa Indonesia</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-BIN">Bahasa Indonesia</h3>
                         <p class="text-secondary small mb-3">
                             Pemahaman bacaan, analisis teks informasi dan sastra, kaidah ejaan, serta penulisan paragraf argumentatif.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Literasi &amp; Esai</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-BIN">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="bahasa">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="bahasa" data-mapel-kode="MAP-BIG">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-BIG</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-BIG">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Bahasa Inggris</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-BIG">Bahasa Inggris</h3>
                         <p class="text-secondary small mb-3">
                             Penguasaan grammar dasar (tenses), reading comprehension, kosakata akademik, dan latihan menulis.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Reading &amp; Writing</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-BIG">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="bahasa">
+            <div class="col-md-6 col-lg-4 mapel-card-col" data-motion-item data-category="bahasa" data-mapel-kode="MAP-PPK">
                 <div class="mentora-mapel-card">
                     <div>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <span class="mentora-mapel-code">MAP-PPK</span>
-                            <span class="mentora-mapel-price font-tabular">Rp 50.000 / bln</span>
+                            <span class="mentora-mapel-price font-tabular" data-mapel-price="MAP-PPK">Rp 50.000 / bln</span>
                         </div>
-                        <h3 class="h5 fw-bold mb-2">Pendidikan Pancasila</h3>
+                        <h3 class="h5 fw-bold mb-2" data-mapel-nama="MAP-PPK">Pendidikan Pancasila</h3>
                         <p class="text-secondary small mb-3">
                             Nilai-nilai Pancasila, konstitusi UUD NRI Tahun 1945, Bhinneka Tunggal Ika, dan ketatanegaraan.
                         </p>
                     </div>
                     <div class="pt-3 border-top d-flex justify-content-between align-items-center small text-secondary">
                         <span>Dasar &amp; Lanjutan</span>
-                        <span>Studi Kasus &amp; Tugas</span>
+                        <a href="#kalkulator-langganan" class="mentora-mapel-action-btn js-select-mapel-calc" data-select-kode="MAP-PPK">Pilih Paket &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -574,199 +594,206 @@
         <div class="mentora-section-intro mb-4" data-motion-reveal>
             <h2 id="paketLanggananHeading" class="fw-bold display-6 mb-2">Pilihan Paket Belajar</h2>
             <p class="mentora-prose mb-0">
-                Pilih paket bundel maupun satuan di sebelah kiri, lalu atur durasi bulan di panel ringkasan kanan. Komitmen <strong class="font-tabular">{{ durasi_diskon|default:12 }} bulan</strong> mendapatkan potongan langsung sebesar <strong class="font-tabular">{{ persen_diskon|default:20 }}%</strong>.
+                Pilih kategori paket di sebelah kiri, lalu atur durasi bulan di panel ringkasan kanan. Komitmen <strong class="font-tabular">{{ durasi_diskon|default:12 }} bulan</strong> mendapatkan potongan langsung sebesar <strong class="font-tabular">{{ persen_diskon|default:20 }}%</strong>.
             </p>
         </div>
 
         <div class="row g-4 align-items-stretch">
-            <!-- Kiri: Pilihan Paket Bundel & Paket Satuan -->
+            <!-- Kiri: Pilihan Paket dengan Progressive Disclosure (Bundel vs Satuan) -->
             <div class="col-lg-7" data-motion-reveal>
                 <div class="mentora-single-paket-card">
-                    <!-- Bagian 1: Paket Bundel -->
                     <div>
-                        <div class="d-flex justify-content-between align-items-center mb-3">
+                        <!-- Segmented Control Progressive Disclosure: Bundel (3) vs Satuan (7) -->
+                        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-2 mb-3">
                             <div>
-                                <h3 class="h6 fw-bold text-dark mb-0">Paket Bundel Hemat</h3>
-                                <p class="text-secondary small mb-0">Kombinasi mata pelajaran untuk persiapan belajar lebih komprehensif</p>
+                                <h3 class="h6 fw-bold text-dark mb-0" id="calcTierHeading">Pilih Jenis Paket</h3>
+                                <p class="text-secondary small mb-0" id="calcTierSubheading">Bandingkan 3 paket bundel hemat atau pilih mata pelajaran satuan</p>
                             </div>
-                            <span class="badge-21st badge-21st-primary">Rekomendasi</span>
-                        </div>
-
-                        <div class="row g-2" data-motion-stagger>
-                            <div class="col-md-4" data-motion-item>
-                                <button type="button"
-                                        class="mentora-tier-card calc-paket-btn"
-                                        data-kode="BDL-BHS"
-                                        data-nama="Bundel Bahasa"
-                                        data-detail="Bahasa Indonesia &amp; Bahasa Inggris"
-                                        data-jenis="Bundel"
-                                        data-harga="80000"
-                                        aria-pressed="false">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center gap-1 mb-2">
-                                            <span class="font-mono-code fw-bold text-primary small">BDL-BHS</span>
-                                            <span class="badge-21st">2 Mapel</span>
-                                        </div>
-                                        <div class="fw-bold text-dark mb-1">Bundel Bahasa</div>
-                                        <p class="text-secondary small mb-2">
-                                            B. Indonesia &amp; B. Inggris.
-                                        </p>
-                                    </div>
-                                    <div class="pt-2 border-top w-100">
-                                        <span class="font-tabular fw-bold text-dark calc-card-total" data-base-harga="80000">Rp 80.000</span>
-                                        <span class="text-secondary small calc-card-period">/ bln</span>
-                                    </div>
+                            <div class="mentora-calc-mode-bar" data-sliding-group role="group" aria-label="Pilih kategori paket langganan">
+                                <span class="mentora-sliding-pill" aria-hidden="true"></span>
+                                <button type="button" class="mentora-calc-mode-btn active" data-calc-mode="bundel" aria-pressed="true">
+                                    Bundel Hemat (3)
                                 </button>
-                            </div>
-
-                            <div class="col-md-4" data-motion-item>
-                                <button type="button"
-                                        class="mentora-tier-card is-featured active calc-paket-btn"
-                                        data-kode="BDL-SAINS"
-                                        data-nama="Bundel Sains"
-                                        data-detail="Matematika, Fisika, Kimia, Biologi"
-                                        data-jenis="Bundel"
-                                        data-harga="150000"
-                                        aria-pressed="true">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center gap-1 mb-2">
-                                            <span class="font-mono-code fw-bold text-primary small">BDL-SAINS</span>
-                                            <span class="badge-21st badge-21st-primary">4 Mapel</span>
-                                        </div>
-                                        <div class="fw-bold text-dark mb-1">Bundel Sains</div>
-                                        <p class="text-secondary small mb-2">
-                                            MTK, Fisika, Kimia, Biologi.
-                                        </p>
-                                    </div>
-                                    <div class="pt-2 border-top w-100">
-                                        <span class="font-tabular fw-bold text-primary calc-card-total" data-base-harga="150000">Rp 150.000</span>
-                                        <span class="text-secondary small calc-card-period">/ bln</span>
-                                    </div>
-                                </button>
-                            </div>
-
-                            <div class="col-md-4" data-motion-item>
-                                <button type="button"
-                                        class="mentora-tier-card calc-paket-btn"
-                                        data-kode="BDL-FULL"
-                                        data-nama="Bundel Lengkap"
-                                        data-detail="Semua 7 Mata Pelajaran SMA"
-                                        data-jenis="Bundel"
-                                        data-harga="250000"
-                                        aria-pressed="false">
-                                    <div>
-                                        <div class="d-flex justify-content-between align-items-center gap-1 mb-2">
-                                            <span class="font-mono-code fw-bold text-primary small">BDL-FULL</span>
-                                            <span class="badge-21st badge-21st-emerald">7 Mapel</span>
-                                        </div>
-                                        <div class="fw-bold text-dark mb-1">Bundel Lengkap</div>
-                                        <p class="text-secondary small mb-2">
-                                            Semua 7 mapel SMA.
-                                        </p>
-                                    </div>
-                                    <div class="pt-2 border-top w-100">
-                                        <span class="font-tabular fw-bold text-dark calc-card-total" data-base-harga="250000">Rp 250.000</span>
-                                        <span class="text-secondary small calc-card-period">/ bln</span>
-                                    </div>
+                                <button type="button" class="mentora-calc-mode-btn" data-calc-mode="satuan" aria-pressed="false">
+                                    Satuan Mapel (7)
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Bagian 2: Paket Satuan -->
-                    <div class="pt-3 border-top">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <h3 class="h6 fw-bold text-dark mb-0">Paket Satuan per Mata Pelajaran</h3>
-                                <p class="text-secondary small mb-0">Fokus penguatan pada mata pelajaran pilihan sesuai kebutuhan</p>
+                        <!-- Pane 1: Paket Bundel (3 Pilihan) -->
+                        <div id="calcTierBundel" class="mentora-calc-tier-pane">
+                            <div class="row g-2" data-motion-stagger>
+                                <div class="col-md-4" data-motion-item>
+                                    <button type="button"
+                                            class="mentora-tier-card calc-paket-btn"
+                                            data-kode="BDL-BHS"
+                                            data-nama="Bundel Bahasa"
+                                            data-detail="Bahasa Indonesia &amp; Bahasa Inggris"
+                                            data-jenis="Bundel"
+                                            data-harga="80000"
+                                            aria-pressed="false">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-center gap-1 mb-2">
+                                                <span class="font-mono-code fw-bold text-primary small">BDL-BHS</span>
+                                                <span class="badge-21st">2 Mapel</span>
+                                            </div>
+                                            <div class="fw-bold text-dark mb-1">Bundel Bahasa</div>
+                                            <p class="text-secondary small mb-2">
+                                                B. Indonesia &amp; B. Inggris.
+                                            </p>
+                                        </div>
+                                        <div class="pt-2 border-top w-100">
+                                            <span class="font-tabular fw-bold text-dark calc-card-total" data-base-harga="80000">Rp 80.000</span>
+                                            <span class="text-secondary small calc-card-period">/ bln</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <div class="col-md-4" data-motion-item>
+                                    <button type="button"
+                                            class="mentora-tier-card is-featured active calc-paket-btn"
+                                            data-kode="BDL-SAINS"
+                                            data-nama="Bundel Sains"
+                                            data-detail="Matematika, Fisika, Kimia, Biologi"
+                                            data-jenis="Bundel"
+                                            data-harga="150000"
+                                            aria-pressed="true">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-center gap-1 mb-2">
+                                                <span class="font-mono-code fw-bold text-primary small">BDL-SAINS</span>
+                                                <span class="badge-21st badge-21st-primary">4 Mapel</span>
+                                            </div>
+                                            <div class="fw-bold text-dark mb-1">Bundel Sains</div>
+                                            <p class="text-secondary small mb-2">
+                                                MTK, Fisika, Kimia, Biologi.
+                                            </p>
+                                        </div>
+                                        <div class="pt-2 border-top w-100">
+                                            <span class="font-tabular fw-bold text-primary calc-card-total" data-base-harga="150000">Rp 150.000</span>
+                                            <span class="text-secondary small calc-card-period">/ bln</span>
+                                        </div>
+                                    </button>
+                                </div>
+
+                                <div class="col-md-4" data-motion-item>
+                                    <button type="button"
+                                            class="mentora-tier-card calc-paket-btn"
+                                            data-kode="BDL-FULL"
+                                            data-nama="Bundel Lengkap"
+                                            data-detail="Semua 7 Mata Pelajaran SMA"
+                                            data-jenis="Bundel"
+                                            data-harga="250000"
+                                            aria-pressed="false">
+                                        <div>
+                                            <div class="d-flex justify-content-between align-items-center gap-1 mb-2">
+                                                <span class="font-mono-code fw-bold text-primary small">BDL-FULL</span>
+                                                <span class="badge-21st badge-21st-emerald">7 Mapel</span>
+                                            </div>
+                                            <div class="fw-bold text-dark mb-1">Bundel Lengkap</div>
+                                            <p class="text-secondary small mb-2">
+                                                Semua 7 mapel SMA.
+                                            </p>
+                                        </div>
+                                        <div class="pt-2 border-top w-100">
+                                            <span class="font-tabular fw-bold text-dark calc-card-total" data-base-harga="250000">Rp 250.000</span>
+                                            <span class="text-secondary small calc-card-period">/ bln</span>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
-                            <span class="badge-21st font-tabular" id="calcSingleHeaderPrice">Rp 50.000 / bln</span>
                         </div>
 
-                        <div class="row g-2" id="calcPaketGrid">
-                            <div class="col-6 col-sm-3">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-MTK"
-                                        data-nama="Matematika"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-MTK</div>
-                                    <div class="fw-bold text-dark small">Matematika</div>
-                                </button>
+                        <!-- Pane 2: Paket Satuan per Mata Pelajaran (7 Pilihan) -->
+                        <div id="calcTierSatuan" class="mentora-calc-tier-pane" hidden>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="small text-secondary">Pilih satu mata pelajaran fokus:</span>
+                                <span class="badge-21st font-tabular" id="calcSingleHeaderPrice">Rp 50.000 / bln</span>
                             </div>
-                            <div class="col-6 col-sm-3">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-FIS"
-                                        data-nama="Fisika"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-FIS</div>
-                                    <div class="fw-bold text-dark small">Fisika</div>
-                                </button>
-                            </div>
-                            <div class="col-6 col-sm-3">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-KIM"
-                                        data-nama="Kimia"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-KIM</div>
-                                    <div class="fw-bold text-dark small">Kimia</div>
-                                </button>
-                            </div>
-                            <div class="col-6 col-sm-3">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-BIO"
-                                        data-nama="Biologi"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-BIO</div>
-                                    <div class="fw-bold text-dark small">Biologi</div>
-                                </button>
-                            </div>
-                            <div class="col-6 col-sm-4">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-BIN"
-                                        data-nama="Bahasa Indonesia"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-BIN</div>
-                                    <div class="fw-bold text-dark small">B. Indonesia</div>
-                                </button>
-                            </div>
-                            <div class="col-6 col-sm-4">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-BIG"
-                                        data-nama="Bahasa Inggris"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-BIG</div>
-                                    <div class="fw-bold text-dark small">B. Inggris</div>
-                                </button>
-                            </div>
-                            <div class="col-12 col-sm-4">
-                                <button type="button" class="mentora-paket-option calc-paket-btn"
-                                        data-kode="MAP-PPK"
-                                        data-nama="Pendidikan Pancasila"
-                                        data-detail="Modul Dasar &amp; Lanjutan"
-                                        data-jenis="Satuan"
-                                        data-harga="50000"
-                                        aria-pressed="false">
-                                    <div class="mentora-paket-code">MAP-PPK</div>
-                                    <div class="fw-bold text-dark small">Pancasila</div>
-                                </button>
+                            <div class="row g-2" id="calcPaketGrid">
+                                <div class="col-6 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-MTK"
+                                            data-nama="Matematika"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-MTK</div>
+                                        <div class="fw-bold text-dark small">Matematika</div>
+                                    </button>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-FIS"
+                                            data-nama="Fisika"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-FIS</div>
+                                        <div class="fw-bold text-dark small">Fisika</div>
+                                    </button>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-KIM"
+                                            data-nama="Kimia"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-KIM</div>
+                                        <div class="fw-bold text-dark small">Kimia</div>
+                                    </button>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-BIO"
+                                            data-nama="Biologi"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-BIO</div>
+                                        <div class="fw-bold text-dark small">Biologi</div>
+                                    </button>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-BIN"
+                                            data-nama="Bahasa Indonesia"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-BIN</div>
+                                        <div class="fw-bold text-dark small">B. Indonesia</div>
+                                    </button>
+                                </div>
+                                <div class="col-6 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-BIG"
+                                            data-nama="Bahasa Inggris"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-BIG</div>
+                                        <div class="fw-bold text-dark small">B. Inggris</div>
+                                    </button>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <button type="button" class="mentora-paket-option calc-paket-btn"
+                                            data-kode="MAP-PPK"
+                                            data-nama="Pendidikan Pancasila"
+                                            data-detail="Modul Dasar &amp; Lanjutan"
+                                            data-jenis="Satuan"
+                                            data-harga="50000"
+                                            aria-pressed="false">
+                                        <div class="mentora-paket-code">MAP-PPK</div>
+                                        <div class="fw-bold text-dark small">Pancasila</div>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -831,17 +858,54 @@
                     </div>
 
                     <div>
-                        <p class="mentora-calc-meta mb-3">
-                            Di dalam akun siswa, kamu juga bisa menggabungkan beberapa paket sekaligus sebelum mengirimkan tautan konfirmasi pembayaran ke email orang tua.
-                        </p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="{% url 'daftar' %}" class="btn btn-mentora-outline-light flex-grow-1">
-                                Daftar Akun
-                            </a>
-                            <a href="{% url 'masuk' %}" class="btn btn-mentora-primary flex-grow-1">
-                                Masuk &amp; Langganan
-                            </a>
+                        <div id="calcOwnedNotice" class="mentora-owned-pill mb-2" hidden>
+                            Aktif di Akunmu
                         </div>
+                        {% if user.is_authenticated %}
+                            {% if user.peran == 'siswa' %}
+                                <p class="mentora-calc-meta mb-3">
+                                    Kamu masuk sebagai <strong class="text-white">{{ user.nama }}</strong>. Pilihan paketmu (<span id="calcHandoffHint" class="text-white fw-semibold">BDL-SAINS &middot; 12 Bulan</span>) siap dilanjutkan ke halaman pemesanan.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a id="calcPesanBtn" href="{% url 'keranjang' %}?paket=BDL-SAINS&amp;durasi=12" data-base-href="{% url 'keranjang' %}" class="btn btn-mentora-primary flex-grow-1">
+                                        Pesan Paket Ini
+                                    </a>
+                                    <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline-light flex-grow-1">
+                                        Ruang Belajar
+                                    </a>
+                                </div>
+                            {% elif user.peran == 'guru' %}
+                                <p class="mentora-calc-meta mb-3">
+                                    Simulasi harga paket (<span id="calcHandoffHint" class="text-white fw-semibold">BDL-SAINS &middot; 12 Bulan</span>) untuk referensi bimbingan siswa.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="{% url 'dasbor_guru' %}" class="btn btn-mentora-primary flex-grow-1">
+                                        Buka Dasbor Guru
+                                    </a>
+                                </div>
+                            {% else %}
+                                <p class="mentora-calc-meta mb-3">
+                                    Simulasi harga paket (<span id="calcHandoffHint" class="text-white fw-semibold">BDL-SAINS &middot; 12 Bulan</span>) pada katalog aktif.
+                                </p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="{% url 'kelola_guru' %}" class="btn btn-mentora-primary flex-grow-1">
+                                        Buka Panel Admin
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <p class="mentora-calc-meta mb-3">
+                                Pilihan paketmu (<span id="calcHandoffHint" class="text-white fw-semibold">BDL-SAINS &middot; 12 Bulan</span>) akan otomatis dibawa saat kamu mendaftar atau masuk akun.
+                            </p>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a id="calcDaftarBtn" href="{% url 'daftar' %}?paket=BDL-SAINS&amp;durasi=12" data-base-href="{% url 'daftar' %}" class="btn btn-mentora-outline-light flex-grow-1">
+                                    Daftar Akun
+                                </a>
+                                <a id="calcMasukBtn" href="{% url 'masuk' %}?paket=BDL-SAINS&amp;durasi=12" data-base-href="{% url 'masuk' %}" class="btn btn-mentora-primary flex-grow-1">
+                                    Masuk &amp; Langganan
+                                </a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -1017,6 +1081,31 @@
     var PERSEN_DISKON = {{ persen_diskon|default:20 }};
     var INTERVAL_LAPORAN_HARI = {{ interval_laporan_hari|default:14 }};
 
+    /* Sinkronisasi konteks database (daftar_paket & daftar_mapel) bila tersedia */
+    var DB_PAKET_MAP = {
+        {% for pkt in daftar_paket %}
+        "{{ pkt.kode|escapejs }}": {
+            nama: "{{ pkt.nama|escapejs }}",
+            jenis: "{{ pkt.jenis|title|escapejs }}",
+            harga: {{ pkt.harga_per_bulan|default:50000 }}
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    var DB_MAPEL_MAP = {
+        {% for mpl in daftar_mapel %}
+        "{{ mpl.kode|escapejs }}": "{{ mpl.nama|escapejs }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    };
+
+    var OWNED_PAKET_MAP = {
+        {% if user.is_authenticated and user.peran == 'siswa' %}
+        {% for item in user.langganan.all %}
+        "{{ item.paket.kode|escapejs }}": "{{ item.berakhir|escapejs }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+        {% endif %}
+    };
+
     function formatRupiah(angka) {
         return "Rp " + Math.round(angka).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     }
@@ -1027,6 +1116,47 @@
         void el.offsetWidth;
         el.classList.add("motion-content-glide");
     }
+
+    /* Terapkan data live dari database ke kartu katalog & tombol kalkulator */
+    Object.keys(DB_MAPEL_MAP).forEach(function (kode) {
+        var titleEl = document.querySelector('[data-mapel-nama="' + kode + '"]');
+        if (titleEl && DB_MAPEL_MAP[kode]) {
+            titleEl.textContent = DB_MAPEL_MAP[kode];
+        }
+    });
+
+    Object.keys(DB_PAKET_MAP).forEach(function (kode) {
+        var info = DB_PAKET_MAP[kode];
+        var btn = document.querySelector('.calc-paket-btn[data-kode="' + kode + '"]');
+        if (btn && info) {
+            btn.setAttribute("data-nama", info.nama);
+            btn.setAttribute("data-harga", String(info.harga));
+            var priceSpan = btn.querySelector(".calc-card-total");
+            if (priceSpan) {
+                priceSpan.setAttribute("data-base-harga", String(info.harga));
+                priceSpan.textContent = formatRupiah(info.harga);
+            }
+        }
+        var catalogPriceEl = document.querySelector('[data-mapel-price="' + kode + '"]');
+        if (catalogPriceEl && info) {
+            catalogPriceEl.textContent = formatRupiah(info.harga) + " / bln";
+        }
+    });
+
+    /* Tandai paket yang sudah dimiliki oleh siswa yang sedang login */
+    Object.keys(OWNED_PAKET_MAP).forEach(function (kode) {
+        var btn = document.querySelector('.calc-paket-btn[data-kode="' + kode + '"]');
+        if (btn && !btn.querySelector(".mentora-owned-pill")) {
+            var pill = document.createElement("span");
+            pill.className = "mentora-owned-pill mt-1";
+            pill.textContent = "Aktif Dimiliki";
+            btn.appendChild(pill);
+        }
+        var catalogPriceEl = document.querySelector('[data-mapel-price="' + kode + '"]');
+        if (catalogPriceEl) {
+            catalogPriceEl.textContent = "Aktif Dimiliki";
+        }
+    });
 
     /* Normalisasi simbol >= menjadi ≥ pada deskripsi lencana database */
     document.querySelectorAll(".mentora-ach-desc").forEach(function (el) {
@@ -1074,6 +1204,19 @@
     window.addEventListener("resize", function () {
         syncAllSlidingGroups(true);
     });
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+            syncAllSlidingGroups(true);
+        });
+    }
+    if ("ResizeObserver" in window) {
+        var pillResizeObserver = new ResizeObserver(function () {
+            syncAllSlidingGroups(true);
+        });
+        document.querySelectorAll("[data-sliding-group]").forEach(function (group) {
+            pillResizeObserver.observe(group);
+        });
+    }
 
     /* ======================================================================
        1. SIMULASI JALUR BELAJAR ADAPTIF
@@ -1138,7 +1281,23 @@
         var kelas = kelasSelect ? kelasSelect.value : "XII";
         var isUnlocked = score >= BATAS_PRETEST;
 
+        var minVal = parseFloat(pretestRange.min) || 40;
+        var maxVal = parseFloat(pretestRange.max) || 100;
+        var pct = Math.max(0, Math.min(100, ((score - minVal) / (maxVal - minVal)) * 100));
+        pretestRange.style.setProperty("--range-fill-pct", pct.toFixed(1) + "%");
+        pretestRange.style.setProperty(
+            "--range-fill-color",
+            isUnlocked ? "var(--color-status-success-fg)" : "var(--primitive-blue-600)"
+        );
+
         scoreValueEl.textContent = score + " / 100";
+        if (isUnlocked) {
+            scoreValueEl.style.color = "var(--color-status-success-fg)";
+            sourceBadgeEl.className = "badge-21st badge-21st-emerald";
+        } else {
+            scoreValueEl.style.color = "var(--primitive-blue-600)";
+            sourceBadgeEl.className = "badge-21st badge-21st-amber";
+        }
 
         var recGroup = goalRecommendations[currentGoal] || goalRecommendations.utbk;
         var rec = isUnlocked ? recGroup.high : recGroup.low;
@@ -1147,13 +1306,19 @@
         recommendationReasonEl.textContent = rec.reason;
         sourceBadgeEl.textContent = rec.source;
 
-        if (animateCard) {
+        if (animateCard || isUnlocked !== lastUnlockedState) {
             triggerContentGlide(recommendedMapelEl);
             triggerContentGlide(recommendationReasonEl);
+            triggerContentGlide(sourceBadgeEl);
         }
 
         if (isUnlocked !== lastUnlockedState) {
             triggerContentGlide(advancedDescEl);
+            if (isUnlocked && advancedNodeEl) {
+                advancedNodeEl.classList.remove("motion-unlock-pulse");
+                void advancedNodeEl.offsetWidth;
+                advancedNodeEl.classList.add("motion-unlock-pulse");
+            }
             lastUnlockedState = isUnlocked;
         }
 
@@ -1166,12 +1331,12 @@
             advancedBadgeEl.textContent = "Terbuka";
             advancedBadgeEl.className = "mentora-status-badge unlocked";
         } else {
-            ruleLabelEl.textContent = "Mulai dari Dasar";
+            ruleLabelEl.textContent = "Penguatan Fondasi";
             ruleLabelEl.className = "text-secondary";
             advancedNodeEl.classList.remove("is-unlocked");
             advancedNodeEl.classList.add("is-locked");
-            advancedDescEl.textContent = "Terkunci — Terbuka setelah lulus Kuis Dasar minimal " + BATAS_KUIS;
-            advancedBadgeEl.textContent = "Terkunci";
+            advancedDescEl.textContent = "Terbuka otomatis setelah lulus Kuis Dasar minimal " + BATAS_KUIS;
+            advancedBadgeEl.textContent = "Bertahap";
             advancedBadgeEl.className = "mentora-status-badge locked";
         }
     }
@@ -1199,9 +1364,10 @@
     updateAdaptiveSimulation(false);
 
     /* ======================================================================
-       2. PEMILIH PERAN PENGGUNA (SISWA, GURU, ORANG TUA) — TANPA innerHTML
+       2. PEMILIH PERAN PENGGUNA (WAI-ARIA TABLIST + ARROW KEYBOARD SUPPORT)
        ====================================================================== */
-    var roleTabs = document.querySelectorAll(".mentora-role-tab");
+    var roleTabs = Array.prototype.slice.call(document.querySelectorAll(".mentora-role-tab"));
+    var roleHighlightBox = document.getElementById("roleHighlightBox");
     var roleBadge = document.getElementById("roleBadge");
     var roleTitle = document.getElementById("roleTitle");
     var roleDescription = document.getElementById("roleDescription");
@@ -1247,41 +1413,71 @@
         }
     };
 
-    roleTabs.forEach(function (tab) {
+    function activateRoleTab(tab, focusTab) {
+        if (!tab) return;
+        roleTabs.forEach(function (t) {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+            t.setAttribute("tabindex", "-1");
+        });
+        tab.classList.add("active");
+        tab.setAttribute("aria-selected", "true");
+        tab.setAttribute("tabindex", "0");
+        if (focusTab) {
+            tab.focus();
+        }
+        if (roleHighlightBox && tab.id) {
+            roleHighlightBox.setAttribute("aria-labelledby", tab.id);
+        }
+        syncSlidingPill(tab.closest("[data-sliding-group]"), false);
+
+        var key = tab.getAttribute("data-role");
+        var info = roleData[key];
+        if (!info) return;
+
+        roleBadge.textContent = info.badge;
+        roleTitle.textContent = info.title;
+        roleDescription.textContent = info.desc;
+        roleFeatureHeader.textContent = info.header;
+
+        while (roleFeatureList.firstChild) {
+            roleFeatureList.removeChild(roleFeatureList.firstChild);
+        }
+        info.items.forEach(function (itemText) {
+            var li = document.createElement("li");
+            li.textContent = itemText;
+            roleFeatureList.appendChild(li);
+        });
+
+        triggerContentGlide(roleTitle);
+        triggerContentGlide(roleDescription);
+        triggerContentGlide(roleFeatureList);
+    }
+
+    roleTabs.forEach(function (tab, index) {
         tab.addEventListener("click", function () {
-            roleTabs.forEach(function (t) {
-                t.classList.remove("active");
-                t.setAttribute("aria-selected", "false");
-            });
-            tab.classList.add("active");
-            tab.setAttribute("aria-selected", "true");
-            syncSlidingPill(tab.closest("[data-sliding-group]"), false);
-            var key = tab.getAttribute("data-role");
-            var info = roleData[key];
-            if (!info) return;
-
-            roleBadge.textContent = info.badge;
-            roleTitle.textContent = info.title;
-            roleDescription.textContent = info.desc;
-            roleFeatureHeader.textContent = info.header;
-
-            while (roleFeatureList.firstChild) {
-                roleFeatureList.removeChild(roleFeatureList.firstChild);
+            activateRoleTab(tab, false);
+        });
+        tab.addEventListener("keydown", function (e) {
+            var targetIndex = null;
+            if (e.key === "ArrowRight") {
+                targetIndex = (index + 1) % roleTabs.length;
+            } else if (e.key === "ArrowLeft") {
+                targetIndex = (index - 1 + roleTabs.length) % roleTabs.length;
+            } else if (e.key === "Home") {
+                targetIndex = 0;
+            } else if (e.key === "End") {
+                targetIndex = roleTabs.length - 1;
             }
-            info.items.forEach(function (itemText) {
-                var li = document.createElement("li");
-                li.textContent = itemText;
-                roleFeatureList.appendChild(li);
-            });
-
-            triggerContentGlide(roleTitle);
-            triggerContentGlide(roleDescription);
-            triggerContentGlide(roleFeatureList);
+            if (targetIndex !== null) {
+                e.preventDefault();
+                activateRoleTab(roleTabs[targetIndex], true);
+            }
         });
     });
 
     /* ======================================================================
-       3. FILTER KATALOG MATA PELAJARAN
+       3. FILTER KATALOG MATA PELAJARAN (DOM ORDER = VISUAL ORDER VIA [hidden])
        ====================================================================== */
     var filterButtons = document.querySelectorAll(".mapel-filter-btn");
     var mapelCols = document.querySelectorAll(".mapel-card-col");
@@ -1301,7 +1497,11 @@
             mapelCols.forEach(function (col) {
                 var cat = col.getAttribute("data-category");
                 var isMatch = (filter === "all" || cat === filter);
-                col.classList.toggle("is-dimmed", !isMatch);
+                if (isMatch) {
+                    col.removeAttribute("hidden");
+                } else {
+                    col.setAttribute("hidden", "hidden");
+                }
                 col.classList.toggle("is-highlighted", filter !== "all" && isMatch);
             });
 
@@ -1310,8 +1510,11 @@
     });
 
     /* ======================================================================
-       4. KALKULATOR PAKET & DISKON 12 BULAN
+       4. KALKULATOR PAKET, PROGRESSIVE DISCLOSURE & HANDOFF URL
        ====================================================================== */
+    var calcModeBtns = document.querySelectorAll(".mentora-calc-mode-btn");
+    var tierBundelPane = document.getElementById("calcTierBundel");
+    var tierSatuanPane = document.getElementById("calcTierSatuan");
     var paketButtons = document.querySelectorAll(".calc-paket-btn");
     var durationPresets = document.querySelectorAll(".mentora-duration-preset");
     var durationPresetGroup = document.querySelector(".mentora-calc-duration-bar");
@@ -1324,6 +1527,9 @@
     var subtotalEl = document.getElementById("calcSubtotal");
     var diskonNominalEl = document.getElementById("calcDiskonNominal");
     var totalEl = document.getElementById("calcTotal");
+    var handoffHintEl = document.getElementById("calcHandoffHint");
+    var calcDaftarBtn = document.getElementById("calcDaftarBtn");
+    var calcMasukBtn = document.getElementById("calcMasukBtn");
 
     var currentDuration = 12;
     var selectedPaket = {
@@ -1344,6 +1550,38 @@
         syncSlidingPill(durationPresetGroup, false);
     }
 
+    var discountRowEl = document.getElementById("calcDiscountRow");
+    var lastTotalValue = 1440000;
+    var lastSubtotalValue = 1800000;
+    var activeCounterRaf = {};
+
+    function animateCurrencyValue(el, key, fromVal, toVal, animate) {
+        if (!el) return;
+        var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (!animate || reduced || fromVal === toVal) {
+            el.textContent = formatRupiah(toVal);
+            return;
+        }
+        if (activeCounterRaf[key]) {
+            cancelAnimationFrame(activeCounterRaf[key]);
+        }
+        var startTime = performance.now();
+        var durationMs = 220;
+        function step(now) {
+            var elapsed = now - startTime;
+            var t = Math.min(1, elapsed / durationMs);
+            var eased = 1 - Math.pow(1 - t, 3);
+            var current = Math.round(fromVal + (toVal - fromVal) * eased);
+            el.textContent = formatRupiah(current);
+            if (t < 1) {
+                activeCounterRaf[key] = requestAnimationFrame(step);
+            } else {
+                el.textContent = formatRupiah(toVal);
+            }
+        }
+        activeCounterRaf[key] = requestAnimationFrame(step);
+    }
+
     function updatePricingCalculator(animateReceipt) {
         var durasi = currentDuration;
         var subtotal = selectedPaket.harga * durasi;
@@ -1361,38 +1599,120 @@
         }
         hargaBulanEl.textContent = formatRupiah(selectedPaket.harga);
         durasiTextEl.textContent = durasi + " Bulan";
-        subtotalEl.textContent = formatRupiah(subtotal);
 
+        animateCurrencyValue(subtotalEl, "subtotal", lastSubtotalValue, subtotal, animateReceipt);
+        animateCurrencyValue(totalEl, "total", lastTotalValue, total, animateReceipt);
+        lastSubtotalValue = subtotal;
+        lastTotalValue = total;
+
+        if (discountRowEl) {
+            discountRowEl.classList.toggle("is-inactive", !isDiskon);
+        }
         if (isDiskon) {
             diskonNominalEl.textContent = "- " + formatRupiah(diskon);
         } else {
             diskonNominalEl.textContent = "Rp 0 (Khusus " + DURASI_DISKON + " Bulan)";
         }
 
-        totalEl.textContent = formatRupiah(total);
-
-        if (animateReceipt) {
-            triggerContentGlide(totalEl);
+        if (handoffHintEl) {
+            handoffHintEl.textContent = selectedPaket.kode + " \u00B7 " + durasi + " Bulan";
+        }
+        var calcOwnedNoticeEl = document.getElementById("calcOwnedNotice");
+        var calcPesanBtn = document.getElementById("calcPesanBtn");
+        var ownedUntil = OWNED_PAKET_MAP[selectedPaket.kode];
+        if (calcOwnedNoticeEl) {
+            if (ownedUntil) {
+                calcOwnedNoticeEl.removeAttribute("hidden");
+                calcOwnedNoticeEl.textContent = "Sudah Aktif di Akunmu (s.d. " + ownedUntil + ")";
+            } else {
+                calcOwnedNoticeEl.setAttribute("hidden", "hidden");
+            }
+        }
+        var querySuffix = "?paket=" + encodeURIComponent(selectedPaket.kode) + "&durasi=" + encodeURIComponent(durasi);
+        if (calcPesanBtn) {
+            calcPesanBtn.setAttribute("href", (calcPesanBtn.getAttribute("data-base-href") || "/langganan/keranjang/") + querySuffix);
+            calcPesanBtn.textContent = ownedUntil ? "Perpanjang / Pesan Lagi" : "Pesan Paket Ini";
+        }
+        if (calcDaftarBtn) {
+            calcDaftarBtn.setAttribute("href", (calcDaftarBtn.getAttribute("data-base-href") || "/akun/daftar/") + querySuffix);
+        }
+        if (calcMasukBtn) {
+            calcMasukBtn.setAttribute("href", (calcMasukBtn.getAttribute("data-base-href") || "/akun/masuk/") + querySuffix);
         }
     }
 
-    paketButtons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-            paketButtons.forEach(function (b) {
+    function selectPaketButton(btn, animate) {
+        if (!btn) return;
+        paketButtons.forEach(function (b) {
+            b.classList.remove("active");
+            b.setAttribute("aria-pressed", "false");
+        });
+        btn.classList.add("active");
+        btn.setAttribute("aria-pressed", "true");
+
+        selectedPaket = {
+            kode: btn.getAttribute("data-kode"),
+            nama: btn.getAttribute("data-nama"),
+            detail: btn.getAttribute("data-detail") || "",
+            jenis: btn.getAttribute("data-jenis"),
+            harga: parseFloat(btn.getAttribute("data-harga")) || 50000
+        };
+        updatePricingCalculator(animate);
+    }
+
+    calcModeBtns.forEach(function (modeBtn) {
+        modeBtn.addEventListener("click", function () {
+            calcModeBtns.forEach(function (b) {
                 b.classList.remove("active");
                 b.setAttribute("aria-pressed", "false");
             });
-            btn.classList.add("active");
-            btn.setAttribute("aria-pressed", "true");
+            modeBtn.classList.add("active");
+            modeBtn.setAttribute("aria-pressed", "true");
+            syncSlidingPill(modeBtn.closest("[data-sliding-group]"), false);
 
-            selectedPaket = {
-                kode: btn.getAttribute("data-kode"),
-                nama: btn.getAttribute("data-nama"),
-                detail: btn.getAttribute("data-detail") || "",
-                jenis: btn.getAttribute("data-jenis"),
-                harga: parseFloat(btn.getAttribute("data-harga")) || 50000
-            };
-            updatePricingCalculator(true);
+            var mode = modeBtn.getAttribute("data-calc-mode");
+            if (mode === "satuan") {
+                if (tierBundelPane) tierBundelPane.setAttribute("hidden", "hidden");
+                if (tierSatuanPane) {
+                    tierSatuanPane.removeAttribute("hidden");
+                    triggerContentGlide(tierSatuanPane);
+                }
+                if (selectedPaket.jenis !== "Satuan" && tierSatuanPane) {
+                    var firstSatuan = tierSatuanPane.querySelector(".calc-paket-btn");
+                    selectPaketButton(firstSatuan, true);
+                }
+            } else {
+                if (tierSatuanPane) tierSatuanPane.setAttribute("hidden", "hidden");
+                if (tierBundelPane) {
+                    tierBundelPane.removeAttribute("hidden");
+                    triggerContentGlide(tierBundelPane);
+                }
+                if (selectedPaket.jenis !== "Bundel" && tierBundelPane) {
+                    var defaultBundel = tierBundelPane.querySelector('.calc-paket-btn[data-kode="BDL-SAINS"]') || tierBundelPane.querySelector(".calc-paket-btn");
+                    selectPaketButton(defaultBundel, true);
+                }
+            }
+        });
+    });
+
+    paketButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+            selectPaketButton(btn, true);
+        });
+    });
+
+    /* Klik "Pilih Paket ->" dari Katalog Mapel langsung memilih paket satuan tersebut di Kalkulator */
+    document.querySelectorAll(".js-select-mapel-calc").forEach(function (link) {
+        link.addEventListener("click", function () {
+            var kode = link.getAttribute("data-select-kode");
+            var satuanModeBtn = document.querySelector('.mentora-calc-mode-btn[data-calc-mode="satuan"]');
+            if (satuanModeBtn) {
+                satuanModeBtn.click();
+            }
+            var targetPaketBtn = document.querySelector('.calc-paket-btn[data-kode="' + kode + '"]');
+            if (targetPaketBtn) {
+                selectPaketButton(targetPaketBtn, true);
+            }
         });
     });
 
@@ -1406,7 +1726,13 @@
         });
     });
 
-    updatePricingCalculator(false);
+    /* Sinkronisasi awal dari tombol aktif (yang mungkin telah diperbarui dari DB) */
+    var initialActiveBtn = document.querySelector(".calc-paket-btn.active");
+    if (initialActiveBtn) {
+        selectPaketButton(initialActiveBtn, false);
+    } else {
+        updatePricingCalculator(false);
+    }
 
     /* ======================================================================
        5. SCROLL REVEAL ENGINE

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Detail Mata Pelajaran & Jalur Modul — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="detailMapelHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <span class="mentora-mapel-code mb-2 d-inline-block">{{ mapel.kode|default:"MAP-MTK" }}</span>
+                <h1 id="detailMapelHeading" class="h3 fw-bold mb-1">{{ mapel.nama|default:"Matematika SMA" }}</h1>
+                <p class="text-secondary small mb-0">Selesaikan materi berurutan atau buka Modul Lanjutan melalui skor Pretest &ge; 85 / Kuis Dasar &ge; 75.</p>
+            </div>
+            <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Kembali ke Dasbor</a>
+        </div>
+    </section>
+
+    <div class="mentora-workbench">
+        <div class="mentora-workbench-header">
+            <div>
+                <h2 class="mentora-workbench-title">Daftar Modul Pembelajaran</h2>
+                <p class="mentora-workbench-subtitle">Status ketersediaan modul disesuaikan dengan capaian diagnostik dan kuis latihanmu</p>
+            </div>
+            <span class="badge-21st badge-21st-primary">Jalur Adaptif</span>
+        </div>
+
+        <div class="mentora-workbench-body">
+            <div class="mentora-module-track">
+                {% for mod in modul_list %}
+                    <div class="mentora-module-node {% if mod.level == 'dasar' %}is-unlocked{% else %}is-locked{% endif %}">
+                        <div>
+                            <div class="fw-bold small text-dark">{{ mod.judul }} ({{ mod.level|title }})</div>
+                            <div class="mentora-module-desc">Materi bacaan, berkas PDF, kuis latihan, dan tugas mandiri</div>
+                        </div>
+                        <span class="mentora-status-badge {% if mod.level == 'dasar' %}unlocked{% else %}locked{% endif %}">
+                            {% if mod.level == 'dasar' %}Terbuka{% else %}Adaptif{% endif %}
+                        </span>
+                    </div>
+                {% empty %}
+                    <div class="mentora-module-node is-unlocked">
+                        <div>
+                            <div class="fw-bold small text-dark">Modul 1 &middot; Tingkat Dasar</div>
+                            <div class="mentora-module-desc">Materi fondasi konsep, ringkasan PDF, dan kuis latihan dasar</div>
+                        </div>
+                        <span class="mentora-status-badge unlocked">Terbuka</span>
+                    </div>
+                    <div class="mentora-module-node is-locked">
+                        <div>
+                            <div class="fw-bold small text-dark">Modul 2 &middot; Tingkat Lanjutan</div>
+                            <div class="mentora-module-desc">Terbuka otomatis saat Pretest &ge; 85 atau Kuis Dasar &ge; 75</div>
+                        </div>
+                        <span class="mentora-status-badge locked">Bertahap</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

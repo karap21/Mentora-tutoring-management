@@ -1,73 +1,125 @@
 {% extends "base.html" %}
-{% block title %}Keranjang Paket Belajar - Mentora-LMS{% endblock %}
+{% block title %}Keranjang Paket Belajar — Mentora-LMS{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center mt-4 mb-5">
-    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4">
-                <h4 class="card-title text-center fw-bold mb-1">Pemesanan Paket Belajar</h4>
-                <p class="text-center text-muted small mb-4">Pilih paket dan durasi berlangganan</p>
+<div class="row justify-content-center py-3">
+    <div class="col-12 col-md-9 col-lg-6">
+        <section class="mentora-workbench" role="region" aria-labelledby="keranjangHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="keranjangHeading" class="h4 fw-bold mb-1">Pemesanan Paket Belajar</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Pilih kode paket, durasi berlangganan (1–12 bulan), dan kode promo bila ada</p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Konfirmasi Orang Tua</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                {% if request.GET.paket %}
+                <div class="mentora-alert-info mb-3 d-flex align-items-start justify-content-between gap-2" role="status">
+                    <div>
+                        <div class="fw-bold small">Pilihan Paket dari Kalkulator</div>
+                        <div class="small">
+                            Paket <span class="font-mono-code fw-bold">{{ request.GET.paket }}</span>
+                            {% if request.GET.durasi %}&middot; <span class="font-tabular fw-semibold">{{ request.GET.durasi }} Bulan</span>{% endif %}
+                            otomatis diisikan ke formulir pemesanan.
+                        </div>
+                    </div>
+                    <span class="badge-21st badge-21st-primary font-mono-code">{{ request.GET.paket }}</span>
+                </div>
+                {% endif %}
 
                 {% if pesan_sukses %}
-                    <div class="alert alert-success py-2 small" role="alert">
+                    <div class="mentora-alert-success mb-3" role="alert">
                         {{ pesan_sukses }}
                     </div>
                 {% endif %}
 
-                {% if pesan_galat %}
-                    <div class="alert alert-danger py-2 small" role="alert">
+                {% if pesan_galat or form.non_field_errors %}
+                    <div class="mentora-alert-danger mb-3" role="alert">
                         {{ pesan_galat }}
+                        {% for err in form.non_field_errors %}<div>{{ err }}</div>{% endfor %}
                     </div>
                 {% endif %}
 
                 <form method="post" novalidate>
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="{{ form.kode_paket.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.kode_paket.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.kode_paket.label }}
                         </label>
                         {{ form.kode_paket }}
                         {% if form.kode_paket.errors %}
-                            <div class="text-danger small mt-1">{{ form.kode_paket.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.kode_paket.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-3">
-                        <label for="{{ form.durasi_bulan.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.durasi_bulan.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.durasi_bulan.label }}
                         </label>
                         {{ form.durasi_bulan }}
                         {% if form.durasi_bulan.errors %}
-                            <div class="text-danger small mt-1">{{ form.durasi_bulan.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.durasi_bulan.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-3">
-                        <label for="{{ form.kode_paket_tambahan.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.kode_paket_tambahan.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.kode_paket_tambahan.label }}
                         </label>
                         {{ form.kode_paket_tambahan }}
                         {% if form.kode_paket_tambahan.errors %}
-                            <div class="text-danger small mt-1">{{ form.kode_paket_tambahan.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.kode_paket_tambahan.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-4">
-                        <label for="{{ form.kode_diskon.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.kode_diskon.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.kode_diskon.label }}
                         </label>
                         {{ form.kode_diskon }}
                         {% if form.kode_diskon.errors %}
-                            <div class="text-danger small mt-1">{{ form.kode_diskon.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.kode_diskon.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                    <button type="submit" class="btn btn-mentora-primary w-100">
                         Buat Tagihan
                     </button>
                 </form>
+
+                <div class="mentora-rec-box mt-4">
+                    <div class="fw-bold small text-primary mb-1">Alur Persetujuan Orang Tua (72 Jam)</div>
+                    <p class="small text-secondary mb-0">
+                        Setelah tagihan dibuat, sistem mengirimkan tautan pembayaran resmi ke alamat email orang tua/wali yang terdaftar.
+                    </p>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 mt-3 border-top">
+                    <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Dasbor Siswa</a>
+                    <a href="{% url 'beranda' %}#kalkulator-langganan" class="fw-bold small text-primary text-decoration-none">Lihat Kalkulator Paket &rarr;</a>
+                </div>
             </div>
-        </div>
+        </section>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+(function () {
+    "use strict";
+    var params = new URLSearchParams(window.location.search);
+    var paket = params.get("paket");
+    var durasi = params.get("durasi");
+    var kodeInput = document.getElementById("{{ form.kode_paket.id_for_label }}");
+    var durasiInput = document.getElementById("{{ form.durasi_bulan.id_for_label }}");
+    if (paket && kodeInput && !kodeInput.value) {
+        kodeInput.value = paket;
+    }
+    if (durasi && durasiInput && !durasiInput.value) {
+        durasiInput.value = durasi;
+    }
+})();
+</script>
 {% endblock %}

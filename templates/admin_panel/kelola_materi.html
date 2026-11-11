@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Kelola Modul & Materi — Panel Admin Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="kelolaMateriHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="kelolaMateriHeading" class="h3 fw-bold mb-1">Panel Admin: Kelola Modul &amp; Materi</h1>
+                <p class="text-secondary small mb-0">Atur urutan materi bacaan teks, berkas PDF, dan tugas pada Modul Dasar &amp; Lanjutan.</p>
+            </div>
+            <a href="{% url 'kelola_guru' %}" class="btn btn-mentora-outline">&larr; Panel Admin Utama</a>
+        </div>
+    </section>
+
+    <section class="mentora-workbench">
+        <div class="mentora-workbench-body">
+            <div class="mentora-empty-state">
+                <p class="small text-secondary mb-0">Pilih mata pelajaran untuk menambah atau memperbarui materi pembelajaran.</p>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

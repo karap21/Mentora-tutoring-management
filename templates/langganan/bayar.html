@@ -1,75 +1,104 @@
 {% extends "base.html" %}
-{% block title %}Pembayaran Tagihan - Mentora-LMS{% endblock %}
+{% block title %}Pembayaran Tagihan — Mentora-LMS{% endblock %}
+
 {% block content %}
-<div class="row justify-content-center mt-4 mb-5">
-    <div class="col-12 col-sm-10 col-md-7 col-lg-5">
-        <div class="card border-0 shadow-sm rounded-3">
-            <div class="card-body p-4">
-                <h4 class="card-title text-center fw-bold mb-1">Pembayaran Tagihan</h4>
-                <p class="text-center text-muted small mb-4">Nomor Invoice: INV-20261110-0001 &middot; Total: Rp 350.000</p>
+<div class="row justify-content-center py-3">
+    <div class="col-12 col-md-9 col-lg-6">
+        <section class="mentora-workbench" role="region" aria-labelledby="bayarHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="bayarHeading" class="h4 fw-bold mb-1">Pembayaran Tagihan</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Halaman konfirmasi pembayaran orang tua/wali melalui tautan resmi</p>
+                </div>
+                <span class="badge-21st badge-21st-emerald font-mono-code">{{ tagihan.nomor_invoice|default:"INV-20261110-0001" }}</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <div class="mentora-panel-subtle mb-4">
+                    {% if tagihan %}
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small text-secondary">Nama Siswa</span>
+                            <span class="fw-bold text-dark">{{ tagihan.siswa.nama }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small text-secondary">Subtotal Paket</span>
+                            <span class="font-tabular text-dark">Rp {{ tagihan.subtotal }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="small text-secondary">Potongan Komitmen 12 Bulan (20%)</span>
+                            <span class="font-tabular text-success">- Rp {{ tagihan.diskon_nominal }}</span>
+                        </div>
+                        <hr class="my-2">
+                    {% endif %}
+                    <div class="d-flex justify-content-between align-items-baseline">
+                        <span class="fw-bold text-dark">Total Tagihan</span>
+                        <span class="h4 fw-bold text-primary font-tabular mb-0">Rp {{ tagihan.total|default:"350.000" }}</span>
+                    </div>
+                </div>
 
                 {% if pesan_sukses %}
-                    <div class="alert alert-success py-2 small" role="alert">
+                    <div class="mentora-alert-success mb-3" role="alert">
                         {{ pesan_sukses }}
                     </div>
                 {% endif %}
 
-                {% if pesan_galat %}
-                    <div class="alert alert-danger py-2 small" role="alert">
+                {% if pesan_galat or form.non_field_errors %}
+                    <div class="mentora-alert-danger mb-3" role="alert">
                         {{ pesan_galat }}
+                        {% for err in form.non_field_errors %}<div>{{ err }}</div>{% endfor %}
                     </div>
                 {% endif %}
 
                 <form method="post" novalidate>
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="{{ form.token.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.token.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.token.label }}
                         </label>
                         {{ form.token }}
                         {% if form.token.errors %}
-                            <div class="text-danger small mt-1">{{ form.token.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.token.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-3">
-                        <label for="{{ form.nominal_bayar.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.nominal_bayar.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.nominal_bayar.label }}
                         </label>
                         {{ form.nominal_bayar }}
                         {% if form.nominal_bayar.errors %}
-                            <div class="text-danger small mt-1">{{ form.nominal_bayar.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.nominal_bayar.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-3">
-                        <label for="{{ form.nama_file_bukti.id_for_label }}" class="form-label fw-semibold">
+                        <label for="{{ form.nama_file_bukti.id_for_label }}" class="form-label small fw-bold text-dark mb-1">
                             {{ form.nama_file_bukti.label }}
                         </label>
                         {{ form.nama_file_bukti }}
                         {% if form.nama_file_bukti.errors %}
-                            <div class="text-danger small mt-1">{{ form.nama_file_bukti.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.nama_file_bukti.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
                     <div class="mb-4">
-                        <div class="form-check">
+                        <div class="form-check mentora-panel-subtle ps-5">
                             {{ form.setuju }}
-                            <label class="form-check-label small" for="{{ form.setuju.id_for_label }}">
+                            <label class="form-check-label small text-secondary" for="{{ form.setuju.id_for_label }}">
                                 {{ form.setuju.label }}
                             </label>
                         </div>
                         {% if form.setuju.errors %}
-                            <div class="text-danger small mt-1">{{ form.setuju.errors.0 }}</div>
+                            <div class="mentora-field-error" role="alert">{% for err in form.setuju.errors %}<span>{{ err }}</span>{% endfor %}</div>
                         {% endif %}
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold">
+                    <button type="submit" class="btn btn-mentora-primary w-100">
                         Konfirmasi Pembayaran
                     </button>
                 </form>
             </div>
-        </div>
+        </section>
     </div>
 </div>
 {% endblock %}

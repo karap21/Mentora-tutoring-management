@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Profil Siswa — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-8">
+        <section class="mentora-workbench" aria-labelledby="profilHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="profilHeading" class="h4 fw-bold mb-1">Profil &amp; Pengaturan Akun Siswa</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Kelola informasi jenjang kelas dan email orang tua penerima rapor berkala</p>
+                </div>
+                <span class="badge-21st badge-21st-primary">{{ user.peran|title }}</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <div class="row g-3 mb-4">
+                    <div class="col-sm-6">
+                        <div class="mentora-panel-subtle h-100">
+                            <div class="small text-secondary mb-1">Nama Lengkap</div>
+                            <div class="fw-bold text-dark">{{ user.nama }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mentora-panel-subtle h-100">
+                            <div class="small text-secondary mb-1">Alamat Email Akun</div>
+                            <div class="font-mono-code small fw-semibold text-dark">{{ user.email }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mentora-panel-subtle h-100">
+                            <div class="small text-secondary mb-1">Jenjang Kelas SMA</div>
+                            <div class="fw-bold text-primary">Kelas {{ user.profil_siswa.kelas|default:"XII" }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="mentora-panel-subtle h-100">
+                            <div class="small text-secondary mb-1">Email Orang Tua / Wali</div>
+                            <div class="font-mono-code small fw-semibold text-dark">{{ user.profil_siswa.email_orang_tua|default:"-" }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                    <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Kembali ke Ruang Belajar</a>
+                    <a href="{% url 'beranda' %}#kalkulator-langganan" class="btn btn-mentora-primary">Kelola Paket Belajar</a>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

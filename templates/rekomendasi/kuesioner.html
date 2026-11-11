@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Kuesioner Minat & Tujuan Belajar — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center py-2">
+    <div class="col-lg-8">
+        <section class="mentora-workbench" aria-labelledby="kuesionerHeading">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 id="kuesionerHeading" class="h4 fw-bold mb-1">Langkah 1: Pemetaan Minat &amp; Fokus Belajar</h1>
+                    <p class="mentora-workbench-subtitle mb-0">Bantu sistem menyusun rekomendasi mata pelajaran prioritas yang sesuai targetmu</p>
+                </div>
+                <span class="badge-21st badge-21st-primary">Pemetaan Awal</span>
+            </div>
+
+            <div class="mentora-workbench-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="id_tujuan_belajar" class="form-label small fw-bold text-dark mb-1">1. Apa tujuan utama belajarmu semester ini?</label>
+                        <select name="tujuan_belajar" id="id_tujuan_belajar" class="form-select mentora-form-control" required>
+                            <option value="utbk">Persiapan UTBK-SNBT</option>
+                            <option value="rapor">Peningkatan Nilai Rapor Sekolah</option>
+                            <option value="olimpiade">Persiapan Olimpiade Sains</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="id_mapel_diminati" class="form-label small fw-bold text-dark mb-1">2. Pilih mata pelajaran yang paling ingin kamu prioritaskan:</label>
+                        <select name="mapel_diminati" id="id_mapel_diminati" class="form-select mentora-form-control" required>
+                            {% for m in daftar_mapel %}
+                                <option value="{{ m.id }}">{{ m.kode }} &mdash; {{ m.nama }}</option>
+                            {% empty %}
+                                <option value="MAP-MTK">MAP-MTK &mdash; Matematika</option>
+                                <option value="MAP-FIS">MAP-FIS &mdash; Fisika</option>
+                                <option value="MAP-KIM">MAP-KIM &mdash; Kimia</option>
+                                <option value="MAP-BIO">MAP-BIO &mdash; Biologi</option>
+                                <option value="MAP-BIN">MAP-BIN &mdash; Bahasa Indonesia</option>
+                                <option value="MAP-BIG">MAP-BIG &mdash; Bahasa Inggris</option>
+                                <option value="MAP-PPK">MAP-PPK &mdash; Pendidikan Pancasila</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 pt-3 border-top">
+                        <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">Lewati Sementara</a>
+                        <button type="submit" class="btn btn-mentora-primary">Simpan &amp; Lanjut ke Tes Diagnostik</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

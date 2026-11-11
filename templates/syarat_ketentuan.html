@@ -1,50 +1,56 @@
 {% extends "base.html" %}
-{% block title %}Syarat dan Ketentuan — Mentora{% endblock %}
+{% block title %}Syarat dan Ketentuan Layanan — Mentora-LMS{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center py-3">
     <div class="col-lg-9">
-        <div class="card border rounded-4 shadow-sm bg-white p-4 p-md-5">
-            <span class="mentora-section-tag align-self-start fw-bold text-primary mb-2 d-inline-block">Informasi Legalitas</span>
-            <h1 class="fw-bold h2 mb-2">Syarat dan Ketentuan Layanan Mentora</h1>
-            <p class="text-secondary small mb-4">
-                Dokumen ini mengatur ketentuan layanan untuk seluruh pengguna platform (Siswa, Orang Tua/Wali, dan Mitra Guru) di lingkungan platform belajar Mentora.
-            </p>
-
-            <div class="d-flex flex-column gap-4">
-                <section>
-                    <h5 class="fw-bold">1. Ketentuan Akun Siswa &amp; Peran Orang Tua</h5>
-                    <p class="text-secondary mb-0">
-                        Platform Mentora diperuntukkan bagi peserta didik aktif SMA sederajat (Kelas 10 hingga 12). Untuk menjaga transparansi, setiap siswa diwajibkan mencantumkan alamat *email* orang tua atau wali saat mendaftar. Email tersebut berfungsi untuk menyetujui biaya pendaftaran serta menerima salinan digital rapor siswa secara berkala.
+        <div class="mentora-workbench">
+            <div class="mentora-workbench-header">
+                <div>
+                    <h1 class="fw-bold h3 mb-1">Syarat dan Ketentuan Layanan Mentora</h1>
+                    <p class="mentora-workbench-subtitle mb-0">
+                        Ketentuan layanan bagi Siswa SMA Kelas X–XII, Orang Tua/Wali, dan Mitra Guru Pengampu
                     </p>
-                </section>
-
-                <section>
-                    <h5 class="fw-bold">2. Sistem Langganan, Harga, dan Promo</h5>
-                    <p class="text-secondary mb-0">
-                        Pengguna dapat memilih durasi belajar dari 1 bulan hingga 12 bulan secara bebas. Mentora memberikan potongan harga otomatis sebesar 20% khusus untuk komitmen berlangganan 12 bulan penuh. Tagihan akan dikirimkan dengan sistem *Link Aman* ke email orang tua dan hanya berlaku selama batas waktu 72 jam untuk menghindari penyalahgunaan.
-                    </p>
-                </section>
-
-                <section>
-                    <h5 class="fw-bold">3. Metode Belajar Pintar (Jalur Adaptif)</h5>
-                    <p class="text-secondary mb-0">
-                        Mentora menggunakan sistem analisis otomatis untuk membaca tingkat kemampuan siswa. Jika hasil tes awal kamu memenuhi syarat unggul (Nilai 85 ke atas), kami akan langsung membukakan kunci untuk modul tingkat lanjut (HOTS) agar kamu tidak jenuh mempelajari hal yang sudah kamu pahami.
-                    </p>
-                </section>
-
-                <section>
-                    <h5 class="fw-bold">4. Komitmen Transparansi via Rapor Digital</h5>
-                    <p class="text-secondary mb-0">
-                        Kami sangat menghargai investasi pendidikan dari Orang Tua. Oleh karena itu, sistem Mentora akan secara otomatis mengirimkan rapor perkembangan siswa—termasuk nilai kuis, riwayat pengumpulan tugas esai, dan daftar *badge* prestasi anak—langsung ke kotak masuk email orang tua setiap 14 hari sekali.
-                    </p>
-                </section>
+                </div>
+                <span class="badge-21st badge-21st-primary">Dokumen Resmi</span>
             </div>
 
-            <hr class="my-4">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-                <a href="{% url 'beranda' %}" class="btn btn-mentora-outline btn-sm">&larr; Kembali ke Beranda</a>
-                <a href="{% url 'masuk' %}" class="btn btn-mentora-primary btn-sm">Mulai Masuk Akun</a>
+            <div class="mentora-workbench-body p-4 p-md-5">
+                <div class="d-flex flex-column gap-4">
+                    <section>
+                        <h2 class="h5 fw-bold mb-2">1. Ketentuan Akun Siswa &amp; Peran Orang Tua</h2>
+                        <p class="text-secondary mb-0">
+                            Platform Mentora diperuntukkan bagi peserta didik aktif SMA sederajat (Kelas X hingga XII). Untuk menjaga transparansi, setiap siswa diwajibkan mencantumkan alamat <em>email</em> orang tua atau wali saat mendaftar. Email tersebut berfungsi untuk menyetujui biaya pendaftaran serta menerima salinan digital rapor siswa secara berkala.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="h5 fw-bold mb-2">2. Sistem Langganan, Harga, dan Promo</h2>
+                        <p class="text-secondary mb-0">
+                            Pengguna dapat memilih durasi belajar dari 1 bulan hingga 12 bulan secara bebas. Mentora memberikan potongan harga otomatis sebesar <span class="font-tabular fw-semibold">20%</span> khusus untuk komitmen berlangganan <span class="font-tabular fw-semibold">12 bulan</span> penuh. Tagihan akan dikirimkan dengan sistem <em>Link Aman</em> ke email orang tua dan berlaku selama batas waktu <span class="font-tabular fw-semibold">72 jam</span> untuk menghindari penyalahgunaan.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="h5 fw-bold mb-2">3. Metode Belajar Pintar (Jalur Adaptif)</h2>
+                        <p class="text-secondary mb-0">
+                            Mentora menggunakan sistem analisis otomatis untuk membaca tingkat kemampuan siswa. Jika hasil tes awal kamu memenuhi syarat unggul (Nilai <span class="font-tabular fw-semibold">85</span> ke atas), sistem langsung membuka kunci untuk modul tingkat lanjutan agar kamu tidak jenuh mempelajari hal yang sudah kamu pahami.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="h5 fw-bold mb-2">4. Komitmen Transparansi via Rapor Digital</h2>
+                        <p class="text-secondary mb-0">
+                            Kami menghargai investasi pendidikan dari Orang Tua. Oleh karena itu, sistem Mentora secara otomatis mengirimkan rapor perkembangan siswa—termasuk nilai kuis, riwayat pengumpulan tugas esai, dan daftar <em>badge</em> prestasi anak—langsung ke kotak masuk email orang tua setiap <span class="font-tabular fw-semibold">14 hari</span> sekali.
+                        </p>
+                    </section>
+                </div>
+
+                <hr class="my-4">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <a href="{% url 'beranda' %}" class="btn btn-mentora-outline">&larr; Kembali ke Beranda</a>
+                    <a href="{% url 'masuk' %}" class="btn btn-mentora-primary">Masuk ke Akun</a>
+                </div>
             </div>
         </div>
     </div>

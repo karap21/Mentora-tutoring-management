@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Buku Nilai & Rapor Progres — Mentora-LMS{% endblock %}
+
+{% block content %}
+<div class="py-2">
+    <section class="mentora-workspace-header" aria-labelledby="gradebookHeading">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div>
+                <h1 id="gradebookHeading" class="h3 fw-bold mb-1">Buku Nilai &amp; Riwayat Evaluasi</h1>
+                <p class="text-secondary small mb-0">Rekapitulasi nilai pretest, kuis latihan, dan umpan balik tugas esai yang juga dikirim ke email orang tua tiap 14 hari.</p>
+            </div>
+            <a href="{% url 'dasbor_siswa' %}" class="btn btn-mentora-outline">&larr; Dasbor Siswa</a>
+        </div>
+    </section>
+
+    <section class="mentora-workbench" aria-label="Tabel Buku Nilai">
+        <div class="mentora-workbench-header">
+            <h2 class="mentora-workbench-title">Rekapitulasi Skor &amp; Umpan Balik Guru</h2>
+            <span class="badge-21st badge-21st-emerald">Tersinkronisasi Rapor Orang Tua</span>
+        </div>
+        <div class="mentora-workbench-body p-0">
+            <div class="table-responsive">
+                <table class="table mentora-table align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="ps-4">Evaluasi / Tugas</th>
+                            <th scope="col">Skor Otomatis</th>
+                            <th scope="col">Skor Akhir</th>
+                            <th scope="col" class="pe-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in riwayat_kuis %}
+                        <tr>
+                            <td class="ps-4 fw-semibold text-dark">{{ item.kuis.judul }}</td>
+                            <td class="font-tabular">{{ item.skor_otomatis|default:"-" }}</td>
+                            <td class="font-tabular fw-bold text-primary">{{ item.skor_akhir|default:"Menunggu Esai" }}</td>
+                            <td class="pe-4"><span class="badge-21st badge-21st-emerald">{{ item.status|title }}</span></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-secondary">
+                                Belum ada riwayat nilai kuis atau tugas yang tercatat.
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
