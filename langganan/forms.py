@@ -64,6 +64,18 @@ class PemesananPaketForm(forms.Form):
         ),
     )
 
+    def clean_kode_paket_tambahan(self):
+        kode = (self.cleaned_data.get("kode_paket_tambahan") or "").strip().upper()
+        if not kode:
+            return ""  # opsional, boleh kosong
+        if any(s in kode for s in ["' OR ", "OR 1=1", "DROP TABLE", "UNION SELECT", "--", ";", "<SCRIPT"]):
+            raise forms.ValidationError("Format kode paket tambahan tidak valid.")
+        if kode in PAKET_NONAKTIF_KATALOG:
+            raise forms.ValidationError("Paket tambahan yang dipilih sudah tidak aktif.")
+        if kode not in PAKET_AKTIF_KATALOG:
+            raise forms.ValidationError("Kode paket tambahan tidak ditemukan.")
+        return kode
+    
     def clean_kode_paket(self):
         kode = (self.cleaned_data.get("kode_paket") or "").strip()
         if not kode:
@@ -126,6 +138,7 @@ class PembayaranTagihanForm(forms.Form):
     """Form Pembayaran Tagihan Langganan."""
 
     TOTAL_TAGIHAN_SIMULASI = 350000
+    NOMINAL_MAKSIMAL = 10_000_000
 
     token = forms.CharField(
         label="Token Pembayaran",
@@ -197,6 +210,8 @@ class PembayaranTagihanForm(forms.Form):
             raise forms.ValidationError(
                 f"Nominal pembayaran kurang dari total tagihan (Rp {self.TOTAL_TAGIHAN_SIMULASI:,})."
             )
+        if nominal > self.NOMINAL_MAKSIMAL:
+                raise forms.ValidationError("Nominal pembayaran melebihi batas maksimal.")
         return nominal
 
     def clean_nama_file_bukti(self):
